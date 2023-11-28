@@ -1,0 +1,158 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.containerLogin {
+  background: white;
+  height: 100vh;
+  display: flex;
+}
+
+.boxFormLogin {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px; /* Adicionando gap corretamente */
+}
+
+.formLogin {
+  width: 406px;
+  height: auto;
+  margin-top: 50px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.logLogin {
+  text-decoration: none;
+  color: rgb(24, 159, 238);
+  text-align: center;
+} 
+.logLogin > a,
+.error {
+  text-decoration: none;
+  font-weight: bold;
+  text-align: center;
+  color: rgb(24, 159, 238);
+}
+.boxFormLogin > h1 {
+  font-weight: 500;
+  font-size: 3rem;
+  line-height: 1.5;
+  margin-right: 280px;
+  color: rgb(24, 159, 238);
+}
+
+.boxFormLogin > p {
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: rgb(24, 159, 238);
+  margin-bottom: 20px;
+  width: 60%;
+  margin-left: 42px;
+}
+
+.formLogin > h3 {
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  color: rgb(24, 159, 238);
+}
+
+.imageLogin {
+  width: 100%;
+  height: auto;
+  justify-content: center;
+  background-size: cover;
+  background-image: url("../../assets/images/aimoblogo_azul.png");
+  display: flex;
+}
+
+input{
+  border: 1px solid rgb(24, 159, 238);
+  border-radius: 46px;
+  box-sizing: border-box;
+  background-color: transparent;
+  width: 100%;
+  padding: 15px;
+  color: rgb(24, 159, 238);
+  outline: none;
+}
+
+input::placeholder {
+  color: rgb(24, 159, 238);
+}
+
+.btnLogin {
+  width: 100%;
+  height: 48px;
+  color: white;
+  background: #0B58A6;
+  border: 1px solid #145bad;
+  border-radius: 46px;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+#userLogin,
+#passwordLogin {
+  background-repeat: no-repeat;
+  align-items: center;
+  justify-content: center;
+  background-position: 95%;
+  color: rgb(24, 159, 238);
+  border: 1px solid rgb(24, 159, 238);
+  border-radius: 46px;
+  box-sizing: border-box;
+  background-color: transparent;
+  width: 100%;
+  padding: 15px;
+  display: flex;
+  margin-bottom: 10px;
+}
+
+#passwordLogin::placeholder,
+#userLogin::placeholder {
+  color: rgb(24, 159, 238);
+}
+
+/* Adaptações para telas menores */
+@media (max-width: 768px) {
+  .containerLogin, p, h1{
+    padding: 10px;
+    text-align: center;
+  }
+
+  .ola {
+      margin-left: 300px;
+  }
+
+  input,
+  select,
+  button {
+    padding: 12px;
+  }
+
+  .btnLogin {
+    height: 40px;
+  }
+  .textCabecalho {
+    text-align: left;
+    margin: 0;
+  }
+}
