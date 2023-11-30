@@ -30,7 +30,7 @@ const SignUp: React.FC = () => {
       setError("Senhas não conferem");
       return;
     } else if (password.length < 8 && password.length !== 0) {
-      setError("Senha no minímo 8 caracter");
+      setError("Senha no mínimo 8 caracteres");
       return;
     }
 
@@ -38,7 +38,7 @@ const SignUp: React.FC = () => {
       setError("Por favor, selecione um papel.");
       return;
     }
-    
+
     try {
       await api.post(`users`, {
         user,
@@ -51,15 +51,14 @@ const SignUp: React.FC = () => {
     } catch (error) {
       setEmailError("E-mail já existe.");
     }
-    
   };
 
   return (
-    <div className="container">
+    <div className="containerRegister">
       <div className="boxFormRegister">
         <div className="textoCabecalho">
-        <h1>Olá,</h1>
-        <p>Por favor, registre-se para continuar</p>
+          <h1>Olá,</h1>
+          <p>Por favor, registre-se para continuar</p>
         </div>
         <form
           method="post"
@@ -75,9 +74,7 @@ const SignUp: React.FC = () => {
             value={name}
             placeholder="Nome"
             onChange={(e) => [setName(e.target.value), setError("")]}
-            className={
-              error && !name ? "form-control is-invalid" : "form-control"
-            }
+            className={error && !name ? "errors" : "input_control"}
           />
           <input
             type="text"
@@ -86,9 +83,7 @@ const SignUp: React.FC = () => {
             value={user}
             placeholder="Usuário"
             onChange={(e) => [setUser(e.target.value), setError("")]}
-            className={
-              error && !user ? "form-control is-invalid" : "form-control"
-            }
+            className={error && !user ? "errors" : "input_control"}
           />
           <input
             type="email"
@@ -100,8 +95,8 @@ const SignUp: React.FC = () => {
             className={
               (error && !email) ||
               (!emailRegex.test(email) && email.length !== 0)
-                ? "form-control is-invalid"
-                : "form-control"
+                ? "errors"
+                : "input_control"
             }
           />
           <select
@@ -109,9 +104,7 @@ const SignUp: React.FC = () => {
             id="roles"
             value={roles}
             onChange={(e) => [setRoles(e.target.value), setError("")]}
-            className={
-              error && !roles ? "form-control is-invalid" : "form-control"
-            }
+            className={error && !roles ? "errors" : "input_control"}
           >
             <option value="">Selecione um papel</option>
             <option value="CLIENT">Cliente</option>
@@ -129,8 +122,8 @@ const SignUp: React.FC = () => {
             className={
               (error && !password) ||
               (password.length < 8 && password.length !== 0)
-                ? "form-control is-invalid"
-                : "form-control"
+                ? "errors"
+                : "input_control"
             }
           />
           <input
@@ -142,8 +135,8 @@ const SignUp: React.FC = () => {
             onChange={(e) => [setPasswordTwo(e.target.value), setError("")]}
             className={
               (error && !passwordTwo) || password !== passwordTwo
-                ? "form-control is-invalid"
-                : "form-control"
+                ? "errors"
+                : "input_control"
             }
           />
           <label className="classErrors">{error}</label>

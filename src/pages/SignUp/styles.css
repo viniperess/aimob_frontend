@@ -12,7 +12,7 @@ body {
   overflow-x: hidden; /* Impede a barra de rolagem horizontal */
 }
 
-.container {
+.containerRegister {
   display: flex;
   min-height: 100vh; /* Alterado para min-height */
   background-color: #0B58A6;
@@ -78,7 +78,7 @@ p > a {
 
 .image {
   width: 100%;
-  height: auto;
+  /* height: auto; */
   justify-content: center;
   background-size: cover;
   background-image: url("../../assets/images/aimoblogo_branco.png");
@@ -94,6 +94,7 @@ input, select {
   padding: 15px;
   color: white;
   outline: none;
+  height: 55px;
 }
 
 select {
@@ -123,15 +124,9 @@ input::placeholder {
   color: white;
 }
 
-.classErrors {
-  color: white;
-  text-align: center;
-}
-
 .btnRegister  {
-  margin-top: 10px;
   width: 100%;
-  height: 42px;
+  height: 52px;
   background: #ffff;
   border: 1px solid blue;
   border-radius: 46px;
@@ -142,7 +137,21 @@ input::placeholder {
 button:hover {
   cursor: pointer;
 }
+.errors > input {
+  border-color:1px solid #e9b425;
+  margin-bottom: 0px;
+  /* margin-top: 0px; */
+}
 
+.classErrors {
+  font-size: 16px;
+  color: white;
+  margin-bottom: 0;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin-top: 5px;
+}
 /* Adaptações para telas menores */
 @media (max-width: 768px) {
   .formRegister {
