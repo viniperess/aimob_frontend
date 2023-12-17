@@ -1,5 +1,4 @@
 import React, { FormEvent, useEffect, useState } from "react";
-import { View } from "react-native";
 import { User, Role } from "../../types/user";
 import { RealEstateType } from "../../types/realEstate";
 import { useNavigate } from "react-router-dom";
@@ -32,9 +31,9 @@ const fetchRealEstates = async () => {
 const CreateContract: React.FC = () => {
   const [contractType, setContractType] = useState("");
   const [formOfPayment, setFormOfPayment] = useState("");
-  const [date, setDate] = useState("");
+  // const [date, setDate] = useState("");
   const [finalValue, setFinalValue] = useState("");
-  const [commission, setCommission] = useState("");
+  // const [commission, setCommission] = useState("");
   const [userId, setUserId] = useState("");
   const [clientUserId, setClientUserId] = useState("");
   const [estateId, setEstateId] = useState("");
@@ -46,6 +45,7 @@ const CreateContract: React.FC = () => {
   // const handleChangeFinalValue = (e: React.ChangeEvent<HTMLInputElement>) => {
   //   setFinalValue(formatCurrency(e.target.value));
   // };
+  console.log(users);
   
   const fetchProfile = async () => {
     try {

@@ -28,7 +28,8 @@ const EditAppointment: React.FC = () => {
       
     }
   }
-
+  console.log(visitDate);
+  
   useEffect(()=> {
     getAppointment();
   }, []);

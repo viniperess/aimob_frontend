@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 // import SearchBar from "../SearchBar";
 import {
-  ArrowLeftOnRectangleIcon,
-  PlusIcon,
-  TagIcon,
   UserCircleIcon,
 } from "@heroicons/react/24/solid";
 import { ReactComponent as Logo } from "../../assets/images/3.svg";
@@ -17,6 +14,7 @@ const Navbar: React.FC = () => {
     localStorage.removeItem("userToken");
     localStorage.removeItem("userName");
   };
+  console.log(isLoggedIn, handleLogout);
 
   useEffect(() => {
     if (localStorage.getItem("userToken")) {
@@ -27,11 +25,10 @@ const Navbar: React.FC = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
       <div className="container-fluid">
-        <a className="navbar-brand d-flex align-items-center" href="#">
+        
           <Logo className="logo" />
            Aimob
-        </a>
-
+        
         <button
           className="navbar-toggler"
           type="button"
@@ -46,7 +43,7 @@ const Navbar: React.FC = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">
+              <a className="nav-link active" aria-current="page" href="/">
                 Home
               </a>
             </li>
@@ -58,7 +55,7 @@ const Navbar: React.FC = () => {
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
-                href="#"
+                href="/"
                 role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
@@ -67,12 +64,12 @@ const Navbar: React.FC = () => {
               </a>
               <ul className="dropdown-menu">
                 <li>
-                  <a className="dropdown-item" href="#">
+                  <a className="dropdown-item" href="/">
                     Action
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
+                  <a className="dropdown-item" href="/">
                     Another action
                   </a>
                 </li>
@@ -80,7 +77,7 @@ const Navbar: React.FC = () => {
                   <hr className="dropdown-divider" />
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
+                  <a className="dropdown-item" href="/">
                     Something else here
                   </a>
                 </li>

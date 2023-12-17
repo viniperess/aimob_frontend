@@ -30,7 +30,7 @@ const CreateAppointment: React.FC = () => {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [observation, setObservation] = useState("");
-  const [visitDate, setVisitDate] = useState("");
+  // const [visitDate, setVisitDate] = useState("");
   const [visitApproved, setVisitApproved] = useState(false);
   const [userId, setUserId] = useState("");
   const [clientUserId, setClientUserId] = useState("");
@@ -49,6 +49,9 @@ const CreateAppointment: React.FC = () => {
       console.error("Error fetching users profile:", error);
       return [];
     }
+    console.log('====================================');
+    console.log(users);
+    console.log('====================================');
   };
 
   useEffect(() => {
@@ -78,7 +81,7 @@ const CreateAppointment: React.FC = () => {
     fetchProfile();
     fetchRealEstatesData();
     fetchData();
-  }, []);
+  },[]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();

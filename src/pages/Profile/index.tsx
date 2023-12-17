@@ -8,7 +8,6 @@ import InputMask from "react-input-mask";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import "./styles.css";
 
 const Profile: React.FC = () => {
   const [profile, setProfile] = useState<User>();

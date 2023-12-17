@@ -16,8 +16,9 @@ const SignUp: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-
+  const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  console.log(emailError);
+  
   const handleRegister = async (e: FormEvent) => {
     e.preventDefault();
 

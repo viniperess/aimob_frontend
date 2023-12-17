@@ -19,7 +19,9 @@ const RealEstate: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
   const [realEstate, setRealEstate] = useState<RealEstateType>();
   const [user, setUser] = useState<User | null>(null);
-
+  
+  console.log(user);
+  
   const navigate = useNavigate();
 
   useEffect(() => {

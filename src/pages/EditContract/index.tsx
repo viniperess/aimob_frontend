@@ -35,13 +35,14 @@ const EditContract: React.FC = () => {
   const [contractType, setContractType] = useState("");
   const [formOfPayment, setFormOfPayment] = useState("");
   const [finalValue, setFinalValue] = useState("");
-  const [commission, setCommission] = useState("");
+  // const [commission, setCommission] = useState("");
   const [estateId, setEstateId] = useState("");
   const [realEstates, setRealEstates] = useState<RealEstateType[]>([]);
   const [clientUserId, setClientUserId] = useState("");
   const [users, setUsers] = useState([]);
   const [clients, setClients] = useState<User[]>([]);
-
+  console.log(setEstateId,setClientUserId,users);
+  
   const navigate = useNavigate();
 
   const getContract = async () => {

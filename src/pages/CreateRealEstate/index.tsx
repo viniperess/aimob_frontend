@@ -1,4 +1,4 @@
-import React, { FormEvent, useState, ChangeEvent, useEffect } from "react";
+import React, { FormEvent, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
@@ -55,7 +55,8 @@ const CreateRealEstate: React.FC = () => {
   const [users, setUsers] = useState([]);
   const [clients, setClients] = useState<User[]>([]);
   const navigate = useNavigate();
-
+  console.log(users,images);
+  
   const fetchProfile = async () => {
     try {
       const response = await api.get("/users/profile");
