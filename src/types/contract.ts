@@ -1,6 +1,5 @@
-import { Employee } from "./employee";
 import { RealEstateType } from "./realEstate";
-import { Client } from "./client";
+import { User } from "./user";
 
 export interface Contract {
     id: number;
@@ -9,10 +8,10 @@ export interface Contract {
     date: string;
     finalValue: number;
     commission?: number | null;
-    employeeId: number;
-    employee: Employee;
+    userId: number;
+    employee: User;
     estateId: number;
     realEstate: RealEstateType;
-    clientId: number;
-    client: Client;
+    clientUserId: number;
+    client: User;
   }

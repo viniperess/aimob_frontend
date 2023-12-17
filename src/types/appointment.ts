@@ -1,6 +1,6 @@
-import { Employee } from "./employee";
+import { User } from "./user";
 import { RealEstateType } from "./realEstate";
-import { Client } from "./client";
+
 
 export interface Appointment {
     id: number;
@@ -8,10 +8,10 @@ export interface Appointment {
     observation?: string | null;
     visitDate?: string | null;
     visitApproved?: boolean | null;
-    clientId: number;
-    client: Client;
+    clientUserId: number;
+    client: User;
     estateId: number;
     realEstate: RealEstateType;
-    employeeId: number;
-    employee: Employee;
+    userId: number;
+    employee: User;
   }

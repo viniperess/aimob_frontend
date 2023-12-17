@@ -1,7 +1,6 @@
 import { Appointment } from "./appointment";
 import { Contract } from "./contract";
-import { Owner } from "./owner";
-import { Employee } from "./employee";
+import { User } from "./user";
 
 export enum RealEstateTypeEnum {
     HOUSE,
@@ -31,10 +30,10 @@ export enum RealEstateTypeEnum {
     status: boolean;
     registration: string;
     images: string[];
-    ownerId: number;
-    owner: Owner;
-    employeeId: number;
-    employee: Employee;
+    userId: number;
+    employee: User;
+    clientUserId: number;
+    client: User;
     appointments: Appointment[]; // Relacionamento one-to-many
     contract?: Contract; // Relacionamento one-to-one
   }
