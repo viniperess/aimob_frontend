@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../../service/api";
 import Footer from "../../components/Footer";
@@ -15,24 +15,23 @@ const EditAppointment: React.FC = () => {
   const [visitApproved, setVisitApproved] = useState(false);
   const [appointment, setAppointment] = useState<Appointment>();
   const navigate = useNavigate();
-
-  const getAppointment = async () => {
-    try {
-        const response = await api.get(`appointments/${id}`);
-        setAppointment(response.data);
-        setObservation(response.data.observation);
-        setVisitDate(response.data.visitDate);
-        setVisitApproved(response.data.visitApproved);
-      } catch (error) {
-      console.error("GetAppointment, Erro ao buscar dados." , error);
-      
-    }
-  }
   console.log(visitDate);
   
-  useEffect(()=> {
+  const getAppointment = useCallback(async () => {
+    try {
+      const response = await api.get(`appointments/${id}`);
+      setAppointment(response.data);
+      setObservation(response.data.observation);
+      setVisitDate(response.data.visitDate);
+      setVisitApproved(response.data.visitApproved);
+    } catch (error) {
+      console.error("GetAppointment, Erro ao buscar dados.", error);
+    }
+  }, [id]);
+
+  useEffect(() => {
     getAppointment();
-  }, []);
+  }, [getAppointment]);
 
   const handleUpdateAppointment = async (e: FormEvent) => {
     e.preventDefault();

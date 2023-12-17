@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useCallback, useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { useNavigate, useParams } from "react-router-dom";
@@ -41,11 +41,11 @@ const EditContract: React.FC = () => {
   const [clientUserId, setClientUserId] = useState("");
   const [users, setUsers] = useState([]);
   const [clients, setClients] = useState<User[]>([]);
-  console.log(setEstateId,setClientUserId,users);
-  
-  const navigate = useNavigate();
 
-  const getContract = async () => {
+  const navigate = useNavigate();
+  console.log(setClientUserId,users,setEstateId);
+  
+  const getContract = useCallback(async () => {
     try {
       const response = await api.get(`contracts/${id}`);
       setContract(response.data);
@@ -55,7 +55,7 @@ const EditContract: React.FC = () => {
     } catch (error) {
       console.error("GetContract, Erro ao buscar contratos.", error);
     }
-  };
+  }, [id]);
 
   useEffect(() => {
     const fetchRealEstatesData = async () => {
@@ -86,7 +86,7 @@ const EditContract: React.FC = () => {
     fetchData();
     fetchRealEstatesData();
     getContract();
-  }, []);
+  }, [getContract]);
 
   const handleUpdateContract = async (e: FormEvent) => {
     e.preventDefault();

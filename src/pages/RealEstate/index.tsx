@@ -19,28 +19,28 @@ const RealEstate: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
   const [realEstate, setRealEstate] = useState<RealEstateType>();
   const [user, setUser] = useState<User | null>(null);
-  
+
   console.log(user);
   
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await api.get(`realestates/${id}`);
-        const realEstateData = response.data;
-        setRealEstate(realEstateData);
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await api.get(`realestates/${id}`);
+      const realEstateData = response.data;
+      setRealEstate(realEstateData);
 
-        const userId = realEstateData.userId;
-        const userResponse = await api.get(`users/${userId}`);
-        const userData = userResponse.data;
-        setUser(userData);
-      } catch (error) {
-        console.error("Erro ao obter imóveis", error);
-      }
-    };
-    fetchData();
-  }, []);
+      const userId = realEstateData.userId;
+      const userResponse = await api.get(`users/${userId}`);
+      const userData = userResponse.data;
+      setUser(userData);
+    } catch (error) {
+      console.error("Erro ao obter imóveis", error);
+    }
+  };
+  fetchData();
+}, [id]);
 
   const handleEditRealEstate = () => {
     navigate(`/edit_realestate/${realEstate?.id}`);

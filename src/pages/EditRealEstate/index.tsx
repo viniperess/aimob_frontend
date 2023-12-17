@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useCallback, useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { useNavigate, useParams } from "react-router-dom";
@@ -34,7 +34,7 @@ const EditRealEstate: React.FC = () => {
   const [registration, setRegistration] = useState("");
   const navigate = useNavigate();
 
-  const getRealEstate = async () => {
+  const getRealEstate = useCallback(async () => {
     try {
       const response = await api.get(`realestates/${id}`);
       setRealEstate(response.data);
@@ -61,11 +61,19 @@ const EditRealEstate: React.FC = () => {
     } catch (error) {
       console.error("GetREALESTATE: Erro ao buscar dados", error);
     }
-  };
+  }, [id]); 
 
   useEffect(() => {
-    getRealEstate();
-  }, []);
+    const fetchRealEstateData = async () => {
+      try {
+        await getRealEstate();
+      } catch (error) {
+        console.error("Error fetching real estate data:", error);
+      }
+    };
+  
+    fetchRealEstateData();
+  }, [getRealEstate]); //
 
   const handleUpdateRealEstate = async (e: FormEvent) => {
     e.preventDefault();

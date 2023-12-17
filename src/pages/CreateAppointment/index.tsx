@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useCallback, useEffect, useState } from "react";
 import api from "../../service/api";
 import { RealEstateType } from "../../types/realEstate";
 import { useNavigate } from "react-router-dom";
@@ -40,7 +40,8 @@ const CreateAppointment: React.FC = () => {
   const [clients, setClients] = useState<User[]>([]);
   const navigate = useNavigate();
 
-  const fetchProfile = async () => {
+
+  const fetchProfile = useCallback(async () => {
     try {
       const response = await api.get("/users/profile");
       console.log("Users Profile data:", response.data);
@@ -52,8 +53,8 @@ const CreateAppointment: React.FC = () => {
     console.log('====================================');
     console.log(users);
     console.log('====================================');
-  };
-
+  }, [setUserId, users]);
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -63,12 +64,13 @@ const CreateAppointment: React.FC = () => {
         const clientsData = usersData.filter(
           (user: User) => user?.roles === Role.CLIENT
         );
-
+  
         setClients(clientsData);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
+  
     const fetchRealEstatesData = async () => {
       try {
         const realEstatesData = await fetchRealEstates();
@@ -78,11 +80,12 @@ const CreateAppointment: React.FC = () => {
         console.error("Error fetching real estates:", error);
       }
     };
+  
     fetchProfile();
     fetchRealEstatesData();
     fetchData();
-  },[]);
-
+  }, [fetchProfile]);
+  
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const visitDate = new Date(`${date}T${time}`);
