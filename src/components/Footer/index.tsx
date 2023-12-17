@@ -8,6 +8,7 @@ library.add(fab.faFacebookF, fab.faTwitter, fab.faGoogle, fab.faInstagram, fab.f
 
 const Footer: React.FC = () => {
   return (
+
     <footer className="bg-primary text-white text-center">
       {/* Grid container */}
       <div className="container p-4 pb-0">
