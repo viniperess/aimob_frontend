@@ -51,8 +51,8 @@ const Navbar: React.FC = () => {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
-                Link
+              <a className="btn btn-outline-info text-light pesquisa-borda-branca rounded" href="/create_realestate">
+                Inserir Imóvel
               </a>
             </li>
             <li className="nav-item dropdown">
@@ -87,8 +87,9 @@ const Navbar: React.FC = () => {
               </ul>
             </li>
             <li className="nav-item">
-              <a className="nav-link disabled" aria-disabled="true">
-                Disabled
+             <a className="navBtns nav-link fw-medium" href="/profile">
+                    Perfil
+                    <UserCircleIcon />
               </a>
             </li>
           </ul>
