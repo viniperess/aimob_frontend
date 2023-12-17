@@ -1,0 +1,58 @@
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .main-content {
+    flex: 1;
+  }
+  
+  .card-img {
+    height: 15rem;
+    object-fit: cover;
+  }
+
+  .card-body {
+    height: 13rem;
+    /* margin-bottom: 3px; */
+  }
+  
+  .card {
+    width: 22rem;
+    /* height: 13rem; */
+    margin: 20px;
+    padding: auto;
+    /* margin-right: 0; */
+  }
+  
+  .card-title-h5 {
+    background-color: orange;
+    padding: 7px;
+    font-size: 14px;
+  }
+
+  .card-text-comprar {
+    font-weight: bold;
+    font-size: 14px;
+    padding: 7px;
+  }
+
+
+  @media only screen and (min-width: 991px) and (max-width: 1400px) {
+    .card {
+      width: 14rem;
+    }
+  }
+  
+  @media only screen and (min-width: 767px) and (max-width: 1100px) {
+    .card {
+      width: 13rem;
+    }
+  }
+  
+  @media only screen and (min-width: 576px) and (max-width: 767px) {
+    .card {
+      width: 15rem;
+    }
+  }
