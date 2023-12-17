@@ -55,7 +55,7 @@ const Navbar: React.FC = () => {
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
-                href="/"
+                href="/signin"
                 role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"

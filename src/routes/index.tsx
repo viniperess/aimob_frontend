@@ -28,7 +28,7 @@ const RoutesApp: React.FC = () => {
           <Route path="/create_contract" element={<CreateContract />} />
           <Route path="/edit_contract/:id" element={<EditContract />} />
           <Route path="/contracts" element={<Contracts />} />
-          <Route path="create_appointment" element={<CreateAppointment />} />
+          <Route path="/create_appointment" element={<CreateAppointment />} />
           <Route path="/appointments" element={<Appointments />} />
           <Route path="/edit_appointment/:id" element={<EditAppointment />} />
         </Routes>
