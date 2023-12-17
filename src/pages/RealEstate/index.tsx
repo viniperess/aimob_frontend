@@ -21,26 +21,26 @@ const RealEstate: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
 
   console.log(user);
-  
+
   const navigate = useNavigate();
 
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const response = await api.get(`realestates/${id}`);
-      const realEstateData = response.data;
-      setRealEstate(realEstateData);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get(`realestates/${id}`);
+        const realEstateData = response.data;
+        setRealEstate(realEstateData);
 
-      const userId = realEstateData.userId;
-      const userResponse = await api.get(`users/${userId}`);
-      const userData = userResponse.data;
-      setUser(userData);
-    } catch (error) {
-      console.error("Erro ao obter imóveis", error);
-    }
-  };
-  fetchData();
-}, [id]);
+        const userId = realEstateData.userId;
+        const userResponse = await api.get(`users/${userId}`);
+        const userData = userResponse.data;
+        setUser(userData);
+      } catch (error) {
+        console.error("Erro ao obter imóveis", error);
+      }
+    };
+    fetchData();
+  }, [id]);
 
   const handleEditRealEstate = () => {
     navigate(`/edit_realestate/${realEstate?.id}`);
@@ -143,12 +143,10 @@ useEffect(() => {
                       {realEstate.zipCode}
                     </small>
                   </p>
-                  
+
                   <div className="d-flex text-left">
                     {/* Ícone e número de quartos */}
-                    <p
-                      className="card-text align-items-center row"
-                    >
+                    <p className="card-text align-items-center row">
                       <span className="icon-bed m-1">
                         <FontAwesomeIcon icon={faBed} />
                       </span>
@@ -191,16 +189,13 @@ useEffect(() => {
                       </span>
                       {realEstate.garage ? "1" : "0"} vaga
                     </p>
-                   
                   </div>
 
                   <div className="text-left float-start">
                     <h5 className="text-primary">R$ {realEstate.salePrice}</h5>
                   </div>
                 </div>
-                
               </div>
-              
             </div>
           </div>
         </>

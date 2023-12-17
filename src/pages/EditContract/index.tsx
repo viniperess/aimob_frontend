@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { RealEstateType } from "../../types/realEstate";
 import api from "../../service/api";
 import { ToastContainer, toast } from "react-toastify";
-import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
+
 // import "./styles.css";
 import { Contract } from "../../types/contract";
 import { User, Role } from "../../types/user";
@@ -140,14 +140,9 @@ const EditContract: React.FC = () => {
   return (
     <>
       <Navbar />
-      <h1 className="text-center shadow fw-bolder py-2 my-3">Editar Imóvel</h1>
-      <div className="container bg-light-subtle border border-2 rounded shadow my-5 py-5 px-5">
-        <h2 className="text-center fw-bolder mb-5">Informações do Imóvel</h2>
-        <div className="alert alert-warning" role="alert">
-          <ExclamationCircleIcon />
-          Atenção! Se desejar editar os valores de meta, data de expiração ou
-          imagens, será necessário a criação de um novo projeto.
-        </div>
+      
+      <div className="container bg-light-subtle">
+
         <form method="post" key={contract?.id}>
           <div className="col-12">
             <label className="visually-hidden" htmlFor="finalValue">
@@ -247,18 +242,18 @@ const EditContract: React.FC = () => {
               )}
             </select>
           </div>
-          <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-5">
+          <div className="d-grid gap-2 d-md-flex">
             <button
               type="submit"
               onClick={handleUpdateContract}
-              className="btn btn-info text-light fw-medium rounded-pill shadow fs-4 px-4 py-2"
+              className="btn btn-info text-light"
             >
               Atualizar Contrato
             </button>
             <button
               type="submit"
               onClick={handleDeleteContract}
-              className="btn btn-danger text-light fw-medium rounded-pill shadow fs-4 px-4 py-2"
+              className="btn btn-warning text-light"
             >
               Excluir Contrato
             </button>

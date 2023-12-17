@@ -30,9 +30,7 @@ const Contracts: React.FC = () => {
       <Navbar />
 
       <div className="page-container">
-        <h1 className="text-center  shadow py-2" style={{ backgroundColor: "rgba(236, 215, 215, 0.507)" }}>
-          Contratos
-        </h1>
+
         <div className="main-content container row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mx-auto my-auto">
           {contracts?.length === 0 ? (
             console.log("Sem dados disponíveis"),

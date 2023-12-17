@@ -73,13 +73,8 @@ const EditAppointment: React.FC = () => {
     <>
       {" "}
       <Navbar />
-      <h1 className="text-center shadow fw-bolder py-2 my-3">
-        Inserir Contrato
-      </h1>
-      <div className="container bg-light-subtle border border-2 rounded shadow my-5 py-5 px-5">
-        <h2 className="text-center fw-bolder">
-          Formulário de criação de contrato
-        </h2>
+      
+      <div className="container bg-light-subtle">
         <form
           className="row row-cols-lg-auto g-3 align-items-center"
           method="post"
@@ -171,18 +166,18 @@ const EditAppointment: React.FC = () => {
             </div>
           </div>
 
-          <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-5">
+          <div className="d-grid gap-2 d-md-flex">
             <button
               type="submit"
               onClick={handleUpdateAppointment}
-              className="btn btn-info text-light fw-medium rounded-pill shadow fs-4 px-4 py-2"
+              className="btn btn-info text-light"
             >
               Atualizar Contrato
             </button>
             <button
               type="submit"
               onClick={handleDeleteAppointment}
-              className="btn btn-danger text-light fw-medium rounded-pill shadow fs-4 px-4 py-2"
+              className="btn btn-warning text-light"
             >
               Excluir Contrato
             </button>

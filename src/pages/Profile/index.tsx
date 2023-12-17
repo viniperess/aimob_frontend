@@ -153,10 +153,8 @@ const Profile: React.FC = () => {
   return (
     <>
       <Navbar />
-      <h1 className="text-center shadow fw-bolder py-2 my-3">Perfil</h1>
-      <div className="container bg-light-subtle border border-2 rounded shadow my-5 py-5 px-5">
-        <h2 className="text-center fw-bolder mb-5">Informações do usuário</h2>
-        <form method="post" key={profile?.id}>
+     <div className="container bg-light-subtle my-5 py-5 px-5">
+         <form method="post" key={profile?.id}>
           <div className="row mx-0 mb-5 fw-medium">
             <label
               htmlFor="user"
@@ -536,18 +534,18 @@ const Profile: React.FC = () => {
           {error || "Telefone inválido!"}
         </div>
       </div>
-          <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+          <div className="d-grid gap-2 d-md-flex mt-4">
             <button
               type="submit"
               onClick={handleSubmit}
-              className="btn btn-info text-light fw-medium rounded-pill shadow fs-4 px-4 py-2"
+              className="btn btn-info text-light"
             >
               Atualizar perfil
             </button>
             <button
               type="submit"
               onClick={handleDeleteAccount}
-              className="btn btn-danger text-light fw-medium rounded-pill shadow fs-4 px-4 py-2"
+              className="btn btn-warning text-light"
             >
               Excluir perfil
             </button>

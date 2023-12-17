@@ -191,11 +191,8 @@ const CreateRealEstate: React.FC = () => {
     <>
       <Navbar />
 
-      <h1 className="text-center shadow fw-bolder py-2 my-3">Inserir Imóvel</h1>
-      <div className="container bg-light-subtle border border-2 rounded shadow my-5 py-5 px-5">
-        <h2 className="text-center fw-bolder">
-          Formulário de criação de imóvel
-        </h2>
+      <div className="container  my-5 py-5 px-5">
+      
         <form method="post" onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="zipCode" className="form-label fw-medium">
@@ -570,10 +567,10 @@ const CreateRealEstate: React.FC = () => {
               multiple
             />
           </div>
-          <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+          <div className="d-grid gap-2 d-md-flex mt-4">
             <button
               type="submit"
-              className="btn btn-info text-light fw-medium rounded-pill shadow fs-4 px-5 py-2"
+              className="btn btn-info text-light fw-medium"
             >
               Enviar
             </button>

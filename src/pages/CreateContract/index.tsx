@@ -123,13 +123,9 @@ const CreateContract: React.FC = () => {
     <>
       <Navbar />
 
-      <h1 className="text-center shadow fw-bolder py-2 my-3">
-        Inserir Contrato
-      </h1>
+      
       <div className="container bg-light-subtle border border-2 rounded shadow my-5 py-5 px-5">
-        <h2 className="text-center fw-bolder">
-          Formulário de criação de contrato
-        </h2>
+        
         <form
           className="row row-cols-lg-auto g-3 align-items-center"
           method="post"
