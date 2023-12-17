@@ -1,10 +1,10 @@
 import React from "react";
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fab } from '@fortawesome/free-brands-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { library } from '@fortawesome/fontawesome-svg-core';
+// import { fab } from '@fortawesome/free-brands-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 // Adicione os ícones que você está usando
-library.add(fab.faFacebookF, fab.faTwitter, fab.faGoogle, fab.faInstagram, fab.faLinkedinIn, fab.faGithub);
+// library.add(fab.faFacebookF, fab.faTwitter, fab.faGoogle, fab.faInstagram, fab.faLinkedinIn, fab.faGithub);
 
 const Footer: React.FC = () => {
   return (
@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
             href="#!"
             role="button"
           >
-            <FontAwesomeIcon icon={["fab", "facebook-f"]} />
+            {/* <FontAwesomeIcon icon={["fab", "facebook-f"]} /> */}
           </a>
 
           {/* Twitter */}
@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
             href="#!"
             role="button"
           >
-            <FontAwesomeIcon icon={["fab", "twitter"]} />
+            {/* <FontAwesomeIcon icon={["fab", "twitter"]} /> */}
           </a>
 
           {/* Google */}
@@ -44,7 +44,7 @@ const Footer: React.FC = () => {
             href="#!"
             role="button"
           >
-            <FontAwesomeIcon icon={["fab", "google"]} />
+            {/* <FontAwesomeIcon icon={["fab", "google"]} /> */}
           </a>
 
           {/* Instagram */}
@@ -55,7 +55,7 @@ const Footer: React.FC = () => {
             href="#!"
             role="button"
           >
-            <FontAwesomeIcon icon={["fab", "instagram"]} />
+            {/* <FontAwesomeIcon icon={["fab", "instagram"]} /> */}
           </a>
 
           {/* Linkedin */}
@@ -66,7 +66,7 @@ const Footer: React.FC = () => {
             href="#!"
             role="button"
           >
-            <FontAwesomeIcon icon={["fab", "linkedin-in"]} />
+            {/* <FontAwesomeIcon icon={["fab", "linkedin-in"]} /> */}
           </a>
 
           {/* Github */}
@@ -77,7 +77,7 @@ const Footer: React.FC = () => {
             href="#!"
             role="button"
           >
-            <FontAwesomeIcon icon={["fab", "github"]} />
+            {/* <FontAwesomeIcon icon={["fab", "github"]} /> */}
           </a>
         </section>
         {/* Section: Social media */}
