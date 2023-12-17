@@ -1,0 +1,14 @@
+.image-card {
+    height: 30rem;
+    width: auto;
+    object-fit: cover;
+    
+  }
+  div#carouselExampleCaptionsReal {
+    padding: 0!important;
+}
+
+
+  .card-secondary {
+    padding: 0!important;
+}
