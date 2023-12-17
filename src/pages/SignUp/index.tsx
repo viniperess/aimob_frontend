@@ -7,7 +7,8 @@ const SignUp: React.FC = () => {
   const [user, setUser] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [roles, setRoles] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [birthdate, setBirthdate] = useState("");
   const [password, setPassword] = useState("");
   const [passwordTwo, setPasswordTwo] = useState("");
   const [error, setError] = useState("");
@@ -20,7 +21,7 @@ const SignUp: React.FC = () => {
   const handleRegister = async (e: FormEvent) => {
     e.preventDefault();
 
-    if (!user || !name || !email || !roles || !password || !passwordTwo) {
+    if (!user || !name || !email || !cpf || !birthdate || !password || !passwordTwo) {
       setError("Preencha todos os campos!");
       return;
     } else if (!emailRegex.test(email)) {
@@ -34,17 +35,13 @@ const SignUp: React.FC = () => {
       return;
     }
 
-    if (roles === "") {
-      setError("Por favor, selecione um papel.");
-      return;
-    }
-
     try {
       await api.post(`users`, {
         user,
         name,
         email,
-        roles,
+        cpf,
+        birthdate,
         password: password,
       });
       navigate("/signin");
@@ -99,18 +96,24 @@ const SignUp: React.FC = () => {
                 : "input_control"
             }
           />
-          <select
-            name="roles"
-            id="roles"
-            value={roles}
-            onChange={(e) => [setRoles(e.target.value), setError("")]}
-            className={error && !roles ? "errors" : "input_control"}
-          >
-            <option value="">Selecione um papel</option>
-            <option value="CLIENT">Cliente</option>
-            <option value="EMPLOYEE">Funcionário</option>
-            <option value="OWNER">Proprietário</option>
-          </select>
+          <input
+            type="text"
+            name="cpf"
+            id="cpf"
+            value={cpf}
+            placeholder="Cpf"
+            onChange={(e) => [setCpf(e.target.value), setError("")]}
+            className={error && !cpf ? "errors" : "input_control"}
+          />
+          <input
+            type="date"
+            name="birthdate"
+            id="birthdate"
+            value={birthdate}
+            placeholder="Data de Nascimento"
+            onChange={(e) => [setBirthdate(e.target.value), setError("")]}
+            className={error && !birthdate ? "errors" : "input_control"}
+          />
 
           <input
             type="password"
