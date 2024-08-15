@@ -1,4 +1,4 @@
-.page-container {
+/* .page-container {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -15,18 +15,15 @@
 
   .card-body {
     height: 13rem;
-    /* margin-bottom: 3px; */
   }
-  
+  */
   .card {
     width: 22rem;
-    /* height: 13rem; */
     margin: 20px;
     padding: auto;
-    /* margin-right: 0; */
   }
   
-  .card-title-h5 {
+   .card-title-h5 {
     background-color: orange;
     padding: 7px;
     font-size: 14px;
@@ -36,7 +33,9 @@
     font-weight: bold;
     font-size: 14px;
     padding: 7px;
-  }
+  } 
+  
+  /*
 
 
   @media only screen and (min-width: 991px) and (max-width: 1400px) {
@@ -55,4 +54,4 @@
     .card {
       width: 15rem;
     }
-  }
+  } */

@@ -5,10 +5,8 @@ import Loading from "../../components/Loading";
 import api from "../../service/api";
 import "./styles.css";
 import Footer from "../../components/Footer";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBed, faShower, faRuler } from '@fortawesome/free-solid-svg-icons';
-
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBed, faShower, faRuler } from "@fortawesome/free-solid-svg-icons";
 
 const Home: React.FC = () => {
   const [realEstates, setRealEstates] = useState<RealEstateType[]>([]);
@@ -32,17 +30,20 @@ const Home: React.FC = () => {
       <Navbar />
 
       <div className="page-container">
-      <h1 className="text-center  py-3 my-5 mb-5">
-          Conheça Nossos Imóveis
-        </h1>
-        <div className="main-content container row row-cols-3 row-cols-sm-3 row-cols-md-3 row-cols-lg-3 mx-auto my-auto">
+
+        <div className="row my-4">
+          <h2 className="col-1 mx-4">Imóveis</h2>
+          <a href="http:/create_realestate" className="col-2 my-1 btn btn-primary">Adicionar Imóvel</a>
+        </div>
+
+        <div className="main-content  row row-cols  m-3 mb-1">
           {realEstates.length === 0
             ? (console.log("Sem dados disponíveis"),
               [1, 2, 3, 4, 5, 6, 7, 8].map((n) => <Loading key={n} />))
             : realEstates
                 .sort((a, b) => a.id - b.id)
                 .map((realEstate) => (
-                  <div className="col" key={realEstate.id}>
+                  <div className="col mb-2" key={realEstate.id}>
                     <div className="card">
                       <a href={`/realEstate/${realEstate.id}`}>
                         <img
@@ -65,29 +66,31 @@ const Home: React.FC = () => {
                           </small>
                         </p>
 
-
                         <div className="d-flex text-left">
-                          {/* Ícone e número de quartos */}
-                          <p className="card-text"  style={{ marginRight: '20px', opacity:0.9 }}>
+                          <p
+                            className="card-text"
+                            style={{ marginRight: "20px", opacity: 0.9 }}
+                          >
                             <span className="m-1">
-                            <FontAwesomeIcon icon={faBed} />
+                              <FontAwesomeIcon icon={faBed} />
                             </span>
                             {realEstate.bedrooms}
                           </p>
-
-                          {/* Ícone e informações do vaso sanitário */}
-                          <p className="card-text" style={{ marginRight: '20px', opacity:0.9}}>
+                          <p
+                            className="card-text"
+                            style={{ marginRight: "20px", opacity: 0.9 }}
+                          >
                             <span className="m-1">
-                            <FontAwesomeIcon icon={faShower} />
-                            
+                              <FontAwesomeIcon icon={faShower} />
                             </span>
                             {realEstate.bathrooms}
                           </p>
-
-                          {/* Ícone e informações da área total */}
-                          <p className="card-text" style={{ marginRight: '20px', opacity:0.9}}>
+                          <p
+                            className="card-text"
+                            style={{ marginRight: "20px", opacity: 0.9 }}
+                          >
                             <span className="m-1">
-                            <FontAwesomeIcon icon={faRuler} />
+                              <FontAwesomeIcon icon={faRuler} />
                             </span>
                             {realEstate.totalArea}m²
                           </p>
