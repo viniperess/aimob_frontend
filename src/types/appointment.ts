@@ -1,5 +1,6 @@
 import { User } from "./user";
 import { RealEstateType } from "./realEstate";
+import { Contact } from "./contact";
 
 
 export interface Appointment {
@@ -8,10 +9,9 @@ export interface Appointment {
     observation?: string | null;
     visitDate?: string | null;
     visitApproved?: boolean | null;
-    clientUserId: number;
-    client: User;
+    contactId: number;
+    contact: Contact;
     estateId: number;
     realEstate: RealEstateType;
-    userId: number;
-    employee: User;
+    userId: User;
   }

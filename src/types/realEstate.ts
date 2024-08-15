@@ -1,11 +1,6 @@
 import { Appointment } from "./appointment";
-import { Contract } from "./contract";
-import { User } from "./user";
 
-export enum RealEstateTypeEnum {
-    HOUSE,
-    APARTMENT
-  }
+
   
   export interface RealEstateType {
     id: number;
@@ -23,7 +18,7 @@ export enum RealEstateTypeEnum {
     livingRooms: number;
     kitchens: number;
     garage: boolean;
-    type: RealEstateTypeEnum;
+    type: string;
     description: string;
     salePrice?: number | null;
     rentPrice?: number | null;
@@ -31,9 +26,6 @@ export enum RealEstateTypeEnum {
     registration: string;
     images: string[];
     userId: number;
-    employee: User;
-    clientUserId: number;
-    client: User;
-    appointments: Appointment[]; // Relacionamento one-to-many
-    contract?: Contract; // Relacionamento one-to-one
+    contactId: number;
+    appointments: Appointment[];
   }
