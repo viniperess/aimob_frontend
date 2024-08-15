@@ -459,7 +459,7 @@ const EditRealEstate: React.FC = () => {
             <button
               type="submit"
               onClick={handleDeleteRealEstate}
-              className="btn btn-warning text-light"
+               
             >
               Excluir Imovel
             </button>
