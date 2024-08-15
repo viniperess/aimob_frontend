@@ -4,7 +4,9 @@ import { FcHome } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 const Navbar: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [authChecked, setAuthChecked] = useState(false);
   const navigate = useNavigate();
+  console.log(isLoggedIn);
 
   useEffect(() => {
     const token = localStorage.getItem("userToken");
@@ -13,13 +15,18 @@ const Navbar: React.FC = () => {
     } else {
       navigate("/signin");
     }
+    setAuthChecked(true);
   }, [navigate]);
-  console.log(isLoggedIn);
+
   const handleLogout = () => {
     localStorage.removeItem("userToken");
     localStorage.removeItem("userName");
     navigate("/signin");
   };
+
+  if (!authChecked) {
+    return null;
+  }
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
       <div className="container-fluid">
@@ -60,7 +67,7 @@ const Navbar: React.FC = () => {
                 Contato
               </a>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <a
                 className="nav-link active"
                 aria-current="page"
@@ -68,7 +75,7 @@ const Navbar: React.FC = () => {
               >
                 Agendamento
               </a>
-            </li>
+            </li> */}
             <li className="nav-item">
               <a
                 className="nav-link active"

@@ -97,7 +97,7 @@ const SignIn: React.FC = () => {
             Logar-se
           </button>
           <p className="text-center logLogin">
-            Novo por aqui? <a href="/SignUp">Registre-se</a> ou <a href="http:/forgot_password">Esqueceu a senha</a>
+            Novo por aqui? <a href="/SignUp">Registre-se</a> ou <a href="/forgot_password">Esqueceu a senha</a>
           </p>
           
         </form>
