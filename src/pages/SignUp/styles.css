@@ -8,13 +8,13 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  margin: 0; /* Removido a margem padrão do body */
-  overflow-x: hidden; /* Impede a barra de rolagem horizontal */
+  margin: 0;
+  /* overflow-x: hidden;  */
 }
 
 .containerRegister {
   display: flex;
-  min-height: 100vh; /* Alterado para min-height */
+  min-height: 100vh;
   background-color: #0B58A6;
 }
 
@@ -24,8 +24,6 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-  gap: 20px;
 }
 
 .formRegister {
@@ -34,7 +32,6 @@ body {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 15px;
 }
 
 p > a {
@@ -47,7 +44,7 @@ p > a {
   font-weight: 500;
   font-size: 3.5rem;
   color: white;
-  text-align: center; /* Centralizado o texto */
+  text-align: center;
   margin-right: 310px;
 }
 
@@ -80,45 +77,21 @@ p > a {
   width: 100%;
   /* height: auto; */
   justify-content: center;
-  background-size: cover;
+  background-size:contain;
   background-image: url("../../assets/images/aimoblogo_branco.png");
   display: flex;
 }
-
-input, select {
+/* 
+/* input {
   border: 1px solid white;
   border-radius: 46px;
   box-sizing: border-box;
   background-color: transparent;
-  width: 100%;
-  padding: 15px;
+  width: 40%;
   color: white;
   outline: none;
-  height: 55px;
-}
-
-select {
-  border: 1px solid white;
-  border-radius: 46px;
-  box-sizing: border-box;
-  background-color: #0B58A6; /* Adicione a cor de fundo */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white' width='18px' height='18px'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: 98% center; /* Ajuste conforme necessário */
-  width: 100%;
-  padding: 15px;
-  color: white;
-  outline: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-}
-
-select option {
-  background-color: #0B58A6;
-  color: white;
-  padding: 10px; /* Ajuste conforme necessário */
-}
-
+  height: 45px;
+} */ */
 
 input::placeholder {
   color: white;
@@ -129,7 +102,7 @@ input::placeholder {
   height: 52px;
   background: #ffff;
   border: 1px solid blue;
-  border-radius: 46px;
+  border-radius: 60px;
   color: #0B58A6;
   cursor: pointer;
 }
