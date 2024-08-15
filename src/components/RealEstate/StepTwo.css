@@ -1,0 +1,24 @@
+.form-check-label {
+    margin: 12px 10px;
+    font-size: 16px;
+}
+
+#garage, #status {
+    width: 50%;
+    height: 2.5rem;
+}
+
+.form-check.two {
+    margin-left: 20px;
+}
+
+.form-check.one{
+    margin-left: 10px;
+}
+
+#garageText {
+    margin-left: 10px;
+}
+#statusText{
+    margin-left: 20px;
+}
