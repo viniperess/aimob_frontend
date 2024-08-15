@@ -1,12 +1,26 @@
-.logo {
-    width: auto;
-    height: 5vh;
-    padding: auto;
-  }
-  .navBtns svg {
-    width: 1.7rem;
-  }
-  
+.nav-link {
+  text-decoration: none;
+  color: white; /* Garante que o link tenha a cor branca */
+}
+
+.nav-link:hover {
+  color: white; /* Garante que a cor permaneça branca ao passar o mouse */
+}
+
+.icon-large-white {
+  color: white !important;
+}
+
+.no-hover:hover {
+  background-color: transparent !important;
+  opacity: 0.7;
+}
+
+.no-hover:focus {
+  background-color: transparent !important;
+  opacity: 0.9;
+}
+
   @media only screen and (max-width: 1199px) {
     li {
       padding-left: 1rem;
