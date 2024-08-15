@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, FormEvent } from "react";
 import { User } from "../../types/user";
 import { RealEstateType } from "../../types/realEstate";
 import Navbar from "../../components/Navbar";
@@ -12,6 +12,7 @@ import {
   faPenToSquare,
   faRuler,
   faShower,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import "./styles.css";
 
@@ -46,6 +47,22 @@ const RealEstate: React.FC = () => {
     navigate(`/edit_realestate/${realEstate?.id}`);
   };
 
+  const handleDeleteRealEstate = async (e: FormEvent) => {
+    e.preventDefault();
+
+    const confirmDelete = window.confirm(
+      "Tem certeza de que deseja excluir seu imóvel? Esta ação é irreversível."
+    );
+
+    if (confirmDelete) {
+      try {
+        await api.delete(`realestates/${realEstate?.id}`);
+        navigate("/");
+      } catch (error) {
+        console.error("Delete Real Estate: Erro ao excluir", error);
+      }
+    }
+  };
   return (
     <>
       <Navbar />
@@ -127,6 +144,14 @@ const RealEstate: React.FC = () => {
                   >
                     {""}
                     <FontAwesomeIcon icon={faPenToSquare} />
+                  </button>
+                  <button
+                    className="btn text-light m-2 bg-warning"
+                    type="submit"
+                    onClick={handleDeleteRealEstate}
+                  >
+                    {""}
+                    <FontAwesomeIcon icon={faTrash} />
                   </button>
                 </div>
                 <div className="card-body text-left">
