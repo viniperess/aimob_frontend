@@ -1,10 +1,10 @@
 .nav-link {
   text-decoration: none;
-  color: white; /* Garante que o link tenha a cor branca */
+  color: white;
 }
 
 .nav-link:hover {
-  color: white; /* Garante que a cor permaneça branca ao passar o mouse */
+  color: white; 
 }
 
 .icon-large-white {

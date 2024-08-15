@@ -1,7 +1,7 @@
 
 .hero-image {
-    background-image: url('../../../assets/images/condo_3.webp'); /* Substitua pelo caminho da sua imagem */
-    height: 100vh; /* Altura de 100% da viewport */
+    background-image: url('../../../assets/images/condo_3.webp'); 
+    height: 100vh;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

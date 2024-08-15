@@ -20,10 +20,10 @@ const MasterForm = () => {
 
 
   const getRealEstate = useCallback(async () => {
-    if (!id) return; // Se não tiver ID, é uma nova inserção
+    if (!id) return;
     try {
       const response = await api.get(`realestates/${id}`);
-      setFormData(response.data); // Carregar dados do imóvel no estado do formulário
+      setFormData(response.data);
     } catch (error) {
       console.error("Erro ao buscar dados do imóvel:", error);
     }

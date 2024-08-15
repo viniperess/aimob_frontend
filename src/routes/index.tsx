@@ -10,7 +10,6 @@ import CreateAppointment from "../pages/CreateAppointment";
 import Appointments from "../pages/Appointments";
 import EditAppointment from "../pages/EditAppointment";
 import MasterForm from "../components/RealEstate/MasterForm";
-import CreateTask from "../pages/Tasks/CreateTask";
 import TaskTable from "../pages/Tasks/Task";
 import RealEstateContact from "../pages/RealEstateContact/RealEstates";
 import RealEstateByContact from "../pages/RealEstateContact/RealEstatesById";
@@ -23,7 +22,7 @@ const RoutesApp: React.FC = () => {
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Fragment>
         <Routes>
-          {/* Rotas públicas */}
+          
           <Route path="/" element={<Home />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/forgot_password" element={<ForgotPassword />} />
@@ -32,7 +31,7 @@ const RoutesApp: React.FC = () => {
           <Route path="/realestatescontact" element={<RealEstateContact />} />
           <Route path="/realEstateByContact/:id" element={<RealEstateByContact />} />
 
-          {/* Rotas protegidas */}
+         
           <Route
             path="/profile"
             element={
@@ -94,14 +93,6 @@ const RoutesApp: React.FC = () => {
             element={
               <ProtectedRoute>
                 <MasterForm />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/create_task"
-            element={
-              <ProtectedRoute>
-                <CreateTask />
               </ProtectedRoute>
             }
           />

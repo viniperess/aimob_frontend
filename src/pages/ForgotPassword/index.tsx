@@ -8,7 +8,7 @@ const ForgotPassword: React.FC = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
   const handleEmail = async (e: FormEvent) => {
     e.preventDefault();

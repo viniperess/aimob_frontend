@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import SearchBar from "../SearchBar";
-// import { UserCircleIcon } from "@heroicons/react/24/solid";
-import { ReactComponent as Logo } from "../../assets/images/3.svg";
 import "./styles.css";
-import SearchBar from "../SearchBar";
-import { IoIosNotifications } from "react-icons/io";
-
 import { FcHome } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 const Navbar: React.FC = () => {
@@ -20,11 +14,11 @@ const Navbar: React.FC = () => {
       navigate("/signin");
     }
   }, [navigate]);
-
+  console.log(isLoggedIn);
   const handleLogout = () => {
     localStorage.removeItem("userToken");
     localStorage.removeItem("userName");
-    navigate("/signin"); // Redireciona para /signin após logout
+    navigate("/signin");
   };
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -47,11 +41,11 @@ const Navbar: React.FC = () => {
                 Aimob
               </p>
             </li>
-            {/* <li className="nav-item">
+            <li className="nav-item">
               <p className="nav-link active" aria-current="page">
                 |
               </p>
-            </li> */}
+            </li>
             <li className="nav-item">
               <a className="nav-link active" aria-current="page" href="/">
                 Imóvel
@@ -104,9 +98,7 @@ const Navbar: React.FC = () => {
             </li> */}
           </ul>
           <ul className="navbar-nav mb-2">
-            {/* <form className="d-flex" role="search">
-            <SearchBar />
-          </form> */}
+          
             <li className="nav-item">
               <a
                 className="nav-link"
@@ -127,15 +119,7 @@ const Navbar: React.FC = () => {
                 Notificações
               </a>
             </li>
-            {/* <li className="nav-item">
-              <a
-                className="nav-link active"
-                aria-current="page"
-                href="/profile"
-              >
-                Perfil
-              </a>
-            </li> */}
+
         <li className="nav-item dropdown">
               <a
                 className="nav-link active dropdown-toggle"

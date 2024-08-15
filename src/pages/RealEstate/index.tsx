@@ -170,7 +170,7 @@ const RealEstate: React.FC = () => {
                   </p>
 
                   <div className="d-flex text-left">
-                    {/* Ícone e número de quartos */}
+                  
                     <p className="card-text align-items-center row">
                       <span className="icon-bed m-1">
                         <FontAwesomeIcon icon={faBed} />
@@ -180,10 +180,10 @@ const RealEstate: React.FC = () => {
                         : `${realEstate.bedrooms} quartos`}
                     </p>
 
-                    {/* Ícone e informações do vaso sanitário */}
+                   
                     <p
                       className="card-text align-items-center row"
-                      // style={{ marginRight: "20px", opacity: 0.9 }}
+                    
                     >
                       <span className="m-1">
                         <FontAwesomeIcon icon={faShower} />
@@ -194,10 +194,10 @@ const RealEstate: React.FC = () => {
                         : `${realEstate.bathrooms} banheiros`}
                     </p>
 
-                    {/* Ícone e informações da área total */}
+                    
                     <p
                       className="card-text align-items-center row "
-                      // style={{ marginRight: "20px", opacity: 0.9 }}
+                     
                     >
                       <span className="m-1">
                         <FontAwesomeIcon icon={faRuler} />
@@ -207,7 +207,7 @@ const RealEstate: React.FC = () => {
 
                     <p
                       className="card-text align-items-center row"
-                      // style={{ marginRight: "20px", opacity: 0.9 }}
+                     
                     >
                       <span className="m-1">
                         <FontAwesomeIcon icon={faCar} />

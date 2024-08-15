@@ -9,7 +9,6 @@
 body {
   font-family: 'Poppins', sans-serif;
   margin: 0;
-  /* overflow-x: hidden;  */
 }
 
 .containerRegister {
@@ -75,26 +74,10 @@ p > a {
 
 .image {
   width: 100%;
-  /* height: auto; */
   justify-content: center;
   background-size:contain;
   background-image: url("../../assets/images/aimoblogo_branco.png");
   display: flex;
-}
-/* 
-/* input {
-  border: 1px solid white;
-  border-radius: 46px;
-  box-sizing: border-box;
-  background-color: transparent;
-  width: 40%;
-  color: white;
-  outline: none;
-  height: 45px;
-} */ */
-
-input::placeholder {
-  color: white;
 }
 
 .btnRegister  {
@@ -113,7 +96,6 @@ button:hover {
 .errors > input {
   border-color:1px solid #e9b425;
   margin-bottom: 0px;
-  /* margin-top: 0px; */
 }
 
 .classErrors {
@@ -125,7 +107,6 @@ button:hover {
   display: flex;
   margin-top: 5px;
 }
-/* Adaptações para telas menores */
 @media (max-width: 768px) {
   .formRegister {
     padding: 10px;
@@ -140,7 +121,6 @@ button:hover {
   }
 }
 
-/* Adaptações para telas maiores */
 @media (min-height: 1000px) {
   input, button {
     padding: 19px 24px;

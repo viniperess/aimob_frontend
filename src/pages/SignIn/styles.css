@@ -75,21 +75,6 @@ body {
   display: flex;
 }
 
-/* input{
-  border: 1px solid rgb(24, 159, 238);
-  border-radius: 46px;
-  box-sizing: border-box;
-  background-color: transparent;
-  width: 100%;
-  padding: 15px;
-  color: rgb(24, 159, 238);
-  outline: none;
-}
-
-input::placeholder {
-  color: rgb(24, 159, 238);
-} */
-
 .btnLogin {
   width: 80%;
   height: 40px;
@@ -125,7 +110,6 @@ button:hover {
   color: rgb(24, 159, 238);
 }
 
-/* Adaptações para telas menores */
 @media (max-width: 768px) {
   .containerLogin, p, h1{
     padding: 10px;

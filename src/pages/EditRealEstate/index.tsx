@@ -6,7 +6,6 @@ import { RealEstateType } from "../../types/realEstate";
 import api from "../../service/api";
 import { ToastContainer, toast } from "react-toastify";
 import './styles.css';
-// import { Container } from './styles';
 
 const EditRealEstate: React.FC = () => {
   const { id } = useParams();

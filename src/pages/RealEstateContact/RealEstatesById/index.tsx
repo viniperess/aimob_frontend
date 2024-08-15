@@ -18,14 +18,15 @@ const RealEstateByContact: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState<string>("");
-
+  console.log(user);
+  
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     taskStatus: "aguardando infos",
     taskDescription: "aguardando mais informações",
-    estateId: id ? parseInt(id) : 0, // Inclui o estateId aqui
+    estateId: id ? parseInt(id) : 0,
   });
 
   const [appointmentData, setAppointmentData] = useState({
@@ -38,7 +39,7 @@ const RealEstateByContact: React.FC = () => {
     observation: "",
     taskStatus: "Visita Agendada",
     taskDescription: "visita agendada",
-    estateId: id ? parseInt(id) : 0, // Inclui o estateId aqui
+    estateId: id ? parseInt(id) : 0,
   });
 
   useEffect(() => {
@@ -74,13 +75,13 @@ const RealEstateByContact: React.FC = () => {
       setFormData((prevState) => ({
         ...prevState,
         [id]: value,
-        estateId: id ? parseInt(id) : prevState.estateId, // Garante que o estateId seja mantido
+        estateId: id ? parseInt(id) : prevState.estateId, 
       }));
     } else if (modalContent === "Formulário 2") {
       setAppointmentData((prevState) => ({
         ...prevState,
         [id]: value,
-        estateId: id ? parseInt(id) : prevState.estateId, // Garante que o estateId seja mantido
+        estateId: id ? parseInt(id) : prevState.estateId,
       }));
     }
   };
@@ -101,7 +102,7 @@ const RealEstateByContact: React.FC = () => {
         estateId: id ? parseInt(id) : dataToSend.estateId,
       };
 
-      console.log("Dados para enviar:", updatedAppointmentData); // Verifique aqui
+      console.log("Dados para enviar:", updatedAppointmentData);
   
       try {
         await api.post(
@@ -132,7 +133,7 @@ const RealEstateByContact: React.FC = () => {
         estateId: id ? parseInt(id) : formData.estateId,
       };
 
-      console.log("Dados para enviar:", updatedFormData); // Verifique aqui
+      console.log("Dados para enviar:", updatedFormData);
   
       try {
         await api.post("/contacts/basic", updatedFormData);
