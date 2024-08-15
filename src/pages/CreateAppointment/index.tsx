@@ -4,7 +4,8 @@ import { RealEstateType } from "../../types/realEstate";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
-import { Role, User } from "../../types/user";
+import './styles.css';
+import { Contact } from "../../types/contact";
 
 const fetchRealEstates = async () => {
   try {
@@ -16,61 +17,40 @@ const fetchRealEstates = async () => {
     return [];
   }
 };
-const fetchUsers = async () => {
+
+const fetchContacts = async () => {
   try {
-    const response = await api.get("/users");
-    console.log("Users data:", response.data);
+    const response = await api.get("/contacts");
+    console.log("Contacts data:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching users:", error);
     return [];
   }
 };
+
 const CreateAppointment: React.FC = () => {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [observation, setObservation] = useState("");
-  // const [visitDate, setVisitDate] = useState("");
-  const [visitApproved, setVisitApproved] = useState(false);
-  const [userId, setUserId] = useState("");
-  const [clientUserId, setClientUserId] = useState("");
+  const [visitApproved, setVisitApproved] = useState(true);
+  const [contactId, setContactId] = useState("");
   const [estateId, setEstateId] = useState("");
   const [realEstates, setRealEstates] = useState<RealEstateType[]>([]);
-  const [users, setUsers] = useState([]);
-  const [clients, setClients] = useState<User[]>([]);
+  const [contacts, setContacts] = useState<Contact[]>([]);
   const navigate = useNavigate();
 
-
-  const fetchProfile = useCallback(async () => {
-    try {
-      const response = await api.get("/users/profile");
-      console.log("Users Profile data:", response.data);
-      setUserId(response.data.id);
-    } catch (error) {
-      console.error("Error fetching users profile:", error);
-      return [];
-    }
-    console.log('====================================');
-    console.log(users);
-    console.log('====================================');
-  }, [setUserId, users]);
-  
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const usersData = await fetchUsers();
-        console.log("Users:", usersData);
-        setUsers(usersData);
-        const clientsData = usersData.filter(
-          (user: User) => user?.roles === Role.CLIENT
-        );
-  
-        setClients(clientsData);
+        const contactsData = await fetchContacts();
+        console.log("Contacts:", contactsData);
+        setContacts(contactsData);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-  
+
     const fetchRealEstatesData = async () => {
       try {
         const realEstatesData = await fetchRealEstates();
@@ -80,28 +60,22 @@ const CreateAppointment: React.FC = () => {
         console.error("Error fetching real estates:", error);
       }
     };
-  
-    fetchProfile();
+
     fetchRealEstatesData();
     fetchData();
-  }, [fetchProfile]);
-  
+  }, []);
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const visitDate = new Date(`${date}T${time}`);
 
     try {
-      await api.post("/appointments", {
+      await api.post("/appointments/create-by-corrector", {
         observation,
         visitDate,
         visitApproved,
-        userId: userId,
-        clientUserId:
-          typeof clientUserId === "number"
-            ? clientUserId
-            : parseInt(clientUserId, 10),
-        estateId:
-          typeof estateId === "number" ? estateId : parseInt(estateId, 10),
+        contactId: Number(contactId),
+        estateId: Number(estateId),
       });
       console.log("Requisição bem sucedida!");
       navigate("/");
@@ -112,163 +86,140 @@ const CreateAppointment: React.FC = () => {
       );
     }
   };
+
   return (
     <>
       <Navbar />
-      <div className="container bg-light-subtle border border-2 rounded shadow my-5 py-5 px-5">
-       
-        <form
-          className="row row-cols-lg-auto g-3 align-items-center"
-          method="post"
-          onSubmit={handleSubmit}
-        >
-          <div className="col-12">
-            <label className="visually-hidden" htmlFor="finalValue">
-              Observação
-            </label>
-            <div className="input-group">
+      <div className="form-container bg-light-subtle border border-2 rounded shadow my-5 py-5 px-5">
+        <h2 className="mb-4 text-center">Agendamento de Imóvel</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="row">
+            <div className="col-md-5">
+              <label htmlFor="visitDate" className="form-label">
+                Data da Visita
+              </label>
+              <input
+                type="date"
+                className="form-control"
+                id="visitDate"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                required
+              />
+            </div>
+            <div className="col-md-5">
+              <label htmlFor="visitTime" className="form-label">
+                Hora da Visita
+              </label>
+              <input
+                type="time"
+                className="form-control"
+                id="visitTime"
+                value={time}
+                onChange={(e) => setTime(e.target.value)}
+                required
+              />
+            </div>
+          </div>
+          <div className="row">
+            {" "}
+            <div className="col-md-5">
+              <label htmlFor="observation" className="form-label">
+                Observação
+              </label>
               <input
                 type="text"
                 className="form-control"
-                aria-describedby="finalValueFeedback"
-                id="finalValue"
-                placeholder="Observacao"
+                id="observation"
+                placeholder="Observação"
                 value={observation}
                 onChange={(e) => setObservation(e.target.value)}
                 required
               />
             </div>
-          </div>
-          <div className="col-12">
-            <label className="visually-hidden" htmlFor="visitApproved">
-              Status
-            </label>
-            <div className="input-group">
-              <div className="input-group-text">?</div>
-              <input
-                type="checkbox"
-                className="form-control"
-                aria-describedby="visitApprovedFeedback"
-                id="visitApproved"
-                placeholder="Status"
-                checked={visitApproved}
-                onChange={(e) => setVisitApproved(e.target.checked)}
-              />
-              <label className="form-check-label" htmlFor="visitApproved">
-                {visitApproved ? "Sim" : "Não"}
+            <div className="col-5">
+              <label htmlFor="visitApproved" className="form-label">
+                Status
               </label>
+              <div className="form-check">
+                <input
+                  type="checkbox"
+                  className="form-check-input"
+                  id="visitApproved"
+                  checked={visitApproved}
+                  onChange={(e) => setVisitApproved(e.target.checked)}
+                />
+                <label className="form-check-label" htmlFor="visitApproved">
+                  {visitApproved ? "Aprovado" : "Não Aprovado"}
+                </label>
+              </div>
             </div>
           </div>
-
-          <div className="col-12">
-            <label className="visually-hidden" htmlFor="visitDate">
-              Data da visita
-            </label>
-            <div className="input-group">
-              <div className="input-group-text">?</div>
-              <input
-                type="date"
-                className="form-control"
-                aria-describedby="visitDateFeedback"
-                id="visitDate"
-                placeholder="Data"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-              />
-            </div>
-          </div>
-
-          <div className="col-12">
-            <label className="visually-hidden" htmlFor="visitTime">
-              Hora da visita
-            </label>
-            <div className="input-group">
-              <div className="input-group-text">?</div>
-              <input
-                type="time"
-                className="form-control"
-                aria-describedby="visitTimeFeedback"
-                id="visitTime"
-                placeholder="Hora"
-                value={time}
-                onChange={(e) => setTime(e.target.value)}
-              />
-            </div>
-          </div>
-
-          <div className="col-12">
-            <label className="visually-hidden" htmlFor="clientUserId">
-              Cliente
-            </label>
-            <select
-              className="form-select"
-              id="clientUserId"
-              value={clientUserId}
-              onChange={(e) => setClientUserId(e.target.value)}
-            >
-              <option disabled value="">
-                Selecione o comprador...
-              </option>
-              {Array.isArray(clients) && clients.length > 0 ? (
-                clients.map((client) => (
-                  <option value={client?.id} key={client?.id}>
-                    {client?.name}
-                  </option>
-                ))
-              ) : (
-                <option value="" disabled>
-                  Nenhum cliente disponível
-                </option>
-              )}
-            </select>
-          </div>
-          <div className="col-12">
-            <label className="visually-hidden" htmlFor="estateId">
-              Imóvel
-            </label>
-            <select
-              className="form-select"
-              id="estateId"
-              value={estateId}
-              onChange={(e) => setEstateId(e.target.value)}
-            >
-              <option disabled value="">
-                Seleciona o imóvel...
-              </option>
-              {Array.isArray(realEstates) && realEstates.length > 0 ? (
-                realEstates.map((realEstate) => (
-                  <option value={realEstate?.id} key={realEstate?.id}>
-                    {realEstate?.registration}
-                  </option>
-                ))
-              ) : (
-                <option value="" disabled>
-                  Nenhum imóvel disponível
-                </option>
-              )}
-            </select>
-          </div>
-          <div className="col-12">
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                id="inlineFormCheck"
-              />
-              <label className="form-check-label" htmlFor="inlineFormCheck">
-                Concordo com os termos
+          <div className="row">
+            <div className="col-md-5">
+              <label htmlFor="contactId" className="form-label">
+                Contato
               </label>
+              <select
+                className="form-select"
+                id="contactId"
+                value={contactId}
+                onChange={(e) => setContactId(e.target.value)}
+                required
+              >
+                <option disabled value="">
+                  Selecione o comprador...
+                </option>
+                {contacts.length > 0 ? (
+                  contacts.map((contact) => (
+                    <option value={contact.id} key={contact.id}>
+                      {contact.name}
+                    </option>
+                  ))
+                ) : (
+                  <option disabled value="">
+                    Nenhum contato disponível
+                  </option>
+                )}
+              </select>
+            </div>
+            <div className="col-5 mb-5">
+              <label htmlFor="estateId" className="form-label">
+                Imóvel
+              </label>
+              <select
+                className="form-select"
+                id="estateId"
+                value={estateId}
+                onChange={(e) => setEstateId(e.target.value)}
+                required
+              >
+                <option disabled value="">
+                  Selecione o imóvel...
+                </option>
+                {realEstates.length > 0 ? (
+                  realEstates.map((realEstate) => (
+                    <option value={realEstate.id} key={realEstate.id}>
+                      {realEstate.registration}
+                    </option>
+                  ))
+                ) : (
+                  <option disabled value="">
+                    Nenhum imóvel disponível
+                  </option>
+                )}
+              </select>
             </div>
           </div>
-
-          <div className="col-12">
-            <button type="submit" className="btn btn-primary">
-              Submit
-            </button>
+          <div className="row  text-end align-items-end">
+            <div className="my-5">
+              <button type="submit" className="btn btn-primary">
+                Agendar
+              </button>
+            </div>
           </div>
         </form>
       </div>
-
       <Footer />
     </>
   );
