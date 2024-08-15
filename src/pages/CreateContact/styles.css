@@ -1,0 +1,4 @@
+  .form-container {
+    min-height: calc(100vh - 296px); /* Ajuste o valor conforme necessário */
+  }
+
