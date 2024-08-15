@@ -8,40 +8,19 @@ import InputMask from "react-input-mask";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
 const Profile: React.FC = () => {
   const [profile, setProfile] = useState<User>();
   const [user, setUser] = useState("");
   const [name, setName] = useState("");
-  // const [email, setEmail] = useState("");
   const [cpf, setCpf] = useState("");
-  const [birthdate, setBirthdate] = useState("");
-  const [dateType, setDateType] = useState("text");
-  const [street, setStreet] = useState("");
-  const [number, setNumber] = useState("");
-  const [complement, setComplement] = useState("");
-  const [district, setDistrict] = useState("");
   const [city, setCity] = useState("");
-  const [zipCode, setZipCode] = useState("");
   const [phone, setPhone] = useState<string>("");
   const [creci, setCreci] = useState("");
-  const [isAdmin, setIsAdmin] = useState<boolean>(false);
-  const [roles, setRoles] = useState("");
+  const [password, setPassword] = useState("");
+  const [changePassword, setChangePassword] = useState(false);
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
-
-  var data = birthdate;
-  var data_array = data.split("-");
-
-  if (data_array[0].length !== 4 && data_array[0].length <= 4) {
-    data = data_array[2] + "-" + data_array[1] + "-" + data_array[0];
-  }
-  var hoje = new Date();
-  var nasc = new Date(data);
-  var idade = hoje.getFullYear() - nasc.getFullYear();
-  var m = hoje.getMonth() - nasc.getMonth();
-  if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) idade--;
 
   function validatePhone(phone: string): boolean {
     if (phone.trim() === "") {
@@ -70,24 +49,15 @@ const Profile: React.FC = () => {
       setProfile(response.data);
       setUser(response.data.user);
       setName(response.data.name);
-      //   setEmail(response.data.email);
       setCpf(response.data.cpf);
-      setStreet(response.data.street);
-      setBirthdate(response.data.birthdate);
-
-      setNumber(response.data.number);
-      setComplement(response.data.complement);
-      setDistrict(response.data.district);
       setCity(response.data.city);
-      setZipCode(response.data.zipCode);
       setPhone(response.data.phone);
       setCreci(response.data.creci);
-      setIsAdmin(response.data.isAdmin);
-      setRoles(response.data.roles);
     } catch (error) {
       console.log(error);
     }
   };
+
   useEffect(() => {
     getProfile();
   }, []);
@@ -100,20 +70,16 @@ const Profile: React.FC = () => {
         user,
         name,
         cpf,
-        birthdate,
-        street,
-        number,
-        complement,
-        district,
         city,
-        zipCode,
         phone,
         creci,
-        isAdmin,
-        roles,
       };
 
-      await api.put(`users/${profile?.id}`, data);
+      if (password) {
+        data.password = password;
+      }
+
+      await api.patch(`users/${profile?.id}`, data);
 
       getProfile();
 
@@ -153,392 +119,180 @@ const Profile: React.FC = () => {
   return (
     <>
       <Navbar />
-     <div className="container bg-light-subtle my-5 py-5 px-5">
-         <form method="post" key={profile?.id}>
-          <div className="row mx-0 mb-5 fw-medium">
-            <label
-              htmlFor="user"
-              className="offset-sm-1 w-25 px-0 pt-2 fw-medium"
-            >
+      <div className="container bg-light-subtle my-5 py-5 px-5 rounded shadow-lg" style={{ maxWidth: "600px" }}>
+        <h2 className="text-center mb-4">Atualizar Perfil</h2>
+        <form method="post" key={profile?.id} className="text-center">
+          <div className="row mb-3 justify-content-center">
+            <label htmlFor="user" className="col-sm-3 col-form-label">
               Usuário:
             </label>
-            <input
-              id="user"
-              type="text"
-              aria-describedby="userAria"
-              placeholder="Insira seu novo user"
-              value={user}
-              onChange={(e) => setUser(e.target.value)}
-              className={
-                error && !user
-                  ? "profile-input form-control is-invalid col-1 w-50"
-                  : "profile-input form-control col-1 w-50"
-              }
-            />
-            <div
-              id="userAria"
-              className="invalid-feedback text-center fw-medium"
-            >
-              Preencha o campo de usuário!
+            <div className="col-sm-9">
+              <input
+                id="user"
+                type="text"
+                placeholder="Insira seu novo usuário"
+                value={user}
+                onChange={(e) => setUser(e.target.value)}
+                className={`form-control ${error && !user ? "is-invalid" : ""}`}
+              />
+              <div className="invalid-feedback">
+                Preencha o campo de usuário!
+              </div>
             </div>
           </div>
-          <div className="row mx-0 mb-5 fw-medium">
-            <label
-              htmlFor="name"
-              className="offset-sm-1 w-25 px-0 pt-2 fw-medium"
-            >
+
+          <div className="row mb-3 justify-content-center">
+            <label htmlFor="name" className="col-sm-3 col-form-label">
               Nome:
             </label>
-            <input
-              id="name"
-              type="text"
-              aria-describedby="nameAria"
-              placeholder="Insira seu novo nome"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className={
-                error && !name
-                  ? "profile-input form-control is-invalid col-1 w-50"
-                  : "profile-input form-control col-1 w-50"
-              }
-            />
-            <div
-              id="nameAria"
-              className="invalid-feedback text-center fw-medium"
-            >
-              Preencha o campo de nome!
+            <div className="col-sm-9">
+              <input
+                id="name"
+                type="text"
+                placeholder="Insira seu novo nome"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className={`form-control ${error && !name ? "is-invalid" : ""}`}
+              />
+              <div className="invalid-feedback">Preencha o campo de nome!</div>
             </div>
           </div>
-          <div className="row mx-0 mb-5 fw-medium">
-            <label
-              htmlFor="cpf"
-              className="offset-sm-1 w-25 px-0 pt-2 fw-medium"
-            >
-              Cpf:
+
+          <div className="row mb-3 justify-content-center">
+            <label htmlFor="cpf" className="col-sm-3 col-form-label">
+              CPF:
             </label>
-            <input
-              id="cpf"
-              type="text"
-              aria-describedby="cpfAria"
-              placeholder="Insira seu novo cpf"
-              value={cpf}
-              onChange={(e) => setUser(e.target.value)}
-              className={
-                error && !user
-                  ? "profile-input form-control is-invalid col-1 w-50"
-                  : "profile-input form-control col-1 w-50"
-              }
-            />
-            <div
-              id="cpfAria"
-              className="invalid-feedback text-center fw-medium"
-            >
-              Preencha o campo de cpf!
+            <div className="col-sm-9">
+              <input
+                id="cpf"
+                type="text"
+                placeholder="Insira seu novo CPF"
+                value={cpf}
+                onChange={(e) => setCpf(e.target.value)}
+                className={`form-control ${error && !cpf ? "is-invalid" : ""}`}
+              />
+              <div className="invalid-feedback">Preencha o campo de CPF!</div>
             </div>
           </div>
-          <div className="row mx-0 mb-5 fw-medium">
-            <label
-              htmlFor="date"
-              className="offset-sm-1 w-25 px-0 pt-2 fw-medium"
-            >
-              Data de nascimento:
-            </label>
-            <input
-              type={dateType}
-              id="date"
-              aria-describedby="dateAria"
-              placeholder="Insira sua data de nascimento"
-              value={birthdate}
-              onFocus={() => setDateType("date")}
-              onChange={(e) => [setBirthdate(e.target.value), setError("")]}
-              className={
-                (error && !birthdate) || idade < 18 || idade > 100
-                  ? "profile-input form-control is-invalid col-1 w-50"
-                  : "profile-input form-control col-1 w-50"
-              }
-            />
-            <div
-              id="dateAria"
-              className="invalid-feedback text-center fw-medium"
-            >
-              Você precisa ter 18 anos ou mais!
-            </div>
-          </div>
-          <div className="row mx-0 mb-5 fw-medium">
-            <label
-              htmlFor="street"
-              className="offset-sm-1 w-25 px-0 pt-2 fw-medium"
-            >
-              Rua:
-            </label>
-            <input
-              id="street"
-              type="text"
-              aria-describedby="textAria"
-              placeholder="Insire sua rua: "
-              value={street}
-              onChange={(e) => setStreet(e.target.value)}
-              className={
-                error && !street
-                  ? "profile-input form-control is-invalid col-1 w-50"
-                  : "profile-input form-control col-1 w-50"
-              }
-            />
-            <div
-              id="streetAria"
-              className="invalid-feedback text-center fw-medium"
-            >
-              Preencha o campo de rua!
-            </div>
-          </div>
-          <div className="row mx-0 mb-5 fw-medium">
-            <label
-              htmlFor="number"
-              className="offset-sm-1 w-25 px-0 pt-2 fw-medium"
-            >
-              Número:
-            </label>
-            <input
-              id="number"
-              type="text"
-              aria-describedby="numberAria"
-              placeholder="Insire o número: "
-              value={number}
-              onChange={(e) => setNumber(e.target.value)}
-              className={
-                error && !number
-                  ? "profile-input form-control is-invalid col-1 w-50"
-                  : "profile-input form-control col-1 w-50"
-              }
-            />
-            <div
-              id="numberAria"
-              className="invalid-feedback text-center fw-medium"
-            >
-              Preencha o campo de número!
-            </div>
-          </div>
-          <div className="row mx-0 mb-5 fw-medium">
-            <label
-              htmlFor="complement"
-              className="offset-sm-1 w-25 px-0 pt-2 fw-medium"
-            >
-              Complemento:
-            </label>
-            <input
-              id="complement"
-              type="text"
-              aria-describedby="complementAria"
-              placeholder="Insire seu complemento: "
-              value={complement}
-              onChange={(e) => setComplement(e.target.value)}
-              className={
-                error && !complement
-                  ? "profile-input form-control is-invalid col-1 w-50"
-                  : "profile-input form-control col-1 w-50"
-              }
-            />
-            <div
-              id="complementAria"
-              className="invalid-feedback text-center fw-medium"
-            >
-              Preencha o campo complemento!
-            </div>
-          </div>
-          <div className="row mx-0 mb-5 fw-medium">
-            <label
-              htmlFor="zipCode"
-              className="offset-sm-1 w-25 px-0 pt-2 fw-medium"
-            >
-              CEP:
-            </label>
-            <input
-              id="zipCode"
-              type="text"
-              aria-describedby="zipCodeAria"
-              placeholder="Insire seu cep: "
-              value={zipCode}
-              onChange={(e) => setZipCode(e.target.value)}
-              className={
-                error && !zipCode
-                  ? "profile-input form-control is-invalid col-1 w-50"
-                  : "profile-input form-control col-1 w-50"
-              }
-            />
-            <div
-              id="zipCodeAria"
-              className="invalid-feedback text-center fw-medium"
-            >
-              Preencha o campo cep!
-            </div>
-          </div>
-          <div className="row mx-0 mb-5 fw-medium">
-            <label
-              htmlFor="city"
-              className="offset-sm-1 w-25 px-0 pt-2 fw-medium"
-            >
+
+          <div className="row mb-3 justify-content-center">
+            <label htmlFor="city" className="col-sm-3 col-form-label">
               Cidade:
             </label>
-            <input
-              id="city"
-              type="text"
-              aria-describedby="cityAria"
-              placeholder="Insire sua cidade: "
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-              className={
-                error && !city
-                  ? "profile-input form-control is-invalid col-1 w-50"
-                  : "profile-input form-control col-1 w-50"
-              }
-            />
-            <div
-              id="cityAria"
-              className="invalid-feedback text-center fw-medium"
-            >
-              Preencha o campo cidade!
+            <div className="col-sm-9">
+              <input
+                id="city"
+                type="text"
+                placeholder="Insira sua cidade"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                className={`form-control ${
+                  error && !city ? "is-invalid" : ""
+                }`}
+              />
+              <div className="invalid-feedback">Preencha o campo cidade!</div>
             </div>
           </div>
-          <div className="row mx-0 mb-5 fw-medium">
-            <label
-              htmlFor="district"
-              className="offset-sm-1 w-25 px-0 pt-2 fw-medium"
-            >
-              Bairro:
+
+          <div className="row mb-3 justify-content-center">
+            <label htmlFor="creci" className="col-sm-3 col-form-label">
+              CRECI:
             </label>
-            <input
-              id="district"
-              type="text"
-              aria-describedby="districtAria"
-              placeholder="Insire seu bairro: "
-              value={district}
-              onChange={(e) => setDistrict(e.target.value)}
-              className={
-                error && !district
-                  ? "profile-input form-control is-invalid col-1 w-50"
-                  : "profile-input form-control col-1 w-50"
-              }
-            />
-            <div
-              id="districtAria"
-              className="invalid-feedback text-center fw-medium"
-            >
-              Preencha o campo bairro!
+            <div className="col-sm-9">
+              <input
+                id="creci"
+                type="text"
+                placeholder="Insira seu CRECI"
+                value={creci}
+                onChange={(e) => setCreci(e.target.value)}
+                className={`form-control ${
+                  error && !creci ? "is-invalid" : ""
+                }`}
+              />
+              <div className="invalid-feedback">Preencha o campo CRECI!</div>
             </div>
           </div>
-          <div className="row mx-0 mb-5 fw-medium">
-            <label
-              htmlFor="creci"
-              className="offset-sm-1 w-25 px-0 pt-2 fw-medium"
-            >
-              Creci:
+
+          <div className="row mb-3 justify-content-center">
+            <label htmlFor="phone" className="col-sm-3 col-form-label">
+              Celular:
             </label>
-            <input
-              id="creci"
-              type="text"
-              aria-describedby="zipCodeAria"
-              placeholder="Insire seu creci: "
-              value={creci}
-              onChange={(e) => setCreci(e.target.value)}
-              className={
-                error && !creci
-                  ? "profile-input form-control is-invalid col-1 w-50"
-                  : "profile-input form-control col-1 w-50"
-              }
-            />
-            <div
-              id="creciAria"
-              className="invalid-feedback text-center fw-medium"
-            >
-              Preencha o campo creci!
+            <div className="col-sm-9">
+              <InputMask
+                id="phone"
+                type="text"
+                mask="(99) 99999-9999"
+                maskChar={null}
+                placeholder="Insira o número do celular"
+                value={phone}
+                onChange={handlePhoneChange}
+                onBlur={handlePhoneBlur}
+                className={`form-control ${
+                  error && !validatePhone(phone) ? "is-invalid" : ""
+                }`}
+              />
+              <div className="invalid-feedback">
+                {error || "Telefone inválido!"}
+              </div>
             </div>
           </div>
-          <div className="row mx-0 mb-5 fw-medium">
-            <label
-              htmlFor="roles"
-              className="offset-sm-1 w-25 px-0 pt-2 fw-medium"
-            >
-              Função:
-            </label>
-            <input
-              id="roles"
-              type="text"
-              aria-describedby="rolesAria"
-              placeholder="Insire sua função: "
-              value={roles}
-              onChange={(e) => setRoles(e.target.value)}
-              className={
-                error && !roles
-                  ? "profile-input form-control is-invalid col-1 w-50"
-                  : "profile-input form-control col-1 w-50"
-              }
-            />
-            <div
-              id="rolesAria"
-              className="invalid-feedback text-center fw-medium"
-            >
-              Preencha o campo Função!
+
+          <div className="row mb-3  col-sm-9 offset-sm-3 justify-content-center">
+            <div className="row">
+              <div className="form-check col">
+                <input
+                  type="radio"
+                  className="form-check-input"
+                  id="changePasswordNo"
+                  name="changePassword"
+                  value="no"
+                  checked={!changePassword}
+                  onChange={() => setChangePassword(false)}
+                />
+                <label className="form-check-label" htmlFor="changePasswordNo">
+                  Não quero alterar a senha
+                </label>
+              </div>
+              <div className="form-check col">
+                <input
+                  type="radio"
+                  className="form-check-input"
+                  id="changePasswordYes"
+                  name="changePassword"
+                  value="yes"
+                  checked={changePassword}
+                  onChange={() => setChangePassword(true)}
+                />
+                <label className="form-check-label" htmlFor="changePasswordYes">
+                  Quero alterar a senha
+                </label>
+              </div>
             </div>
           </div>
-          <div className="row mx-0 mb-5 fw-medium">
-            <label
-              htmlFor="isAdmin"
-              className="offset-sm-1 w-25 px-0 pt-2 fw-medium"
-            >
-              Admin:
-            </label>
-            <select
-              id="isAdmin"
-              aria-describedby="isAdminAria"
-              value={isAdmin.toString()} // Convertemos o valor booleano para string
-              onChange={(e) => setIsAdmin(e.target.value === "true")}
-              className="form-select col-1 w-50"
-            >
-              <option value="true">Sim</option>
-              <option value="false">Não</option>
-            </select>
-            <div
-              id="isAdminAria"
-              className="invalid-feedback text-center fw-medium"
-            >
-              {/* Preencha o campo Admin! (Se desejar mostrar uma mensagem de erro) */}
+
+          {changePassword && (
+            <div className="row mb-3 justify-content-center">
+              <label htmlFor="password" className="col-sm-3 col-form-label">
+                Nova Senha:
+              </label>
+              <div className="col-sm-9">
+                <input
+                  id="password"
+                  type="password"
+                  placeholder="Insira sua nova senha"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="form-control"
+                />
+              </div>
             </div>
-          </div>
-     <div className="row mx-0 mb-5 fw-medium">
-        <label
-          htmlFor="phone"
-          className="offset-sm-1 w-25 px-0 pt-2 fw-medium"
-        >
-          Celular:
-        </label>
-        <InputMask
-          id="phone"
-          type="text"
-          mask="99999-9999"
-          maskChar={null}
-          aria-describedby="phoneAria"
-          placeholder="Insira o número do celular"
-          value={phone}
-          onChange={handlePhoneChange}
-          onBlur={handlePhoneBlur}
-          className={
-            error && !validatePhone(phone)
-              ? "profile-input form-control is-invalid col-1 w-50"
-              : "profile-input form-control col-1 w-50"
-          }
-        />
-        <div
-          id="phoneAria"
-          className="invalid-feedback text-center fw-medium"
-        >
-          {error || "Telefone inválido!"}
-        </div>
-      </div>
-          <div className="d-grid gap-2 d-md-flex mt-4">
+          )}
+
+          <div className="d-grid gap-2 d-md-flex mt-4 justify-content-end">
             <button
               type="submit"
               onClick={handleSubmit}
-              className="btn btn-info text-light"
+              className="btn btn-primary text-light me-2"
             >
               Atualizar perfil
             </button>
@@ -554,7 +308,6 @@ const Profile: React.FC = () => {
       </div>
 
       <ToastContainer autoClose={3000} className="custom-toast" />
-
       <Footer />
     </>
   );
