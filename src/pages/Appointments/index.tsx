@@ -55,10 +55,10 @@ const Appointments: React.FC = () => {
                       <p className="card-text">{appointment.estateId}</p>
                       <div className="row pt-2">
                         <div className="col p-0">
-                          <small>{appointment.clientUserId}</small>
+                          {/* <small>{appointment.clientUserId}</small> */}
                         </div>
                         <div className="col p-0">
-                          <small>{appointment.userId}</small>
+                          {/* <small>{appointment.userId}</small> */}
                         </div>
                       </div>
                     </div>
