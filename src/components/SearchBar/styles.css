@@ -1,26 +1,19 @@
 
-.pesquisa[placeholder] {
-    padding-left: 2rem;
+.pesquisa {
+    padding-left: 1.5rem;
     height: auto;
-    color: white !important;
+    width: 70%;
+    border: 2px solid #0d6efd;
   }
-  .pesquisa-borda-branca {
-    border-color: white !important;
-  }
-
-  .pesquisa-borda-branca::placeholder {
-    color: white !important;
-  }
-  
   .searchIcon {
     position: relative;
   }
   .searchIcon svg {
     position: absolute;
-    top: 20%;
-    left: 2%;
-    height: 22px;
-    color: white;
+    padding: auto;
+    background-color: #0d6efd;
+    max-width: 5%;
+    height: 100%;
   }
   
   .searchIcon:focus-within svg {

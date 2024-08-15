@@ -18,7 +18,7 @@ const SearchBar: React.FC = () => {
     <form className="d-flex mx-auto" role="search" onSubmit={handleSearch}>
       <div className="searchIcon input-group">
         <input
-          className="pesquisa form-control rounded-end pesquisa-borda-branca text-light me-2 bg-primary"
+          className="pesquisa rounded-end text-light  me-1"
          
           type="search"
           placeholder="Encontre Imoveis"
@@ -27,12 +27,12 @@ const SearchBar: React.FC = () => {
           onChange={(e) => setQuery(e.target.value)}
         />
         <button
-          className="btn btn-outline-info text-light pesquisa-borda-branca rounded" 
+          className="btn text-light btn-outline-info rounded bg-primary " 
           type="submit"
         >
           Pesquisar
         </button>
-        <MagnifyingGlassIcon />
+        <MagnifyingGlassIcon style={{ color: "#0d6efd", width: "10%" }} />
       </div>
     </form>
   );
