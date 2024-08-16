@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./styles.css";
 import { FcHome } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
+import NotificationDropdown from "../Notification";
+
 const Navbar: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [authChecked, setAuthChecked] = useState(false);
@@ -118,13 +120,14 @@ const Navbar: React.FC = () => {
               </a>
             </li>
             <li className="nav-item">
-              <a
+              {/* <a
                 className="nav-link active"
                 aria-current="page"
                 href="/notifications"
               >
                 Notificações
-              </a>
+              </a> */}
+              <NotificationDropdown />
             </li>
 
         <li className="nav-item dropdown">
