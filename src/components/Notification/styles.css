@@ -1,57 +1,73 @@
-.notification-dropdown {
-    position: relative;
-    display: inline-block;
+.notification-dropdown .dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 75px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 150px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
   }
   
-  .notification-icon {
+  .notification-dropdown .dropdown-menu.open {
+    display: block;
+  }
+  
+  .notification-dropdown .notification-icon {
+    position: relative;
     cursor: pointer;
-    position: relative;
+    margin-left: 7px;
   }
   
-  .notification-count {
+  .notification-dropdown .notification-count {
     position: absolute;
     top: -5px;
     right: -5px;
     background-color: red;
     color: white;
     border-radius: 50%;
-    padding: 2px 5px;
+    padding: 2px 6px;
     font-size: 12px;
   }
   
-  .dropdown-menu {
-    position: absolute;
-    right: 0;
-    top: 100%;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 300px;
-    max-height: 300px;
-    overflow-y: auto;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    z-index: 1000;
-  }
-  
   .notification-list {
-    list-style: none;
-    padding: 0;
+    list-style-type: none;
     margin: 0;
+    padding: 0;
   }
   
   .notification-list li {
     padding: 10px;
-    border-bottom: 1px solid #eee;
     cursor: pointer;
+    font-size: 14px;
   }
   
   .notification-list li:hover {
-    background-color: #f0f0f0;
+    opacity: 0.8;
   }
   
   .no-notifications {
-    padding: 20px;
+    padding: 10px;
+    font-size: 14px;
     text-align: center;
-    color: #888;
+    color: white;
   }
-  
+ 
+  /* styles.css */
+.container {
+  margin-top: 20px;
+}
+
+.card-header {
+  background-color: #007bff;
+  color: white;
+}
+
+.card-body {
+  font-size: 16px;
+}
+
+h5 {
+  margin-bottom: 0.5rem;
+}
