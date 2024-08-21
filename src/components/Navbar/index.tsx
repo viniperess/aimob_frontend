@@ -3,7 +3,7 @@ import "./styles.css";
 import { FcHome } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 import NotificationDropdown from "../Notification";
-
+import  IconConfig  from "../../assets/images/icons8-configuração-32.png"
 const Navbar: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [authChecked, setAuthChecked] = useState(false);
@@ -120,14 +120,8 @@ const Navbar: React.FC = () => {
               </a>
             </li>
             <li className="nav-item">
-              {/* <a
-                className="nav-link active"
-                aria-current="page"
-                href="/notifications"
-              >
-                Notificações
-              </a> */}
               <NotificationDropdown />
+
             </li>
 
         <li className="nav-item dropdown">
@@ -138,9 +132,10 @@ const Navbar: React.FC = () => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Perfil
+              <img src={IconConfig} id="imgConfig" alt="Meu Ícone SVG" width="25" height="25"/>
               </a>
-              <ul className="dropdown-menu dropdown-menu-end bg-primary">
+      
+              <ul className="dropdown-menu dropdown-menu-end bg-primary"  style={{fontSize: '14px'}}>
                 <li>
                   <a className="dropdown-item text-white no-hover" href="/profile">
                     Perfil
