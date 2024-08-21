@@ -16,22 +16,24 @@ import RealEstateByContact from "../pages/RealEstateContact/RealEstatesById";
 import ForgotPassword from "../pages/ForgotPassword";
 import ResetPassword from "../pages/ResetPassword";
 import ProtectedRoute from "./ProtectedRoute";
+import TaskDetail from "../pages/Tasks/TaskDetail";
 
 const RoutesApp: React.FC = () => {
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Fragment>
         <Routes>
-          
           <Route path="/" element={<Home />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/forgot_password" element={<ForgotPassword />} />
           <Route path="/reset_password" element={<ResetPassword />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/realestatescontact" element={<RealEstateContact />} />
-          <Route path="/realEstateByContact/:id" element={<RealEstateByContact />} />
+          <Route
+            path="/realEstateByContact/:id"
+            element={<RealEstateByContact />}
+          />
 
-         
           <Route
             path="/profile"
             element={
@@ -101,6 +103,14 @@ const RoutesApp: React.FC = () => {
             element={
               <ProtectedRoute>
                 <TaskTable />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/tasks/:id"
+            element={
+              <ProtectedRoute>
+                <TaskDetail />
               </ProtectedRoute>
             }
           />
