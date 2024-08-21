@@ -1,10 +1,8 @@
-import React from "react";
+import { faInstagram, faLinkedinIn, faGithub, faDiscord } from '@fortawesome/free-brands-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { fab } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-// Adicione os ícones que você está usando
-library.add(fab.faFacebookF, fab.faTwitter, fab.faGoogle, fab.faInstagram, fab.faLinkedinIn, fab.faGithub, fab.faDiscord);
+library.add(faInstagram, faLinkedinIn, faGithub, faDiscord);
 
 const Footer: React.FC = () => {
   return (
@@ -21,7 +19,7 @@ const Footer: React.FC = () => {
             href="https://discord.gg/W2SXNRr7"
             role="button"
           >
-            <FontAwesomeIcon icon={["fab", "discord"]} />
+            <FontAwesomeIcon icon={faDiscord} />
           </a>
 
           {/* Instagram */}
@@ -32,7 +30,7 @@ const Footer: React.FC = () => {
             href="https://instagram.com/viniperess_"
             role="button"
           >
-            <FontAwesomeIcon icon={["fab", "instagram"]} />
+            <FontAwesomeIcon icon={faInstagram} />
           </a>
 
           {/* Linkedin */}
@@ -43,7 +41,7 @@ const Footer: React.FC = () => {
             href="https://www.linkedin.com/in/vin%C3%ADciusgperes/"
             role="button"
           >
-            <FontAwesomeIcon icon={["fab", "linkedin-in"]} />
+            <FontAwesomeIcon icon={faLinkedinIn} />
           </a>
 
           {/* Github */}
@@ -54,7 +52,7 @@ const Footer: React.FC = () => {
             href="https://github.com/viniperess"
             role="button"
           >
-            <FontAwesomeIcon icon={["fab", "github"]} />
+            <FontAwesomeIcon icon={faGithub} />
           </a>
         </section>
         {/* Section: Social media */}

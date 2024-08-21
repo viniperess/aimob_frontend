@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import api from "../../service/api";
 import "./styles.css";
 import { NotificationType } from "../../types/notification";
@@ -16,7 +15,6 @@ const NotificationDropdown: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [taskDetails, setTaskDetails] = useState<Task | null>(null);
 
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchNotifications = async () => {
