@@ -15,7 +15,6 @@ const NotificationDropdown: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [taskDetails, setTaskDetails] = useState<Task | null>(null);
 
-
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
@@ -64,17 +63,20 @@ const NotificationDropdown: React.FC = () => {
         console.error("Failed to approve task", error);
       }
     }
-
   };
 
   const handleDelete = async () => {
-    if (selectedNotification) {
+    if (selectedNotification && taskDetails?.appointmentId) {
       try {
-        const delNoti = await api.delete(`/tasks/${selectedNotification.taskId}`);
-        const delTask = await api.delete(`/appointments/${taskDetails?.appointmentId}`);
-        const delContact = await api.delete(`/contacts/${taskDetails?.contactId}`);
-        console.log("DELETE:", delNoti,delTask,delContact);
-        
+        await api.patch(`/appointments/${taskDetails.appointmentId}`, {
+          visitApproved: false,
+        });
+
+        await api.delete(`/tasks/${selectedNotification.taskId}`);
+        await api.delete(`/appointments/${taskDetails.appointmentId}`);
+        await api.delete(`/contacts/${taskDetails.contactId}`);
+
+        console.log("DELETE: Task, Appointment, and Contact removed");
         setModalOpen(false);
         setNotifications(
           notifications.filter((n) => n.id !== selectedNotification.id)
@@ -94,7 +96,7 @@ const NotificationDropdown: React.FC = () => {
       );
       await api.delete(`/notifications/${selectedNotification.id}`);
     }
-  }
+  };
 
   return (
     <div className="notification-dropdown">
@@ -188,12 +190,13 @@ const NotificationDropdown: React.FC = () => {
         <Modal.Footer>
           {taskDetails?.appointmentId ? (
             <>
-          <Button variant="warning" onClick={handleDelete}>
-            Cancelar
-          </Button>
-          <Button variant="primary" onClick={handleApprove}>
-            Aprovar
-          </Button></>
+              <Button variant="warning" onClick={handleDelete}>
+                Cancelar
+              </Button>
+              <Button variant="primary" onClick={handleApprove}>
+                Aprovar
+              </Button>
+            </>
           ) : (
             <Button variant="primary" onClick={handleOk}>
               OK
