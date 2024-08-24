@@ -48,7 +48,7 @@ const Footer: React.FC = () => {
           <a
             data-mdb-ripple-init
             className="btn text-white btn-floating m-1"
-            style={{ backgroundColor: "#ffff" }}  // Cor oficial do GitHub
+            style={{ backgroundColor: "#6d6d6d" }}  // Cor oficial do GitHub
             href="https://github.com/viniperess"
             role="button"
           >
