@@ -44,7 +44,7 @@ const Navbar: React.FC = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto">
+          <ul className="navbar-nav me-auto pt-1">
             <li className="nav-item">
               <p className="nav-link" aria-current="page">
                 Aimob
@@ -60,7 +60,7 @@ const Navbar: React.FC = () => {
                 Imóvel
               </a>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <a
                 className="nav-link active"
                 aria-current="page"
@@ -68,7 +68,7 @@ const Navbar: React.FC = () => {
               >
                 Contato
               </a>
-            </li>
+            </li> */}
             {/* <li className="nav-item">
               <a
                 className="nav-link active"
