@@ -27,7 +27,7 @@ const ForgotPassword: React.FC = () => {
   };
 
   return (
-    <div className="container-fluid d-flex" style={{ height: "100vh"}}>
+    <div className="container-fluid d-flex p-0" style={{ height: "100vh"}}>
       <div className="col align-items-center justify-content-start d-flex text-start m-4">
         <div className="boxFormForgot">
           <h1 className="olaForgot justify-content-start align-items-start">
@@ -70,7 +70,7 @@ const ForgotPassword: React.FC = () => {
           </p>
         </div>
       </div>
-      <div className="container imageForgot col-6">
+      <div className="container imageForgot col-6 m-0">
         <img src={Logo} alt="Aimob logo" />
       </div>
     </div>
