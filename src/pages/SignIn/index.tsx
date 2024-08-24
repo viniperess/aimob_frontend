@@ -32,7 +32,7 @@ const SignIn: React.FC = () => {
 
   return (
     <div
-      className="container-fluid d-flex"
+      className="container-fluid d-flex p-0"
       style={{height: "100vh"
       }}
     >

@@ -70,7 +70,7 @@ body {
   width: 100%;
   height: auto;
   justify-content: center;
-  background-size: cover;
+  background-size: contain;
   background-image: url("../../assets/images/aimoblogo_azul.png");
   display: flex;
 }
