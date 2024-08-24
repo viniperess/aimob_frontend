@@ -9,13 +9,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBed,
   faCar,
-  faPenToSquare,
   faRuler,
   faShower,
+  faUtensils,
+  faCouch,
+  faPenToSquare,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import "./styles.css";
-
+import { Row, Col } from "react-bootstrap";
 const RealEstate: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
   const [realEstate, setRealEstate] = useState<RealEstateType>();
@@ -154,72 +156,70 @@ const RealEstate: React.FC = () => {
                     <FontAwesomeIcon icon={faTrash} />
                   </button>
                 </div>
+                
                 <div className="card-body text-left">
-                  <h3 className="card-text">
-                    <small className="text-left">
-                      Bairro {realEstate.district}, &nbsp;{realEstate.city}
-                      &nbsp; - {realEstate.state}
-                    </small>
+                  <h3 className="card-text py-3  mb-2">
+                    Bairro {realEstate.district}, {realEstate.city} -{" "}
+                    {realEstate.state}
                   </h3>
-                  <p className="card-text">
-                    <small className="text-left">
-                      Rua {realEstate.street}
-                      &nbsp;{realEstate.number}&nbsp;{realEstate?.complement},
-                      {realEstate.zipCode}
-                    </small>
+                  <p className="card-text mb-3">
+                    Rua {realEstate.street}, {realEstate.number}
+                    {realEstate.complement &&
+                      `, ${realEstate.complement}`}, {realEstate.zipCode}
                   </p>
-
-                  <div className="d-flex text-left">
-                  
-                    <p className="card-text align-items-center row">
-                      <span className="icon-bed m-1">
-                        <FontAwesomeIcon icon={faBed} />
-                      </span>
-                      {realEstate.bedrooms <= 1
-                        ? `${realEstate.bedrooms} quarto`
-                        : `${realEstate.bedrooms} quartos`}
-                    </p>
-
-                   
-                    <p
-                      className="card-text align-items-center row"
-                    
-                    >
-                      <span className="m-1">
-                        <FontAwesomeIcon icon={faShower} />
-                      </span>
-
-                      {realEstate.bathrooms <= 1
-                        ? `${realEstate.bathrooms} banheiro`
-                        : `${realEstate.bathrooms} banheiros`}
-                    </p>
-
-                    
-                    <p
-                      className="card-text align-items-center row "
-                     
-                    >
-                      <span className="m-1">
-                        <FontAwesomeIcon icon={faRuler} />
-                      </span>
-                      {realEstate.totalArea}m²
-                    </p>
-
-                    <p
-                      className="card-text align-items-center row"
-                     
-                    >
-                      <span className="m-1">
-                        <FontAwesomeIcon icon={faCar} />
-                      </span>
-                      {realEstate.garage ? "1" : "0"} vaga
-                    </p>
+                  <Row className="py-3 mb-4">
+                    <Col xs={6} md={4}>
+                      <p className="card-text d-flex align-items-center">
+                        <FontAwesomeIcon icon={faBed} className="me-2" />
+                        {realEstate.bedrooms}{" "}
+                        {realEstate.bedrooms === "1" ? "quarto" : "quartos"}
+                      </p>
+                    </Col>
+                    <Col xs={6} md={4}>
+                      <p className="card-text d-flex align-items-center">
+                        <FontAwesomeIcon icon={faShower} className="me-2" />
+                        {realEstate.bathrooms}{" "}
+                        {realEstate.bathrooms === "1"
+                          ? "banheiro"
+                          : "banheiros"}
+                      </p>
+                    </Col>
+                    <Col xs={6} md={4}>
+                      <p className="card-text d-flex align-items-center">
+                        <FontAwesomeIcon icon={faRuler} className="me-2" />
+                        {realEstate.totalArea} m²
+                      </p>
+                    </Col>
+                    <Col xs={6} md={4}>
+                      <p className="card-text d-flex align-items-center">
+                        <FontAwesomeIcon icon={faCar} className="me-2" />
+                        {realEstate.garage ? "1" : "0"} vaga
+                      </p>
+                    </Col>
+                    <Col xs={6} md={4}>
+                      <p className="card-text d-flex align-items-center">
+                        <FontAwesomeIcon icon={faUtensils} className="me-2" />
+                        {realEstate.kitchens}{" "}
+                        {realEstate.kitchens === "1" ? "cozinha" : "cozinhas"}
+                      </p>
+                    </Col>
+                    <Col xs={6} md={4}>
+                      <p className="card-text d-flex align-items-center">
+                        <FontAwesomeIcon icon={faCouch} className="me-2" />
+                        {realEstate.livingRooms}{" "}
+                        {realEstate.livingRooms === "1"
+                          ? "sala de estar"
+                          : "salas de estar"}
+                      </p>
+                    </Col>
+                  </Row>
+                  <div className="text-left py-3 mb-4">
+                    <h4 className="text-primary">R$ {realEstate.salePrice}</h4>
                   </div>
 
-                  <div className="text-left float-start">
-                    <h5 className="text-primary">R$ {realEstate.salePrice}</h5>
-                  </div>
+  
                 </div>
+
               </div>
             </div>
           </div>
