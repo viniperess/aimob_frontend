@@ -16,4 +16,9 @@
     font-size: 14px;
     padding: 7px;
   } 
-  
+
+  .page-container {
+    width: 100%;
+    overflow-x: hidden; /* Esconde o scroll horizontal */
+    padding: 0 15px; /* Adiciona padding lateral */
+}

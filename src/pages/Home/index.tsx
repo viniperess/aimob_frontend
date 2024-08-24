@@ -37,7 +37,7 @@ const Home: React.FC = () => {
             Adicionar Imóvel
           </a>
         </div>
-        <div className="main-content row m-3 mb-1">
+        <div className="main-content row m-3 mb-1 justify-content-center">
           {loading ? (
             [1, 2, 3, 4, 5, 6, 7, 8].map((n) => <Loading key={n} />)
           ) : realEstates.length === 0 ? (
