@@ -96,7 +96,7 @@ const MasterForm = () => {
             <div className="actions">
               {!isFirstStep && (
                 <button
-                 className="bg-primary"
+                 className="bg-warning"
                   type="button"
                   onClick={() => changeStep(currentStep - 1)}
                 >
@@ -105,12 +105,12 @@ const MasterForm = () => {
                 </button>
               )}
               {!isLastStep ? (
-                <button type="submit" className="btn text-light fw-medium">
+                <button type="submit" className="btn text-light fw-medium bg-primary">
                   <span>Avançar</span>
                   <GrFormNext />
                 </button>
               ) : (
-                <button type="button" className="bg-primary" onClick={(e) => handleSubmit(e)}>
+                <button type="button" className="btn text-light fw-medium bg-primary" onClick={(e) => handleSubmit(e)}>
                   <span>Enviar</span>
                   <FiSend />
                 </button>
