@@ -2,8 +2,8 @@
 .pesquisa {
     padding-left: 1.5rem;
     height: auto;
-    width: 70%;
-    border: 2px solid #0d6efd;
+    /* width: 70%; */
+    border: 1px solid #0d6efd;
   }
   .searchIcon {
     position: relative;
@@ -20,20 +20,3 @@
     visibility: hidden;
   }
   
-  @media only screen and (max-width: 1200px) and (min-width: 700px) {
-    .pesquisa[placeholder] {
-      padding-left: 3rem;
-    }
-  }
-  
-  @media only screen and (min-width: 1200px) {
-    .searchIcon {
-      width: 25rem;
-    }
-  }
-  
-  @media only screen and (min-width: 1260px) {
-    .searchIcon {
-      width: 35rem;
-    }
-  }
