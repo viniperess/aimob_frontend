@@ -127,3 +127,7 @@ button:hover {
     height: 62px;
   }
 }
+
+#email, #password, #name, #user, #cpf, #city, #phone, #creci, #passwordTwo {
+  border-radius:45px;
+}

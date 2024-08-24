@@ -182,7 +182,7 @@ const SignUp: React.FC = () => {
               <label className="text-danger">{error}</label>
             </div>
             <div className="d-grid">
-              <button type="submit" className="btn bg-white text-primary">
+              <button type="submit" className="btn bg-white text-primary" style={{borderRadius: "50px"}}>
                 Registrar-se
               </button>
             </div>
