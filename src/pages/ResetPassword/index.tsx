@@ -29,7 +29,7 @@ const ResetPassword: React.FC = () => {
   };
 
   return (
-    <div className="container-fluid d-flex" style={{ height: "100vh" }}>
+    <div className="container-fluid d-flex p-0" style={{ height: "100vh" }}>
       <div className="col align-items-center justify-content-start d-flex text-start m-4">
         <div className="boxFormReset">
           <h1 className="olaReset justify-content-start align-items-start">
@@ -94,7 +94,7 @@ const ResetPassword: React.FC = () => {
           </p>
         </div>
       </div>
-      <div className="container imageReset col-6">
+      <div className="container imageReset col-6 m-0">
         <img src={Logo} alt="Aimob logo" />
       </div>
     </div>
