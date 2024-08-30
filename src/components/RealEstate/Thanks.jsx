@@ -18,7 +18,7 @@ const Thanks = ({ data }) => {
               </a>
             </td>
             <th scope="row">Tipo</th>
-            <td>{data.type ? "Apartamento" : "Casa"}</td>
+            <td>{data.type}</td>
           </tr>
           <tr>
             <th scope="row">Cep</th>

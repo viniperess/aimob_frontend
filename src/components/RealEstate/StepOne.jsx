@@ -1,13 +1,58 @@
+import axios from "axios";
 import "./StepOne.css";
 import { GiHouse, GiFamilyHouse } from "react-icons/gi";
 
 const StepOne = ({ data, onChange }) => {
+
+  const fetchAddress = async (cep) => {
+    try {
+      const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+      const addressData = response.data;
+
+      if (!addressData.erro) {
+        onChange({
+          ...data,
+          street: addressData.logradouro || "",
+          district: addressData.bairro || "",
+          city: addressData.localidade || "",
+          state: addressData.uf || "",
+        });
+      } else {
+        console.error("CEP inválido");
+        onChange({
+          ...data,
+          street: "",
+          district: "",
+          city: "",
+          state: "",
+        });
+      }
+    } catch (error) {
+      console.error("Erro ao buscar endereço:", error);
+      onChange({
+        ...data,
+        street: "",
+        district: "",
+        city: "",
+        state: "",
+      });
+    }
+  };
+
   const handleInputChange = (e) => {
     const { name, value, type } = e.target;
     if (type === "radio") {
       onChange({ [name]: value });
     } else {
       onChange({ [name]: value });
+    }
+    
+  };
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    if (name === "zipCode" && value.length === 8) {
+      fetchAddress(value);
     }
   };
 
@@ -17,10 +62,10 @@ const StepOne = ({ data, onChange }) => {
         <label className="radio-container">
           <input
             type="radio"
-            value="APARTMENT"
+            value="APARTAMENTO"
             name="type"
             required
-            checked={data.type === "APARTMENT"}
+            checked={data.type === "APARTAMENTO"}
             onChange={handleInputChange}
           />
           <GiFamilyHouse />
@@ -29,10 +74,10 @@ const StepOne = ({ data, onChange }) => {
         <label className="radio-container">
           <input
             type="radio"
-            value="HOUSE"
+            value="CASA"
             name="type"
             required
-            checked={data.type === "HOUSE"}
+            checked={data.type === "CASA"}
             onChange={handleInputChange}
           />
           <GiHouse />
@@ -50,6 +95,7 @@ const StepOne = ({ data, onChange }) => {
             aria-describedby="zipCodeFeedback"
             value={data.zipCode || ""}
             onChange={handleInputChange}
+            onBlur={handleBlur}
             className="form-control"
             required
           />

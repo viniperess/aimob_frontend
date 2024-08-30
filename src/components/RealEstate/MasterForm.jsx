@@ -96,7 +96,7 @@ const MasterForm = () => {
             <div className="actions">
               {!isFirstStep && (
                 <button
-                 className="bg-warning"
+                 className="bg-warning text-white"
                   type="button"
                   onClick={() => changeStep(currentStep - 1)}
                 >
