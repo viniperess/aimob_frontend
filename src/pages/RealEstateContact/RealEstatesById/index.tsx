@@ -14,13 +14,16 @@ import {
 import { User } from "../../../types/user";
 import { Modal, Button, Row, Col } from "react-bootstrap";
 import FooterContact from "../../../components/FooterContact";
-
+import InputMask from "react-input-mask";
+import "./styles.css";
 const RealEstateByContact: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
   const [realEstate, setRealEstate] = useState<RealEstateType>();
   const [user, setUser] = useState<User | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState<string>("");
+  const [formError, setFormError] = useState("");
+  const [appointmentError, setAppointmentError] = useState("");
   console.log(user);
 
   const [formData, setFormData] = useState({
@@ -89,6 +92,11 @@ const RealEstateByContact: React.FC = () => {
     }
   };
 
+  const errorMessages = {
+    "Appointment with this date not available":
+      "Horário indisponível para visita.",
+    "Email already exists.": "O e-mail já está cadastrado.",
+  };
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -123,9 +131,18 @@ const RealEstateByContact: React.FC = () => {
           taskDescription: "Agendando Visita",
           estateId: id ? parseInt(id) : 0,
         });
+        setAppointmentError("");
         setShowModal(false);
-      } catch (error) {
+      } catch (error: any) {
         console.error("Erro ao enviar os dados:", error);
+        const errorMessage =
+          typeof error.response?.data?.message === "string"
+            ? error.response.data.message
+            : "";
+        const translatedErrorMessage =
+          errorMessages[errorMessage as keyof typeof errorMessages] ||
+          "Erro ao agendar a visita. Tente novamente.";
+        setAppointmentError(translatedErrorMessage);
       }
     } else if (modalContent === "Formulário Informações") {
       const updatedFormData = {
@@ -136,6 +153,13 @@ const RealEstateByContact: React.FC = () => {
       console.log("Dados para enviar:", updatedFormData);
 
       try {
+        const contactResponse = await api.get(
+          `/contacts?email=${formData.email}`
+        );
+        const existingContact = contactResponse.data;
+        if (existingContact) {
+          (updatedFormData as any).contactId = existingContact.id;
+        }
         await api.post("/contacts/basic", updatedFormData);
 
         console.log("Dados do Formulário Informações enviados com sucesso");
@@ -147,9 +171,18 @@ const RealEstateByContact: React.FC = () => {
           taskDescription: "Aguardando mais informações",
           estateId: id ? parseInt(id) : 0,
         });
+        setFormError("");
         setShowModal(false);
-      } catch (error) {
+      } catch (error: any) {
         console.error("Erro ao enviar os dados:", error);
+        const errorMessage =
+          typeof error.response?.data?.message === "string"
+            ? error.response.data.message
+            : "";
+        const translatedErrorMessage =
+          errorMessages[errorMessage as keyof typeof errorMessages] ||
+          "Erro ao enviar as informações. Tente novamente.";
+        setFormError(translatedErrorMessage);
       }
     }
   };
@@ -228,7 +261,6 @@ const RealEstateByContact: React.FC = () => {
                 </div>
               </div>
               <div className="card-secondary-real col p-4 border border-1  d-flex flex-column justify-content-between">
-                
                 <div className="card-body text-left">
                   <h3 className="card-text py-3  mb-2">
                     Bairro {realEstate.district}, {realEstate.city} -{" "}
@@ -293,20 +325,20 @@ const RealEstateByContact: React.FC = () => {
                     <Button
                       variant="primary"
                       onClick={() => handleShowModal("Formulário Informações")}
-                      className="me-2" style={{width: '13rem'}}
+                      className="me-2"
+                      style={{ width: "13rem" }}
                     >
                       Obter mais informações
                     </Button>
                     <Button
                       variant="warning"
                       onClick={() => handleShowModal("Formulário Agendamento")}
-                      style={{width: '13rem'}}
+                      style={{ width: "13rem" }}
                     >
                       Agendar uma visita
                     </Button>
                   </div>
                 </div>
-                
               </div>
             </div>
           </div>
@@ -329,6 +361,17 @@ const RealEstateByContact: React.FC = () => {
                   : "bg-primary text-white"
               }`}
             >
+              {appointmentError &&
+                modalContent === "Formulário Agendamento" && (
+                  <div className="alert alert-danger text-center">
+                    {appointmentError}
+                  </div>
+                )}
+              {formError && modalContent === "Formulário Informações" && (
+                <div className="alert alert-danger text-center">
+                  {formError}
+                </div>
+              )}
               <div className="row">
                 <div className="col-md-10">
                   <form onSubmit={handleSubmit}>
@@ -375,13 +418,14 @@ const RealEstateByContact: React.FC = () => {
                           >
                             Telefone
                           </label>
-                          <input
-                            type="text"
+                          <InputMask
+                            mask="+55 (99) 99999-9999"
+                            maskChar={null}
+                            value={formData.phone}
+                            onChange={handleInputChange}
                             className="form-control"
                             id="phone"
                             placeholder="Digite seu telefone"
-                            value={formData.phone}
-                            onChange={handleInputChange}
                             required
                           />
                         </div>
@@ -439,42 +483,26 @@ const RealEstateByContact: React.FC = () => {
                             required
                           />
                         </div>
-                        <div className="row">
-                        <div className="col-md-6">
+
+                        <div className="mb-3">
                           <label
                             htmlFor="contactPhone"
                             className="form-label text-white"
                           >
                             Telefone
                           </label>
-                          <input
-                            type="text"
+                          <InputMask
+                            mask="+55 (99) 99999-9999"
+                            maskChar={null}
+                            value={appointmentData.contactPhone}
+                            onChange={handleInputChange}
                             className="form-control"
                             id="contactPhone"
                             placeholder="Digite seu telefone"
-                            value={appointmentData.contactPhone}
-                            onChange={handleInputChange}
                             required
                           />
                         </div>
-                        <div className="col-md-6">
-                            <label
-                              htmlFor="observation"
-                              className="form-label text-white"
-                            >
-                              Observação
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              placeholder="Digite sua Observação"
-                              id="observation"
-                              value={appointmentData.observation}
-                              onChange={handleInputChange}
-                              required
-                            />
-                          </div>
-                          </div>
+
                         <div className="row">
                           <div className="col-md-6">
                             <label
@@ -508,7 +536,6 @@ const RealEstateByContact: React.FC = () => {
                               required
                             />
                           </div>
-
                         </div>
                         <div className="mb-3">
                           <label
