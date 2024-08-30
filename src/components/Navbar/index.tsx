@@ -4,11 +4,7 @@ import { FcHome } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 import NotificationDropdown from "../Notification";
 import  IconConfig  from "../../assets/images/icons8-configuração-32.png"
-import { jwtDecode } from "jwt-decode"; 
 
-interface DecodedToken {
-  exp: number; 
-}
 
 const Navbar: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -18,27 +14,11 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("userToken");
-
     if (token) {
-      try {
-        const decodedToken = jwtDecode<DecodedToken>(token);
-        const currentTime = Date.now() / 1000;
-
-        if (decodedToken.exp > currentTime) {
-          setIsLoggedIn(true);
-        } else {
-          localStorage.removeItem("userToken");
-          navigate("/signin");
-        }
-      } catch (error) {
-        console.error("Token inválido", error);
-        localStorage.removeItem("userToken");
-        navigate("/signin");
-      }
+      setIsLoggedIn(true);
     } else {
       navigate("/signin");
     }
-
     setAuthChecked(true);
   }, [navigate]);
 
