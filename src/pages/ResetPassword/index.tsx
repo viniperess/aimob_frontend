@@ -9,7 +9,9 @@ const ResetPassword: React.FC = () => {
   const { email } = location.state || {};
   const [resetCode, setResetCode] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState(""); // State for confirmation password
   const [error, setError] = useState("");
+  const [codeError, setCodeError] = useState(""); // State for reset code error
   const navigate = useNavigate();
 
   const handleReset = async (e: FormEvent) => {
@@ -20,11 +22,37 @@ const ResetPassword: React.FC = () => {
       return;
     }
 
+    if (password !== confirmPassword) {
+      setError("As senhas não coincidem.");
+      return;
+    }
+
     try {
       await api.post("reset-password", { email, resetCode, password });
       navigate("/signin");
     } catch (error) {
-      setError("O código de recuperação está incorreto. Tente novamente.");
+      setCodeError("O código de recuperação está incorreto. Tente novamente.");
+    }
+  };
+
+  // Real-time validation for password confirmation
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setPassword(value);
+    if (confirmPassword && value !== confirmPassword) {
+      setError("As senhas não coincidem.");
+    } else {
+      setError("");
+    }
+  };
+
+  const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setConfirmPassword(value);
+    if (password && value !== password) {
+      setError("As senhas não coincidem.");
+    } else {
+      setError("");
     }
   };
 
@@ -55,13 +83,14 @@ const ResetPassword: React.FC = () => {
                   id="resetCode"
                   value={resetCode}
                   placeholder="Código de Recuperação"
-                  onChange={(e) => [setResetCode(e.target.value), setError("")]}
-                  className={
-                    error && !resetCode
-                      ? "form-control is-invalid"
-                      : "form-control"
-                  }
+                  onChange={(e) => [setResetCode(e.target.value), setCodeError("")]}
+                  className={`form-control ${codeError ? "is-invalid" : ""}`}
                 />
+                {codeError && (
+                  <div className="invalid-feedback d-block text-center">
+                    {codeError}
+                  </div>
+                )}
               </div>
             </div>
             <div className="row">
@@ -75,14 +104,30 @@ const ResetPassword: React.FC = () => {
                   id="passwordReset"
                   value={password}
                   placeholder="Nova Senha"
-                  onChange={(e) => [setPassword(e.target.value), setError("")]}
-                  className={
-                    error && !password
-                      ? "form-control is-invalid"
-                      : "form-control"
-                  }
+                  onChange={handlePasswordChange}
+                  className={`form-control ${error && !confirmPassword ? "is-invalid" : ""}`}
                 />
-                <div className="invalid-feedback">{error}</div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col">
+                <label htmlFor="confirmPassword" className="form-label">
+                  Confirmar Senha
+                </label>
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  id="confirmPasswordReset"
+                  value={confirmPassword}
+                  placeholder="Confirmar Senha"
+                  onChange={handleConfirmPasswordChange}
+                  className={`form-control ${error && password !== confirmPassword ? "is-invalid" : ""}`}
+                />
+                {error && (
+                  <div className="invalid-feedback d-block text-center">
+                    {error}
+                  </div>
+                )}
               </div>
             </div>
             <button type="submit" className="btnReset btn-primary">

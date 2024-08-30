@@ -50,7 +50,7 @@ button:hover {
 }
 
 #passwordReset,
-#resetCode {
+#resetCode, #confirmPasswordReset {
   background-repeat: no-repeat;
   align-items: center;
   justify-content: center;
@@ -67,7 +67,7 @@ button:hover {
 }
 
 #passwordReset::placeholder,
-#resetCode::placeholder {
+#resetCode::placeholder, #confirmPasswordReset::placeholder {
   color: rgb(24, 159, 238);
 }
 
@@ -83,4 +83,10 @@ button:hover {
   font-weight: bold;
   text-align: center;
   color: rgb(24, 159, 238);
+}
+.invalid-feedback {
+  display: block;
+  text-align: center;
+  margin-top: 0.25rem;
+  font-size: 0.875em;
 }
