@@ -11,36 +11,23 @@ import "react-toastify/dist/ReactToastify.css";
 const Profile: React.FC = () => {
   const [profile, setProfile] = useState<User>();
   const [user, setUser] = useState("");
+  const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [cpf, setCpf] = useState("");
   const [city, setCity] = useState("");
   const [phone, setPhone] = useState<string>("");
   const [creci, setCreci] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [changePassword, setChangePassword] = useState(false);
   const [error, setError] = useState("");
-
+  const [passwordError, setPasswordError] = useState("");
   const navigate = useNavigate();
 
-  function validatePhone(phone: string): boolean {
-    if (phone.trim() === "") {
-      return true;
-    }
-    const standard = /^(\(\d{2}\)\s?)?\d{5}-\d{4}$/;
-    return standard.test(phone);
-  }
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newPhone = e.target.value.replace(/[^0-9]/g, "");
     setPhone(newPhone);
-  };
-
-  const handlePhoneBlur = () => {
-    if (!validatePhone(phone)) {
-      setError("Telefone inválido!");
-    } else {
-      setError("");
-    }
   };
 
   const getProfile = async () => {
@@ -48,6 +35,7 @@ const Profile: React.FC = () => {
       const response = await api.get("users/profile");
       setProfile(response.data);
       setUser(response.data.user);
+      setEmail(response.data.email);
       setName(response.data.name);
       setCpf(response.data.cpf);
       setCity(response.data.city);
@@ -57,17 +45,40 @@ const Profile: React.FC = () => {
       console.log(error);
     }
   };
-
   useEffect(() => {
     getProfile();
   }, []);
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+    if (confirmPassword && e.target.value !== confirmPassword) {
+      setPasswordError("As senhas não coincidem!");
+    } else {
+      setPasswordError("");
+    }
+  };
+
+  const handleConfirmPasswordChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setConfirmPassword(e.target.value);
+    if (password && e.target.value !== password) {
+      setPasswordError("As senhas não coincidem!");
+    } else {
+      setPasswordError("");
+    }
+  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
+    if (changePassword && password !== confirmPassword) {
+      setPasswordError("As senhas não coincidem!");
+      return;
+    }
+  
     try {
       const data: any = {
         user,
+        email,
         name,
         cpf,
         city,
@@ -83,15 +94,24 @@ const Profile: React.FC = () => {
 
       getProfile();
 
-      toast.success("Perfil atualizado com sucesso!\nRedirecionando...", {
-        position: toast.POSITION.TOP_LEFT,
-        autoClose: 3000,
-        className: "custom-toast",
-      });
-
-      setTimeout(() => {
-        navigate("/signin");
-      }, 4000);
+      if (password || user !== profile?.user) {
+        toast.success("Perfil com sucesso! Você será deslogado.", {
+          position: toast.POSITION.TOP_LEFT,
+          autoClose: 3000,
+          className: "custom-toast",
+        });
+        setTimeout(() => {
+          localStorage.removeItem("userToken");
+          localStorage.removeItem("userName");
+          navigate("/signin");
+        }, 3000);
+      } else {
+        toast.success("Perfil atualizado com sucesso!", {
+          position: toast.POSITION.TOP_LEFT,
+          autoClose: 3000,
+          className: "custom-toast",
+        });
+      }
     } catch (error) {
       console.error("Erro ao atualizar o perfil: ", error);
     }
@@ -119,7 +139,10 @@ const Profile: React.FC = () => {
   return (
     <>
       <Navbar />
-      <div className="container bg-light-subtle my-5 py-5 px-5 rounded shadow-lg" style={{ maxWidth: "600px" }}>
+      <div
+        className="container bg-light-subtle my-5 py-5 px-5 rounded shadow-lg"
+        style={{ maxWidth: "600px" }}
+      >
         <h2 className="text-center mb-4">Atualizar Perfil</h2>
         <form method="post" key={profile?.id} className="text-center">
           <div className="row mb-3 justify-content-center">
@@ -140,7 +163,26 @@ const Profile: React.FC = () => {
               </div>
             </div>
           </div>
-
+          <div className="row mb-3 justify-content-center">
+            <label htmlFor="email" className="col-sm-3 col-form-label">
+              E-mail:
+            </label>
+            <div className="col-sm-9">
+              <input
+                id="email"
+                type="email"
+                placeholder="Insira seu novo e-mail"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className={`form-control ${
+                  error && !email ? "is-invalid" : ""
+                }`}
+              />
+              <div className="invalid-feedback">
+                Preencha o campo de E-mail!
+              </div>
+            </div>
+          </div>
           <div className="row mb-3 justify-content-center">
             <label htmlFor="name" className="col-sm-3 col-form-label">
               Nome:
@@ -186,9 +228,7 @@ const Profile: React.FC = () => {
                 placeholder="Insira sua cidade"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
-                className={`form-control ${
-                  error && !city ? "is-invalid" : ""
-                }`}
+                className={`form-control ${error && !city ? "is-invalid" : ""}`}
               />
               <div className="invalid-feedback">Preencha o campo cidade!</div>
             </div>
@@ -218,7 +258,7 @@ const Profile: React.FC = () => {
               Celular:
             </label>
             <div className="col-sm-9">
-              <InputMask
+            <InputMask
                 id="phone"
                 type="text"
                 mask="(99) 99999-9999"
@@ -226,14 +266,8 @@ const Profile: React.FC = () => {
                 placeholder="Insira o número do celular"
                 value={phone}
                 onChange={handlePhoneChange}
-                onBlur={handlePhoneBlur}
-                className={`form-control ${
-                  error && !validatePhone(phone) ? "is-invalid" : ""
-                }`}
+                className="form-control"
               />
-              <div className="invalid-feedback">
-                {error || "Telefone inválido!"}
-              </div>
             </div>
           </div>
 
@@ -271,37 +305,66 @@ const Profile: React.FC = () => {
           </div>
 
           {changePassword && (
-            <div className="row mb-3 justify-content-center">
-              <label htmlFor="password" className="col-sm-3 col-form-label">
-                Nova Senha:
-              </label>
-              <div className="col-sm-9">
-                <input
-                  id="password"
-                  type="password"
-                  placeholder="Insira sua nova senha"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="form-control"
-                />
+            <>
+              <div className="row mb-3 justify-content-center">
+                <label htmlFor="password" className="col-sm-3 col-form-label">
+                  Nova Senha:
+                </label>
+                <div className="col-sm-9">
+                  <input
+                    id="password"
+                    type="password"
+                    placeholder="Insira sua nova senha"
+                    value={password}
+                    onChange={handlePasswordChange}
+                    className={`form-control ${
+                      passwordError ? "is-invalid" : ""
+                    }`}
+                  />
+                </div>
               </div>
-            </div>
+              <div className="row mb-3 justify-content-center">
+                <label
+                  htmlFor="confirmPassword"
+                  className="col-sm-3 col-form-label"
+                >
+                  Confirmar Senha:
+                </label>
+                <div className="col-sm-9">
+                  <input
+                    id="confirmPassword"
+                    type="password"
+                    placeholder="Confirme sua nova senha"
+                    value={confirmPassword}
+                    onChange={handleConfirmPasswordChange}
+                    className={`form-control ${
+                      passwordError ? "is-invalid" : ""
+                    }`}
+                  />
+                  {passwordError && (
+                    <div className="invalid-feedback d-block">
+                      {passwordError}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </>
           )}
 
           <div className="d-grid gap-2 d-md-flex mt-4 justify-content-end">
-            <button
-              type="submit"
-              onClick={handleSubmit}
-              className="btn btn-primary text-light me-2"
-            >
-              Atualizar perfil
-            </button>
             <button
               type="submit"
               onClick={handleDeleteAccount}
               className="btn btn-warning text-light"
             >
               Excluir perfil
+            </button>
+            <button
+              type="submit"
+              onClick={handleSubmit}
+              className="btn btn-primary text-light me-2"
+            >
+              Atualizar perfil
             </button>
           </div>
         </form>
