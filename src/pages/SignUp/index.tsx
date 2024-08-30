@@ -160,7 +160,7 @@ const SignUp: React.FC = () => {
                 type="password"
                 name="password"
                 id="password"
-                placeholder="Password"
+                placeholder="Senha"
                 value={password}
                 onChange={(e) => [setPassword(e.target.value), setError("")]}
                 className={`form-control ${(error && !password) || (password.length < 8 && password.length !== 0) ? "is-invalid" : ""}`}
@@ -172,7 +172,7 @@ const SignUp: React.FC = () => {
                 name="passwordTwo"
                 id="passwordTwo"
                 value={passwordTwo}
-                placeholder="Password Confirm"
+                placeholder="Confirmar Senha"
                 onChange={(e) => [setPasswordTwo(e.target.value), setError("")]}
                 className={`form-control ${(error && !passwordTwo) || password !== passwordTwo ? "is-invalid" : ""}`}
               />
