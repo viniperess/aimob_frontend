@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import api from '../../../service/api';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
-import { Modal, Button } from 'react-bootstrap'; // Importar componentes do Bootstrap para modal
+import { Modal, Button, Nav, Form } from 'react-bootstrap'; // Importar componentes do Bootstrap para modal, nav e form
 
 interface Task {
   id: number;
@@ -15,6 +15,7 @@ interface Task {
     phone: string;
   } | null;
   appointment: {
+    id: number;
     visitDate: string;
     observation: string;
     visitApproved: boolean;
@@ -29,71 +30,210 @@ interface Task {
 
 const TaskTable: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [selectedContact, setSelectedContact] = useState<Task['contact'] | null>(null);
-  const [selectedAppointment, setSelectedAppointment] = useState<Task['appointment'] | null>(null);
+  const [filteredTasks, setFilteredTasks] = useState<Task[]>([]);
+  const [selectedFilter, setSelectedFilter] = useState<string>('toDo');
+  const [editingTaskId, setEditingTaskId] = useState<number | null>(null);
   const [showContactModal, setShowContactModal] = useState(false);
   const [showAppointmentModal, setShowAppointmentModal] = useState(false);
+  const [selectedContact, setSelectedContact] = useState<Task['contact'] | null>(null);
+  const [selectedAppointment, setSelectedAppointment] = useState<Task['appointment'] | null>(null);
+  const [selectedTasks, setSelectedTasks] = useState<Set<number>>(new Set());
 
   const getTasks = async () => {
     try {
       const response = await api.get('tasks');
       setTasks(response.data);
+      setFilteredTasks(response.data);
     } catch (error) {
       console.error("Erro ao carregar as tarefas", error);
     }
-  }
+  };
 
   useEffect(() => {
     getTasks();
   }, []);
 
+  useEffect(() => {
+    filterTasks(selectedFilter);
+  }, [selectedFilter, tasks]);
+
+  const filterTasks = (filter: string) => {
+    const today = new Date();
+    const filtered = tasks.filter(task => {
+      const taskDate = task.appointment ? new Date(task.appointment.visitDate) : null;
+      if (filter === 'toDo') return !['Concluído', 'Atrasada'].includes(task.status);
+      if (filter === 'today' && taskDate) return taskDate.toDateString() === today.toDateString() && task.status !== 'Concluído';
+      if (filter === 'tomorrow' && taskDate) {
+        const tomorrow = new Date(today);
+        tomorrow.setDate(today.getDate() + 1);
+        return taskDate.toDateString() === tomorrow.toDateString() && task.status !== 'Concluído';
+      }
+      if (filter === 'upcoming' && taskDate) return taskDate > today && taskDate.getTime() - today.getTime() <= 7 * 24 * 60 * 60 * 1000 && task.status !== 'Concluído';
+      if (filter === 'overdue' && taskDate) return taskDate < today && task.status !== 'Concluído';
+      if (filter === 'completed') return task.status === 'Concluído';
+      return false;
+    });
+    setFilteredTasks(filtered);
+  };
+
+  const handleStatusChange = (taskId: number, newStatus: string) => {
+    const updatedTasks = tasks.map(task => {
+      if (task.id === taskId) {
+        return { ...task, status: newStatus };
+      }
+      return task;
+    });
+    setTasks(updatedTasks);
+    api.patch(`/tasks/${taskId}`, { status: newStatus });
+  };
+
+
+  const handleDescriptionChange = (taskId: number, newDescription: string) => {
+    const updatedTasks = tasks.map(task => {
+      if (task.id === taskId) {
+        return { ...task, description: newDescription };
+      }
+      return task;
+    });
+    setTasks(updatedTasks);
+    api.patch(`/tasks/${taskId}`, { description: newDescription });
+  };
+  
+  const handleObservationChange = (taskId: number, newObservation: string) => {
+    const updatedTasks = tasks.map(task => {
+      if (task.id === taskId && task.appointment) {
+        return { ...task, appointment: { ...task.appointment, observation: newObservation } };
+      }
+      return task;
+    });
+    setTasks(updatedTasks);
+
+    const taskWithAppointment = updatedTasks.find(task => task.id === taskId && task.appointment);
+    if (taskWithAppointment && taskWithAppointment.appointment) {
+      api.patch(`/appointments/${taskWithAppointment.appointment.id}`, { observation: newObservation });
+    }
+};
+
+  const toggleTaskSelection = (taskId: number) => {
+    const updatedSelection = new Set(selectedTasks);
+    if (updatedSelection.has(taskId)) {
+      updatedSelection.delete(taskId);
+    } else {
+      updatedSelection.add(taskId);
+    }
+    setSelectedTasks(updatedSelection);
+  };
+
   const handleContactClick = (contact: Task['contact']) => {
     setSelectedContact(contact);
     setShowContactModal(true);
-  }
+  };
 
   const handleAppointmentClick = (appointment: Task['appointment']) => {
     setSelectedAppointment(appointment);
     setShowAppointmentModal(true);
-  }
+  };
 
   const handleCloseModal = () => {
     setShowContactModal(false);
     setShowAppointmentModal(false);
-  }
+  };
+
+  const handleBulkComplete = async () => {
+    const updatedTasks = tasks.map(task => {
+      if (selectedTasks.has(task.id)) {
+        return { ...task, status: 'Concluído' };
+      }
+      return task;
+    });
+    setTasks(updatedTasks);
+    setSelectedTasks(new Set());
+
+
+    const promises = Array.from(selectedTasks).map(taskId =>
+      api.patch(`/tasks/${taskId}`, { status: 'Concluído' })
+    );
+    await Promise.all(promises);
+  };
+
+  const handleBulkDelete = () => {
+    selectedTasks.forEach(taskId => {
+      api.delete(`/tasks/${taskId}`);
+      setTasks(prevTasks => prevTasks.filter(task => task.id !== taskId));
+    });
+    setSelectedTasks(new Set()); // Clear selection after action
+  };
 
   return (
     <>
       <Navbar />
       <div className="container-fluid mt-4 px-0">
         <h2 className="text-center mb-4">Tarefas do Corretor</h2>
-        <div className="table-responsive px-0">
-          <table className="table table-hover table-bordered w-100">
+
+        {/* Abas de Filtro */}
+        <Nav variant="tabs" activeKey={selectedFilter} onSelect={(selectedKey) => setSelectedFilter(selectedKey || 'toDo')}>
+          <Nav.Item>
+            <Nav.Link eventKey="toDo">Para Fazer</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="today">Vence Hoje</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="tomorrow">Amanhã</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="upcoming">Próximas</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="overdue">Atrasada</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="completed">Concluídas</Nav.Link>
+          </Nav.Item>
+        </Nav>
+
+        {selectedTasks.size > 0 && (
+          <div className="d-flex justify-content-start m-3">
+            <Button variant="primary" style={{fontSize: "10px", marginRight: "5px"}} onClick={handleBulkComplete}>Concluído</Button>
+            <Button variant="warning" style={{fontSize: "10px", width: "4.5rem"}} onClick={handleBulkDelete}>Excluir</Button>
+          </div>
+        )}
+
+
+        <div className="table-responsive px-0 mt-3">
+          <table className="table table-hover table-bordered w-100" style={{minHeight: "40vh"}}>
             <thead className="text-center text-white">
               <tr>
-                <th colSpan={2} className='bg-primary text-white'>TAREFA</th>
-                <th colSpan={2} className='bg-primary text-white'>CONTATO</th>
-                <th colSpan={2} className='bg-primary text-white'>AGENDAMENTO</th>
-                <th colSpan={2} className='bg-primary text-white' >IMÓVEL</th>
+                <th className='bg-primary text-white'>
+                  <Form.Check type="checkbox" onChange={(e) => {
+                    if (e.target.checked) {
+                      const allTaskIds = filteredTasks.map(task => task.id);
+                      setSelectedTasks(new Set(allTaskIds));
+                    } else {
+                      setSelectedTasks(new Set());
+                    }
+                  }} />
+                </th>
+                <th className='bg-primary text-white'>ID</th>
+                <th className='bg-primary text-white'>Nome</th>
+                <th className='bg-primary text-white'>Status</th>
+                <th className='bg-primary text-white'>Descrição</th>
+                <th className='bg-primary text-white'>Data</th>
+                <th className='bg-primary text-white'>Observação</th>
+                <th className='bg-primary text-white'>Endereço</th>
               </tr>
             </thead>
             <tbody>
-              <tr className="bg-secondary text-white">
-                <td className='bg-warning text-white fw-bold'>ID</td>
-                <td className='bg-warning text-white fw-bold'>Status</td>
-                <td className='bg-warning text-white fw-bold'>Nome</td>
-                <td className='bg-warning text-white fw-bold'>Telefone</td>
-                <td className='bg-warning text-white fw-bold'>Data</td>
-                <td className='bg-warning text-white fw-bold'>Descrição</td>
-                <td className='bg-warning text-white fw-bold'>Endereço</td>
-              </tr>
-              {tasks.map(task => (
+              {filteredTasks.map(task => (
                 <tr key={task.id}>
-                  {/* Colunas de Tarefa */}
+                  <td>
+                    <Form.Check
+                      type="checkbox"
+                      checked={selectedTasks.has(task.id)}
+                      onChange={() => toggleTaskSelection(task.id)}
+                    />
+                  </td>
                   <td>{task.id}</td>
-                  <td>{task.status}</td>
-
-                  {/* Colunas de Contato */}
                   <td>
                     {task.contact ? (
                       <span onClick={() => handleContactClick(task.contact)} style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}>
@@ -101,9 +241,23 @@ const TaskTable: React.FC = () => {
                       </span>
                     ) : 'Sem contato'}
                   </td>
-                  <td>{task.contact ? task.contact.phone : 'Sem telefone'}</td>
-
-                  {/* Colunas de Agendamento */}
+                  <td>
+                    <Form.Select value={task.status} onChange={(e) => handleStatusChange(task.id, e.target.value)}>
+                      <option value="Pendente">Pendente</option>
+                      <option value="Em Progresso">Em Progresso</option>
+                      <option value="Concluído">Concluído</option>
+                      <option value="Cancelado">Cancelado</option>
+                    </Form.Select>
+                  </td>
+                  <td>
+                    <Form.Control
+                      type="text"
+                      value={task.description}
+                      onChange={(e) => handleDescriptionChange(task.id, e.target.value)}
+                      onFocus={() => setEditingTaskId(task.id)}
+                      onBlur={() => setEditingTaskId(null)}
+                    />
+                  </td>
                   <td>
                     {task.appointment ? (
                       <span onClick={() => handleAppointmentClick(task.appointment)} style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}>
@@ -111,9 +265,20 @@ const TaskTable: React.FC = () => {
                       </span>
                     ) : 'Sem data'}
                   </td>
-                  <td>{task.appointment ? task.appointment.observation : 'Sem descrição'}</td>
-
-                  {/* Coluna de Imóvel */}
+                  <td>
+                    {task.appointment && editingTaskId === task.id ? (
+                      <Form.Control
+                        type="text"
+                        value={task.appointment.observation}
+                        onChange={(e) => handleObservationChange(task.id, e.target.value)}
+                        onBlur={() => setEditingTaskId(null)}
+                      />
+                    ) : (
+                      <span onClick={() => setEditingTaskId(task.id)} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+                        {task.appointment ? task.appointment.observation : 'Clique para adicionar'}
+                      </span>
+                    )}
+                  </td>
                   <td>
                     {task.realEstate ? (
                       <a href={`/realEstate/${task.realEstate.id}`} className="text-primary" style={{ textDecoration: 'underline' }}>
@@ -139,7 +304,6 @@ const TaskTable: React.FC = () => {
               <p>ID: {selectedContact.id}</p>
               <p>Nome: {selectedContact.name}</p>
               <p>Email: {selectedContact.email}</p>
-              <p>Telefone: {selectedContact.phone}</p>
             </>
           )}
         </Modal.Body>
