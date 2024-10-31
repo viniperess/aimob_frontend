@@ -11,14 +11,10 @@ const Thanks = ({ data }) => {
       <table className="table table-striped">
         <tbody>
           <tr>
-            <th scope="row">Image</th>
-            <td>
-              <a href="https://images.unsplash.com/photo-1554995207-c18c203602cb?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
-                Image
-              </a>
-            </td>
             <th scope="row">Tipo</th>
             <td>{data.type}</td>
+            <th scope="row">Descrição</th>
+            <td colSpan="">{data.description}</td>
           </tr>
           <tr>
             <th scope="row">Cep</th>
@@ -69,10 +65,10 @@ const Thanks = ({ data }) => {
             <td>{data.status ? "Sim" : "Não"}</td>
           </tr>
           <tr>
-            <th scope="row">Descrição</th>
-            <td colSpan="">{data.description}</td>
             <th scope="row">Valor</th>
             <td colSpan="">{data.salePrice}</td>
+            <th scope="row">Qtd Imagem</th>
+            <td>{data.images.length}</td>
           </tr>
         </tbody>
       </table>

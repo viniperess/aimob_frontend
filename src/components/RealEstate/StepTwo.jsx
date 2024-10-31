@@ -2,9 +2,11 @@ import './StepTwo.css';
 
 const StepTwo = ({ data, onChange }) => {
   const handleInputChange = (e) => {
-    const { name, type, checked, value } = e.target;
+    const { name, type, checked, value, files } = e.target;
     if (type === "checkbox") {
       onChange({ [name]: checked });
+    } else if (files) {
+      onChange({ [name]: Array.from(files) });
     } else {
       onChange({ [name]: value });
     }
@@ -119,12 +121,12 @@ const StepTwo = ({ data, onChange }) => {
                 Valor
               </label>
               <input
-                type="text"
+                type="number"
                 placeholder="Valor do imóvel"
                 id="salePrice"
                 name="salePrice"
                 aria-describedby="salePricesFeedback"
-                value={data.salePrice || ""}
+                value={data.salePrice}
                 onChange={handleInputChange}
                 className="form-control"
                 required
@@ -197,6 +199,7 @@ const StepTwo = ({ data, onChange }) => {
             <input
               className="form-control"
               type="file"
+              name="images"
               id="images"
               accept="image/*"
               onChange={handleInputChange}

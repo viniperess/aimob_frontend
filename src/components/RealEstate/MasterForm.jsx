@@ -44,16 +44,39 @@ const MasterForm = () => {
     try {
       const url = id ? `/realestates/${id}` : "/realestates";
       const method = id ? "patch" : "post";
+      const formDataObj = new FormData();
+    /
 
-      const payload = {
-        ...formData,
-        images: formData.images || [
-          "https://images.unsplash.com/photo-1554995207-c18c203602cb?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        ],
-      };
+    if (formData.images && formData.images.length > 0) {
+      formData.images.forEach((file) => {
+        console.log('Selected file:', file);
+        formDataObj.append("images", file);
+      });
+    }
+    if (formData.salePrice) {
+      formDataObj.append("salePrice", parseFloat(formData.salePrice));
+    }
 
-      await api[method](url, payload);
-      
+    Object.keys(formData).forEach((key) => {
+      if (key !== "images" && key !== "salePrice") {
+        formDataObj.append(key, formData[key]);
+      }
+    });
+    console.log("Conteúdo do formDataObj:");
+    for (let [key, value] of formDataObj.entries()) {
+      console.log(`${key}:`, value);
+    }
+
+
+      const token = localStorage.getItem("token");
+      const response = await api[method](url,  formDataObj, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log('Response from API:', response.data);
+
       navigate("/");
     } catch (error) {
       console.error("Erro ao processar o formulário:", error);
