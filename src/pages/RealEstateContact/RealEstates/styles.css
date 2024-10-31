@@ -160,3 +160,8 @@
   background-attachment: fixed; /* Mantém a imagem de fundo fixa */
 }
 
+.container.row.justify-content-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
