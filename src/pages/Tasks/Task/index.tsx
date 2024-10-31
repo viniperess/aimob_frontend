@@ -304,6 +304,7 @@ const TaskTable: React.FC = () => {
               <p>ID: {selectedContact.id}</p>
               <p>Nome: {selectedContact.name}</p>
               <p>Email: {selectedContact.email}</p>
+              <p>Telefone: {selectedContact.phone}</p>
             </>
           )}
         </Modal.Body>
