@@ -11,6 +11,11 @@ import {
   faUtensils,
   faCouch,
 } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTree,
+  faSwimmingPool,
+  faBuilding,
+} from "@fortawesome/free-solid-svg-icons";
 import { User } from "../../../types/user";
 import { Modal, Button, Row, Col } from "react-bootstrap";
 import FooterContact from "../../../components/FooterContact";
@@ -290,14 +295,8 @@ const RealEstateByContact: React.FC = () => {
                     </Col>
                     <Col xs={6} md={4}>
                       <p className="card-text d-flex align-items-center">
-                        <FontAwesomeIcon icon={faRuler} className="me-2" />
-                        {realEstate.totalArea} m²
-                      </p>
-                    </Col>
-                    <Col xs={6} md={4}>
-                      <p className="card-text d-flex align-items-center">
-                        <FontAwesomeIcon icon={faCar} className="me-2" />
-                        {realEstate.garage ? "1" : "0"} vaga
+                        <FontAwesomeIcon icon={faBuilding} className="me-2" />
+                        {realEstate.type}
                       </p>
                     </Col>
                     <Col xs={6} md={4}>
@@ -314,6 +313,35 @@ const RealEstateByContact: React.FC = () => {
                         {realEstate.livingRooms === "1"
                           ? "sala de estar"
                           : "salas de estar"}
+                      </p>
+                    </Col>
+                    <Col xs={6} md={4}>
+                      <p className="card-text d-flex align-items-center">
+                        <FontAwesomeIcon icon={faTree} className="me-2" />
+                        {realEstate.yard ? "Com jardim" : "Sem jardim"}
+                      </p>
+                    </Col>
+
+                    <Col xs={6} md={4}>
+                      <p className="card-text d-flex align-items-center">
+                        <FontAwesomeIcon icon={faRuler} className="me-2" />
+                        {realEstate.totalArea} m²
+                      </p>
+                    </Col>
+                    <Col xs={6} md={4}>
+                      <p className="card-text d-flex align-items-center">
+                        <FontAwesomeIcon icon={faCar} className="me-2" />
+                        {realEstate.garage ? "1" : "0"} vaga
+                      </p>
+                    </Col>
+
+                    <Col xs={6} md={4}>
+                      <p className="card-text d-flex align-items-center">
+                        <FontAwesomeIcon
+                          icon={faSwimmingPool}
+                          className="me-2"
+                        />
+                        {realEstate.pool ? "Com piscina" : "Sem piscina"}
                       </p>
                     </Col>
                   </Row>
