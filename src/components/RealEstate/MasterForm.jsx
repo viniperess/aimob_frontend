@@ -45,7 +45,7 @@ const MasterForm = () => {
       const url = id ? `/realestates/${id}` : "/realestates";
       const method = id ? "patch" : "post";
       const formDataObj = new FormData();
-    /
+    
 
     if (formData.images && formData.images.length > 0) {
       formData.images.forEach((file) => {
