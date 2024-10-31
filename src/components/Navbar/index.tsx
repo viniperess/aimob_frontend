@@ -62,24 +62,6 @@ const Navbar: React.FC = () => {
                 Imóvel
               </a>
             </li>
-            {/* <li className="nav-item">
-              <a
-                className="nav-link active"
-                aria-current="page"
-                href="/create_contact"
-              >
-                Contato
-              </a>
-            </li> */}
-            {/* <li className="nav-item">
-              <a
-                className="nav-link active"
-                aria-current="page"
-                href="/create_appointment"
-              >
-                Agendamento
-              </a>
-            </li> */}
             <li className="nav-item">
               <a
                 className="nav-link active"
@@ -89,24 +71,40 @@ const Navbar: React.FC = () => {
                 Tarefas
               </a>
             </li>
-            {/* <li className="nav-item dropdown">
+            <li className="nav-item dropdown">
               <a
                 className="nav-link active dropdown-toggle"
-                href="/signin"
+                href="/"
                 role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
                 Relatórios
               </a>
-              <ul className="dropdown-menu">
+              <ul className="dropdown-menu dropdown-menu-end bg-primary" style={{fontSize: '14px', marginTop: '-12px'}}>
                 <li>
-                  <a className="dropdown-item" href="/">
-                    Painel
+                  <a className="dropdown-item text-white no-hover" href="/reports/contacts">
+                    Contatos
+                  </a>
+                </li>
+                <li>
+                  <hr className="dropdown-divider bg-white" /> 
+                </li>
+                <li>
+                  <a className="dropdown-item no-hover text-white" href="/reports/estates">
+                    Imóveis
+                  </a>
+                </li>
+                <li>
+                  <hr className="dropdown-divider bg-white" /> 
+                </li>
+                <li>
+                  <a href="/reports/appointments" className="dropdown-item no-hover text-white">
+                    Agendamentos
                   </a>
                 </li>
               </ul>
-            </li> */}
+            </li>
           </ul>
           <ul className="navbar-nav mb-2">
           
