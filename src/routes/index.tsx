@@ -17,6 +17,8 @@ import ForgotPassword from "../pages/ForgotPassword";
 import ResetPassword from "../pages/ResetPassword";
 import ProtectedRoute from "./ProtectedRoute";
 import TaskDetail from "../pages/Tasks/TaskDetail";
+import ContactReport from "../components/Reports/ContactReport/ContactReport";
+import RealEstateReport from "../components/Reports/EstateReport/EstateReport";
 
 const RoutesApp: React.FC = () => {
   return (
@@ -33,7 +35,10 @@ const RoutesApp: React.FC = () => {
             path="/realEstateByContact/:id"
             element={<RealEstateByContact />}
           />
-
+          <Route
+            path="/realestate/advance-search"
+            element={<RealEstateContact />}
+          />
           <Route
             path="/profile"
             element={
@@ -114,6 +119,38 @@ const RoutesApp: React.FC = () => {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/reports/contacts"
+            element={
+              <ProtectedRoute>
+                <ContactReport />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/reports/estates"
+            element={
+              <ProtectedRoute>
+                <RealEstateReport />
+              </ProtectedRoute>
+            }
+          />
+          {/* <Route
+            path="/advance-search/estates"
+            element={
+              <ProtectedRoute>
+                <ContactReport />
+              </ProtectedRoute>
+            }
+          /> */}
+          {/* <Route
+            path="/reports/contacts"
+            element={
+              <ProtectedRoute>
+                <ContactReport />
+              </ProtectedRoute>
+            }
+          /> */}
         </Routes>
       </Fragment>
     </BrowserRouter>
