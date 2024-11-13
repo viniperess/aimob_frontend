@@ -2,6 +2,7 @@ import React, { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../service/api";
 import "./styles.css";
+import InputMask from "react-input-mask";
 
 const SignUp: React.FC = () => {
   const [user, setUser] = useState("");
@@ -14,17 +15,25 @@ const SignUp: React.FC = () => {
   const [password, setPassword] = useState("");
   const [passwordTwo, setPasswordTwo] = useState("");
   const [error, setError] = useState("");
-  const [emailError, setEmailError] = useState("");
 
   const navigate = useNavigate();
 
   const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
-  console.log(emailError);
-  
+
   const handleRegister = async (e: FormEvent) => {
     e.preventDefault();
 
-    if (!user || !name || !email || !cpf || !password || !passwordTwo || !creci || !city || !phone) {
+    if (
+      !user ||
+      !name ||
+      !email ||
+      !cpf ||
+      !password ||
+      !passwordTwo ||
+      !creci ||
+      !city ||
+      !phone
+    ) {
       setError("Preencha todos os campos!");
       return;
     } else if (!emailRegex.test(email)) {
@@ -50,8 +59,12 @@ const SignUp: React.FC = () => {
         password: password,
       });
       navigate("/signin");
-    } catch (error) {
-      setEmailError("E-mail já existe.");
+    } catch (error: any) {
+      if (error.response && error.response.data.message) {
+        setError(error.response.data.message);
+      } else {
+        setError("Erro ao registrar. Tente novamente.");
+      }
     }
   };
 
@@ -70,16 +83,21 @@ const SignUp: React.FC = () => {
         >
           <h3>Registro</h3>
           <div className="mb-0">
-              <input
-                type="email"
-                name="email"
-                id="email"
-                value={email}
-                placeholder="Email"
-                onChange={(e) => [setEmail(e.target.value), setError("")]}
-                className={`form-control ${(error && !email) || (!emailRegex.test(email) && email.length !== 0) ? "is-invalid" : ""}`}
-              />
-            </div>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              value={email}
+              placeholder="Email"
+              onChange={(e) => [setEmail(e.target.value), setError("")]}
+              className={`form-control ${
+                (error && !email) ||
+                (!emailRegex.test(email) && email.length !== 0)
+                  ? "is-invalid"
+                  : ""
+              }`}
+            />
+          </div>
           <div className="row">
             <div className="col">
               <input
@@ -91,8 +109,8 @@ const SignUp: React.FC = () => {
                 onChange={(e) => [setName(e.target.value), setError("")]}
                 className={`form-control ${error && !name ? "is-invalid" : ""}`}
               />
-              </div>
-       
+            </div>
+
             <div className="col">
               <input
                 type="text"
@@ -104,14 +122,15 @@ const SignUp: React.FC = () => {
                 className={`form-control ${error && !user ? "is-invalid" : ""}`}
               />
             </div>
-            </div>
-           
-            <div className="row">
+          </div>
+
+          <div className="row">
             <div className="col">
-              <input
-                type="text"
-                name="cpf"
+              <InputMask
+                mask="999.999.999-99"
                 id="cpf"
+                name="cpf"
+                aria-describedby="cpfFeedback"
                 value={cpf}
                 placeholder="Cpf"
                 onChange={(e) => [setCpf(e.target.value), setError("")]}
@@ -129,17 +148,21 @@ const SignUp: React.FC = () => {
                 className={`form-control ${error && !city ? "is-invalid" : ""}`}
               />
             </div>
-            </div>
-            <div className="row">
+          </div>
+          <div className="row">
             <div className="col">
-              <input
-                type="text"
-                name="phone"
+              <InputMask
                 id="phone"
-                value={phone}
+                name="phone"
+                type="text"
+                mask="(99) 99999-9999"
+                maskChar={null}
                 placeholder="Telefone"
+                value={phone}
                 onChange={(e) => [setPhone(e.target.value), setError("")]}
-                className={`form-control ${error && !phone ? "is-invalid" : ""}`}
+                className={`form-control ${
+                  error && !phone ? "is-invalid" : ""
+                }`}
               />
             </div>
             <div className="col">
@@ -150,11 +173,13 @@ const SignUp: React.FC = () => {
                 value={creci}
                 placeholder="Creci"
                 onChange={(e) => [setCreci(e.target.value), setError("")]}
-                className={`form-control ${error && !creci ? "is-invalid" : ""}`}
+                className={`form-control ${
+                  error && !creci ? "is-invalid" : ""
+                }`}
               />
             </div>
-            </div>
-            <div className="row">
+          </div>
+          <div className="row">
             <div className="col">
               <input
                 type="password"
@@ -163,7 +188,12 @@ const SignUp: React.FC = () => {
                 placeholder="Senha"
                 value={password}
                 onChange={(e) => [setPassword(e.target.value), setError("")]}
-                className={`form-control ${(error && !password) || (password.length < 8 && password.length !== 0) ? "is-invalid" : ""}`}
+                className={`form-control ${
+                  (error && !password) ||
+                  (password.length < 8 && password.length !== 0)
+                    ? "is-invalid"
+                    : ""
+                }`}
               />
             </div>
             <div className="col">
@@ -174,21 +204,29 @@ const SignUp: React.FC = () => {
                 value={passwordTwo}
                 placeholder="Confirmar Senha"
                 onChange={(e) => [setPasswordTwo(e.target.value), setError("")]}
-                className={`form-control ${(error && !passwordTwo) || password !== passwordTwo ? "is-invalid" : ""}`}
+                className={`form-control ${
+                  (error && !passwordTwo) || password !== passwordTwo
+                    ? "is-invalid"
+                    : ""
+                }`}
               />
             </div>
-            </div>
-            <div className="text-center">
-              <label className="text-danger">{error}</label>
-            </div>
-            <div className="d-grid">
-              <button type="submit" className="btn bg-white text-primary" style={{borderRadius: "50px"}}>
-                Registrar-se
-              </button>
-            </div>
-            <p className="text-center text-white">
-              Já possui uma conta? <a href="/SignIn">Faça Login</a>
-              </p>
+          </div>
+          <div className="text-center">
+            <label className="text-danger">{error}</label>
+          </div>
+          <div className="d-grid">
+            <button
+              type="submit"
+              className="btn bg-white text-primary"
+              style={{ borderRadius: "50px" }}
+            >
+              Registrar-se
+            </button>
+          </div>
+          <p className="text-center text-white">
+            Já possui uma conta? <a href="/SignIn">Faça Login</a>
+          </p>
         </form>
       </div>
       <div className="image"></div>
