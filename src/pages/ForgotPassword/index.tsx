@@ -3,9 +3,11 @@ import { useNavigate } from "react-router-dom";
 import api from "../../service/api";
 import "./styles.css";
 import Logo from "../../assets/images/aimoblogo_azul.png";
+import axios from "axios";
 const ForgotPassword: React.FC = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -17,17 +19,34 @@ const ForgotPassword: React.FC = () => {
       setError("Por favor, insira um email válido.");
       return;
     }
+    setLoading(true);
+    setError("");
 
+    console.log("Tentando enviar o email:", email);
     try {
       await api.post("forgot-password", { email });
       navigate("/reset_password", { state: { email } });
     } catch (error) {
-      setError("O email não foi encontrado. Verifique e tente novamente.");
+      if (axios.isAxiosError(error)) {
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
+          setError(error.response.data.message);
+        } else {
+          setError(
+            "Erro ao enviar o email de redefinição de senha. Tente novamente."
+          );
+        }
+      } else {
+        setError("Ocorreu um erro inesperado. Tente novamente.");
+      }
     }
   };
 
   return (
-    <div className="container-fluid d-flex p-0" style={{ height: "100vh"}}>
+    <div className="container-fluid d-flex p-0" style={{ height: "100vh" }}>
       <div className="col align-items-center justify-content-start d-flex text-start m-4">
         <div className="boxFormForgot">
           <h1 className="olaForgot justify-content-start align-items-start">
@@ -43,6 +62,11 @@ const ForgotPassword: React.FC = () => {
             onSubmit={handleEmail}
           >
             <div className="row">
+            {error && (
+                  <div className="alert alert-danger text-center" role="alert">
+                    {error}
+                  </div>
+                )}
               <div className="col">
                 <label htmlFor="email" className="form-label">
                   Email
@@ -58,11 +82,15 @@ const ForgotPassword: React.FC = () => {
                     error && !email ? "form-control is-invalid" : "form-control"
                   }
                 />
-                <div className="invalid-feedback">{error}</div>
+               
               </div>
             </div>
-            <button type="submit" className="btnForgot btn-primary">
-              Enviar Código
+            <button
+              type="submit"
+              className="btnForgot btn-primary"
+              disabled={loading}
+            >
+              {loading ? "Enviando..." : "Enviar Código"}
             </button>
           </form>
           <p className="text-center logForgot">
