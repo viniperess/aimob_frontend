@@ -14,10 +14,10 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const MasterForm = () => {
   const { id } = useParams();
+  const [errorMessage, setErrorMessage] = useState("");
   const [formData, setFormData] = useState({});
   const [currentStep, setCurrentStep] = useState(1);
   const navigate = useNavigate();
-
 
   const getRealEstate = useCallback(async () => {
     if (!id) return;
@@ -33,7 +33,6 @@ const MasterForm = () => {
     getRealEstate();
   }, [getRealEstate]);
 
-
   const handleChange = (newData) => {
     setFormData({ ...formData, ...newData });
   };
@@ -45,41 +44,47 @@ const MasterForm = () => {
       const url = id ? `/realestates/${id}` : "/realestates";
       const method = id ? "patch" : "post";
       const formDataObj = new FormData();
-    
 
-    if (formData.images && formData.images.length > 0) {
-      formData.images.forEach((file) => {
-        console.log('Selected file:', file);
-        formDataObj.append("images", file);
-      });
-    }
-    if (formData.salePrice) {
-      formDataObj.append("salePrice", parseFloat(formData.salePrice));
-    }
-
-    Object.keys(formData).forEach((key) => {
-      if (key !== "images" && key !== "salePrice") {
-        formDataObj.append(key, formData[key]);
+      if (formData.images && formData.images.length > 0) {
+        formData.images.forEach((file) => {
+          console.log("Selected file:", file);
+          formDataObj.append("images", file);
+        });
       }
-    });
-    console.log("Conteúdo do formDataObj:");
-    for (let [key, value] of formDataObj.entries()) {
-      console.log(`${key}:`, value);
-    }
+      if (formData.salePrice) {
+        formDataObj.append("salePrice", parseFloat(formData.salePrice));
+      }
 
+      Object.keys(formData).forEach((key) => {
+        if (key !== "images" && key !== "salePrice") {
+          formDataObj.append(key, formData[key]);
+        }
+      });
+      console.log("Conteúdo do formDataObj:");
+      for (let [key, value] of formDataObj.entries()) {
+        console.log(`${key}:`, value);
+      }
 
       const token = localStorage.getItem("token");
-      const response = await api[method](url,  formDataObj, {
+      const response = await api[method](url, formDataObj, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log('Response from API:', response.data);
+      console.log("Response from API:", response.data);
 
       navigate("/");
     } catch (error) {
-      console.error("Erro ao processar o formulário:", error);
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        setErrorMessage(error.response.data.message);
+      } else {
+        setErrorMessage("Erro ao processar o formulário. Tente novamente.");
+      }
     }
   };
   const steps = {
@@ -100,7 +105,7 @@ const MasterForm = () => {
       <Navbar />
       <div className="masterform">
         <div className="header">
-         <h2>{id ? "Editar Imóvel" : "Insira o Imóvel"}</h2>
+          <h2>{id ? "Editar Imóvel" : "Insira o Imóvel"}</h2>
         </div>
 
         <div className="form-container">
@@ -115,11 +120,17 @@ const MasterForm = () => {
               }
             }}
           >
+
             <div className="inputs-container">{steps[currentStep]}</div>
+            {errorMessage && (
+              <div className="alert alert-danger text-center" role="alert">
+                {errorMessage}
+              </div>
+            )}
             <div className="actions">
               {!isFirstStep && (
                 <button
-                 className="bg-warning text-white"
+                  className="bg-warning text-white"
                   type="button"
                   onClick={() => changeStep(currentStep - 1)}
                 >
@@ -128,12 +139,19 @@ const MasterForm = () => {
                 </button>
               )}
               {!isLastStep ? (
-                <button type="submit" className="btn text-light fw-medium bg-primary">
+                <button
+                  type="submit"
+                  className="btn text-light fw-medium bg-primary"
+                >
                   <span>Avançar</span>
                   <GrFormNext />
                 </button>
               ) : (
-                <button type="button" className="btn text-light fw-medium bg-primary" onClick={(e) => handleSubmit(e)}>
+                <button
+                  type="button"
+                  className="btn text-light fw-medium bg-primary"
+                  onClick={(e) => handleSubmit(e)}
+                >
                   <span>Enviar</span>
                   <FiSend />
                 </button>

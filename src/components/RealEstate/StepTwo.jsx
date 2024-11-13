@@ -21,7 +21,7 @@ const StepTwo = ({ data, onChange }) => {
               Área Construída
             </label>
             <input
-              type="text"
+              type="number"
               placeholder="Área construída do imóvel"
               id="builtArea"
               name="builtArea"
@@ -37,7 +37,7 @@ const StepTwo = ({ data, onChange }) => {
               Área Total
             </label>
             <input
-              type="text"
+              type="number"
               placeholder="Área total do imóvel"
               id="totalArea"
               name="totalArea"
@@ -53,7 +53,7 @@ const StepTwo = ({ data, onChange }) => {
                 Cozinha
               </label>
               <input
-                type="text"
+                type="number"
                 placeholder="Cozinhas do imóvel"
                 id="kitchens"
                 name="kitchens"
@@ -71,7 +71,7 @@ const StepTwo = ({ data, onChange }) => {
               Quartos
             </label>
             <input
-              type="text"
+              type="number"
               placeholder="Quartos do imóvel"
               id="bedrooms"
               name="bedrooms"
@@ -87,7 +87,7 @@ const StepTwo = ({ data, onChange }) => {
               Banheiros
             </label>
             <input
-              type="text"
+              type="number"
               placeholder="Banheiros do imóvel"
               id="bathrooms"
               name="bathrooms"
@@ -103,7 +103,7 @@ const StepTwo = ({ data, onChange }) => {
                 Salas
               </label>
               <input
-                type="text"
+                type="number"
                 placeholder="Salas do imóvel"
                 id="livingRooms"
                 name="livingRooms"

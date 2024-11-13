@@ -1,7 +1,7 @@
 import axios from "axios";
 import "./StepOne.css";
 import { GiHouse, GiFamilyHouse } from "react-icons/gi";
-
+import InputMask from "react-input-mask";
 const StepOne = ({ data, onChange }) => {
 
   const fetchAddress = async (cep) => {
@@ -51,8 +51,9 @@ const StepOne = ({ data, onChange }) => {
 
   const handleBlur = (e) => {
     const { name, value } = e.target;
-    if (name === "zipCode" && value.length === 8) {
-      fetchAddress(value);
+    const cleanValue = value.replace(/\D/g, "");
+    if (name === "zipCode" && cleanValue.length === 8) {
+      fetchAddress(cleanValue);
     }
   };
 
@@ -87,9 +88,9 @@ const StepOne = ({ data, onChange }) => {
           <label htmlFor="zipCode" className="form-label fw-medium">
             Cep
           </label>
-          <input
-            type="text"
-            placeholder="Cep do imóvel"
+            <InputMask
+            mask="99999-999"
+            placeholder="CEP do imóvel"
             id="zipCode"
             name="zipCode"
             aria-describedby="zipCodeFeedback"
