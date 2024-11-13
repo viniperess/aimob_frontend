@@ -22,6 +22,8 @@ const Profile: React.FC = () => {
   const [changePassword, setChangePassword] = useState(false);
   const [error, setError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [image, setImage] = useState<string | null>(null);
+  const [newImage, setNewImage] = useState<File | null>(null);
   const navigate = useNavigate();
 
 
@@ -41,6 +43,7 @@ const Profile: React.FC = () => {
       setCity(response.data.city);
       setPhone(response.data.phone);
       setCreci(response.data.creci);
+      setImage(response.data.image);
     } catch (error) {
       console.log(error);
     }
@@ -68,6 +71,13 @@ const Profile: React.FC = () => {
     }
   };
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setNewImage(e.target.files[0]);
+      setImage(URL.createObjectURL(e.target.files[0]));
+    }
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (changePassword && password !== confirmPassword) {
@@ -76,26 +86,34 @@ const Profile: React.FC = () => {
     }
   
     try {
-      const data: any = {
-        user,
-        email,
-        name,
-        cpf,
-        city,
-        phone,
-        creci,
-      };
-
+      // Usando FormData para garantir que a imagem e todos os campos sejam enviados corretamente
+      const formData = new FormData();
+      formData.append("user", user);
+      formData.append("email", email);
+      formData.append("name", name);
+      formData.append("cpf", cpf);
+      formData.append("city", city);
+      formData.append("phone", phone);
+      formData.append("creci", creci);
+  
+      // Adiciona a senha ao formData somente se houver um novo valor
       if (password) {
-        data.password = password;
+        formData.append("password", password);
       }
-
-      await api.patch(`users/${profile?.id}`, data);
-
+  
+      // Adiciona a imagem ao formData, caso o usuário tenha selecionado uma nova
+      if (newImage) {
+        formData.append("image", newImage);
+      }
+  
+      // Envia os dados usando o FormData
+      await api.patch(`users/${profile?.id}`, formData);
+  
+      // Recarrega o perfil atualizado
       getProfile();
-
+  
       if (password || user !== profile?.user) {
-        toast.success("Perfil com sucesso! Você será deslogado.", {
+        toast.success("Perfil atualizado com sucesso! Você será deslogado.", {
           position: toast.POSITION.TOP_LEFT,
           autoClose: 3000,
           className: "custom-toast",
@@ -134,6 +152,7 @@ const Profile: React.FC = () => {
         console.error("Erro ao excluir a conta: ", error);
       }
     }
+  
   };
 
   return (
@@ -144,6 +163,24 @@ const Profile: React.FC = () => {
         style={{ maxWidth: "600px" }}
       >
         <h2 className="text-center mb-4">Atualizar Perfil</h2>
+        <div className="text-center mb-4">
+          <label htmlFor="image">
+            <img
+              src={image || "/default-profile.png"}
+              alt="Foto do Perfil"
+              className="rounded-circle"
+              style={{ width: "150px", height: "150px", cursor: "pointer" }}
+            />
+          </label>
+          <input
+            type="file"
+            id="image"
+            accept="image/*"
+            onChange={handleImageChange}
+            style={{ display: "none" }}
+          />
+        </div>
+
         <form method="post" key={profile?.id} className="text-center">
           <div className="row mb-3 justify-content-center">
             <label htmlFor="user" className="col-sm-3 col-form-label">
