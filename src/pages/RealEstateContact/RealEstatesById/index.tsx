@@ -21,6 +21,10 @@ import { Modal, Button, Row, Col } from "react-bootstrap";
 import FooterContact from "../../../components/FooterContact";
 import InputMask from "react-input-mask";
 import "./styles.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import BrokerBadge from "../../../components/BrokerBadge/BrokerBadge";
+
 const RealEstateByContact: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
   const [realEstate, setRealEstate] = useState<RealEstateType>();
@@ -35,8 +39,8 @@ const RealEstateByContact: React.FC = () => {
     name: "",
     email: "",
     phone: "",
-    taskStatus: "Aguardando mais Informações",
-    taskDescription: "Aguardando mais Informações",
+    taskStatus: "",
+    taskDescription: "",
     estateId: id ? parseInt(id) : 0,
   });
 
@@ -44,15 +48,13 @@ const RealEstateByContact: React.FC = () => {
     contactName: "",
     contactEmail: "",
     contactPhone: "",
-    date: "",
-    time: "",
     visitDate: "",
     observation: "",
-    taskStatus: "Visita Agendada",
-    taskDescription: "Agendando Visita",
+    taskStatus: "",
+    taskDescription: "",
     estateId: id ? parseInt(id) : 0,
   });
-
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -77,6 +79,15 @@ const RealEstateByContact: React.FC = () => {
   };
 
   const handleCloseModal = () => setShowModal(false);
+  const handleDateChange = (date: Date | null) => {
+    setSelectedDate(date);
+    if (date) {
+      setAppointmentData({
+        ...appointmentData,
+        visitDate: date.toISOString(),
+      });
+    }
+  };
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -97,57 +108,42 @@ const RealEstateByContact: React.FC = () => {
     }
   };
 
-  const errorMessages = {
-    "Appointment with this date not available":
-      "Horário indisponível para visita.",
-    "Email already exists.": "O e-mail já está cadastrado.",
-  };
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     if (modalContent === "Formulário Agendamento") {
-      const visitDate = `${appointmentData.date}T${appointmentData.time}:00-03:00`;
-      const { date, time, ...dataToSend } = appointmentData;
+      const { ...dataToSend } = appointmentData;
 
       const updatedAppointmentData = {
         ...dataToSend,
-        visitDate: visitDate,
         estateId: id ? parseInt(id) : dataToSend.estateId,
       };
 
       console.log("Dados para enviar:", updatedAppointmentData);
 
       try {
-        await api.post(
-          "/appointments/create-by-contact",
-          updatedAppointmentData
-        );
+        await api.post("/appointments/create", updatedAppointmentData);
 
         console.log("Dados do Formulário Agendamento enviados com sucesso");
         setAppointmentData({
           contactName: "",
           contactEmail: "",
           contactPhone: "",
-          date: "",
-          time: "",
           visitDate: "",
           observation: "",
-          taskStatus: "Visita Agendada",
-          taskDescription: "Agendando Visita",
+          taskStatus: "Pendente",
+          taskDescription: "Visita Agendada",
           estateId: id ? parseInt(id) : 0,
         });
+        setSelectedDate(null);
         setAppointmentError("");
         setShowModal(false);
       } catch (error: any) {
         console.error("Erro ao enviar os dados:", error);
         const errorMessage =
-          typeof error.response?.data?.message === "string"
-            ? error.response.data.message
-            : "";
-        const translatedErrorMessage =
-          errorMessages[errorMessage as keyof typeof errorMessages] ||
+          error.response?.data?.message ||
           "Erro ao agendar a visita. Tente novamente.";
-        setAppointmentError(translatedErrorMessage);
+        setAppointmentError(errorMessage);
       }
     } else if (modalContent === "Formulário Informações") {
       const updatedFormData = {
@@ -172,8 +168,8 @@ const RealEstateByContact: React.FC = () => {
           name: "",
           email: "",
           phone: "",
-          taskStatus: "Aguardando mais Informações",
-          taskDescription: "Aguardando mais informações",
+          taskStatus: "Pendente",
+          taskDescription: "Aguardando Mais Informações",
           estateId: id ? parseInt(id) : 0,
         });
         setFormError("");
@@ -181,17 +177,17 @@ const RealEstateByContact: React.FC = () => {
       } catch (error: any) {
         console.error("Erro ao enviar os dados:", error);
         const errorMessage =
-          typeof error.response?.data?.message === "string"
-            ? error.response.data.message
-            : "";
-        const translatedErrorMessage =
-          errorMessages[errorMessage as keyof typeof errorMessages] ||
+          error.response?.data?.message ||
           "Erro ao enviar as informações. Tente novamente.";
-        setFormError(translatedErrorMessage);
+        setFormError(errorMessage);
       }
     }
   };
+  const minTime = new Date();
+  minTime.setHours(8, 0);
 
+  const maxTime = new Date();
+  maxTime.setHours(18, 0);
   return (
     <>
       {realEstate && (
@@ -199,7 +195,7 @@ const RealEstateByContact: React.FC = () => {
           <h1 className="text-center py-3 my-4 page-title">
             {realEstate?.description}
           </h1>
-          <div className="container shadow my-5 mx-auto">
+          <div className="container my-5 mx-auto">
             <div className="row row-cols-lg-2 row-cols-1">
               <div
                 id="carouselExampleCaptionsReal"
@@ -345,9 +341,14 @@ const RealEstateByContact: React.FC = () => {
                       </p>
                     </Col>
                   </Row>
-                  <div className="text-left py-3 mb-4">
-                    <h4 className="text-primary">R$ {realEstate.salePrice}</h4>
-                  </div>
+                  <Row>
+                    <Col>
+                    <h4 className="text-primary mb-3">R$ {realEstate.salePrice}</h4>
+                    </Col>
+                    <Col className="m-4">
+                      <BrokerBadge userId={Number(realEstate.userId)}/>
+                    </Col>
+                  </Row>
 
                   <div className="mt-auto d-flex justify-content-start py-4">
                     <Button
@@ -366,6 +367,7 @@ const RealEstateByContact: React.FC = () => {
                       Agendar uma visita
                     </Button>
                   </div>
+                  
                 </div>
               </div>
             </div>
@@ -457,27 +459,10 @@ const RealEstateByContact: React.FC = () => {
                             required
                           />
                         </div>
-                        <div className="mb-3">
-                          <label
-                            htmlFor="taskDescription"
-                            className="form-label text-white"
-                          >
-                            Descrição
-                          </label>
-                          <textarea
-                            className="form-control"
-                            id="taskDescription"
-                            rows={3}
-                            placeholder="Digite a descrição"
-                            value={formData.taskDescription}
-                            onChange={handleInputChange}
-                            required
-                          ></textarea>
-                        </div>
                       </>
                     ) : (
                       <>
-                        <div className="mb-3">
+                        <div className="mb-3 col-11">
                           <label
                             htmlFor="contactName"
                             className="form-label text-white"
@@ -494,7 +479,7 @@ const RealEstateByContact: React.FC = () => {
                             required
                           />
                         </div>
-                        <div className="mb-3">
+                        <div className="mb-3 col-11">
                           <label
                             htmlFor="contactEmail"
                             className="form-label text-white"
@@ -512,7 +497,7 @@ const RealEstateByContact: React.FC = () => {
                           />
                         </div>
 
-                        <div className="mb-3">
+                        <div className="mb-3 col-11">
                           <label
                             htmlFor="contactPhone"
                             className="form-label text-white"
@@ -531,57 +516,30 @@ const RealEstateByContact: React.FC = () => {
                           />
                         </div>
 
-                        <div className="row">
-                          <div className="col-md-6">
+                        <div className="row"  style={{ width: "98%" }}>
                             <label
                               htmlFor="date"
                               className="form-label text-white"
                             >
                               Data da Visita
                             </label>
-                            <input
-                              type="date"
+                            <DatePicker
+                              selected={selectedDate}
+                              onChange={handleDateChange}
+                              minDate={new Date()}
+                              filterDate={(date) =>
+                                date.getDay() !== 0 && date.getDay() !== 6
+                              }
+                              showTimeSelect
+                              timeFormat="HH:mm"
+                              timeIntervals={60}
+                              minTime={minTime}
+                              maxTime={maxTime}
+                              dateFormat="Pp" 
                               className="form-control"
-                              id="date"
-                              value={appointmentData.date}
-                              onChange={handleInputChange}
-                              required
+                              placeholderText="Selecione a data e horário"
                             />
                           </div>
-                          <div className="col-md-6">
-                            <label
-                              htmlFor="time"
-                              className="form-label text-white"
-                            >
-                              Hora da Visita
-                            </label>
-                            <input
-                              type="time"
-                              className="form-control"
-                              id="time"
-                              value={appointmentData.time}
-                              onChange={handleInputChange}
-                              required
-                            />
-                          </div>
-                        </div>
-                        <div className="mb-3">
-                          <label
-                            htmlFor="description"
-                            className="form-label text-white"
-                          >
-                            Descrição
-                          </label>
-                          <textarea
-                            className="form-control"
-                            id="description"
-                            rows={3}
-                            placeholder="Digite uma descrição"
-                            value={appointmentData.taskDescription}
-                            onChange={handleInputChange}
-                            required
-                          ></textarea>
-                        </div>
                       </>
                     )}
                     <Button variant="light" className="text-dark" type="submit">
