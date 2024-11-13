@@ -44,12 +44,12 @@ const RealEstateContact: React.FC = () => {
     };
     setFilters(defaultFilters);
     setPendingFilters(defaultFilters);
-    applyAdvancedSearchFilters(defaultFilters); // Aplica a busca resetada
+    applyAdvancedSearchFilters(defaultFilters);
   };
   const getRealEstates = async () => {
     try {
       console.log("Fetching all real estates");
-      const response = await api.get("realestates");
+      const response = await api.get("realestates/available");
       setRealEstates([...response.data]);
       setFilteredRealEstates([...response.data]);
       console.log("All real estates fetched:", response.data);
@@ -239,11 +239,13 @@ const RealEstateContact: React.FC = () => {
             )}
 
             {filteredRealEstates.length > 0
-              ? filteredRealEstates.map((realEstate) => (
+              ? filteredRealEstates.map((realEstate, index) => (
                   <div
                     className={`${
                       filteredRealEstates.length === 1
                         ? "col-12"
+                        : filteredRealEstates.length === 2
+                        ? "col-6"
                         : "col-md-4 col-sm-6 col-12"
                     } d-flex justify-content-center`}
                     key={realEstate.id}
@@ -256,7 +258,11 @@ const RealEstateContact: React.FC = () => {
                           alt={realEstate.description}
                         />
                         <div className="card-img-overlay text-white d-flex justify-content-between align-items-start">
-                          <h6 className="card-title-h5 text-white">DESTAQUE</h6>
+                          {index < 3 && (
+                            <h6 className="card-title-h5 text-white">
+                              DESTAQUE
+                            </h6>
+                          )}
                           <p className="card-text-comprar">COMPRAR</p>
                         </div>
                       </a>
@@ -283,8 +289,17 @@ const RealEstateContact: React.FC = () => {
                     </div>
                   </div>
                 ))
-              : realEstates.map((realEstate) => (
-                  <div className="col-md-4 col-sm-6 col-12" key={realEstate.id}>
+              : realEstates.map((realEstate, index) => (
+                  <div
+                    className={`${
+                      realEstates.length === 1
+                        ? "col-12"
+                        : realEstates.length === 2
+                        ? "col-6"
+                        : "col-md-4 col-sm-6 col-12"
+                    } d-flex justify-content-center`}
+                    key={realEstate.id}
+                  >
                     <div className="card">
                       <a href={`/realEstateByContact/${realEstate.id}`}>
                         <img
@@ -292,8 +307,13 @@ const RealEstateContact: React.FC = () => {
                           className="card-img"
                           alt={realEstate.description}
                         />
+
                         <div className="card-img-overlay text-white d-flex justify-content-between align-items-start">
-                          <h6 className="card-title-h5 text-white">DESTAQUE</h6>
+                          {index < 3 && (
+                            <h6 className="card-title-h5 text-white">
+                              DESTAQUE
+                            </h6>
+                          )}
                           <p className="card-text-comprar">COMPRAR</p>
                         </div>
                       </a>
