@@ -9,7 +9,6 @@ import { Task } from "../../types/task";
 import { Col, Row } from "react-bootstrap";
 import { format } from "date-fns";
 
-
 const NotificationDropdown: React.FC = () => {
   const [notifications, setNotifications] = useState<NotificationType[]>([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -69,24 +68,35 @@ const NotificationDropdown: React.FC = () => {
   };
 
   const handleDelete = async () => {
+    const token = localStorage.getItem("token");
     if (selectedNotification && taskDetails?.appointmentId) {
       try {
-        await api.patch(`/appointments/${taskDetails.appointmentId}`, {
-          visitApproved: false,
+        console.log("Iniciando exclusão da notificação:", selectedNotification);
+
+        // Excluir agendamento
+        console.log(`DELETE /appointments/${taskDetails.appointmentId}`);
+        await api.delete(`/appointments/${taskDetails.appointmentId}`, {
+          headers: { Authorization: `Bearer ${token}` },
         });
 
-        await api.delete(`/tasks/${selectedNotification.taskId}`);
-        await api.delete(`/appointments/${taskDetails.appointmentId}`);
-        await api.delete(`/contacts/${taskDetails.contactId}`);
+        // Excluir tarefa
+        console.log(`DELETE /tasks/${selectedNotification.taskId}`);
+        const taskResponse = await api.delete(
+          `/tasks/${selectedNotification.taskId}`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        console.log("Tarefa excluída com sucesso:", taskResponse.data);
 
-        console.log("DELETE: Task, Appointment, and Contact removed");
+        // Excluir notificação
+        console.log(`DELETE /notifications/${selectedNotification.id}`);
+        await api.delete(`/notifications/${selectedNotification.id}`);
+
         setModalOpen(false);
         setNotifications(
           notifications.filter((n) => n.id !== selectedNotification.id)
         );
-        await api.delete(`/notifications/${selectedNotification.id}`);
       } catch (error) {
-        console.error("Failed to delete task", error);
+        console.error("Erro ao excluir recursos:", error);
       }
     }
   };
