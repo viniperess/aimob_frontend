@@ -1,6 +1,7 @@
 
   .card {
     width: 22rem;
+    max-width: 22rem;
     margin: 20px;
     padding: auto;
     max-height: 25rem;
@@ -9,6 +10,8 @@
   .card-img{
     max-height: 12rem;
     max-width: 22rem;
+    height: 12rem;
+    width: 22rem;
   }
    .card-title-h5 {
     background-color: orange;
@@ -20,10 +23,16 @@
     font-weight: bold;
     font-size: 14px;
     padding: 7px;
+    margin-left: 10px;
   } 
 
   .page-container {
     width: 100%;
-    overflow-x: hidden; /* Esconde o scroll horizontal */
-    padding: 0 15px; /* Adiciona padding lateral */
+    overflow-x: hidden;
+    padding: 0 15px;
+}
+
+.faded-card {
+  opacity: 0.5;
+  transition: opacity 0.3s;
 }
