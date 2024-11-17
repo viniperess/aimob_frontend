@@ -258,12 +258,13 @@ const RealEstateContact: React.FC = () => {
                           alt={realEstate.description}
                         />
                         <div className="card-img-overlay text-white d-flex justify-content-between align-items-start">
+                        <p className="card-text-comprar">COMPRAR</p>
                           {index < 3 && (
                             <h6 className="card-title-h5 text-white">
                               DESTAQUE
                             </h6>
                           )}
-                          <p className="card-text-comprar">COMPRAR</p>
+                          
                         </div>
                       </a>
                       <div className="card-body border secundary text-left">
@@ -309,12 +310,13 @@ const RealEstateContact: React.FC = () => {
                         />
 
                         <div className="card-img-overlay text-white d-flex justify-content-between align-items-start">
+                        <p className="card-text-comprar">COMPRAR</p>
                           {index < 3 && (
                             <h6 className="card-title-h5 text-white">
                               DESTAQUE
                             </h6>
                           )}
-                          <p className="card-text-comprar">COMPRAR</p>
+                         
                         </div>
                       </a>
                       <div className="card-body border secundary text-left">

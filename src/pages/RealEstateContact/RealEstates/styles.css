@@ -42,8 +42,8 @@
 
 .searchIcon.input-group {
   width: 100%;
-  max-width: 400px; /* Limita a largura do search bar */
-  margin: 0 auto; /* Centraliza o search bar */
+  max-width: 400px; 
+  margin: 0 auto; 
 }
 
 .pesquisa {
