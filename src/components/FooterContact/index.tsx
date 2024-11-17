@@ -17,7 +17,7 @@ const FooterContact: React.FC = () => {
               Endereço: Praça 20 de Setembro, 455 <br />
               Bairro Fragata, Cidade Pelotas, RS <br />
               Telefone: (53) 9999-9999 <br />
-              Email: aimob-ifsul@outlook.com
+              Email: aimob-ifsul@gmail.com
             </p>
           </div>
 
@@ -80,7 +80,7 @@ const FooterContact: React.FC = () => {
 
       {/* Copyright */}
       <div className="text-center p-3" style={{ backgroundColor: "rgba(0, 0, 0, 0.2)", color: "white" }}>
-        © 2023 Aimob - Todos os direitos reservados.
+        © 2024 Aimob - Todos os direitos reservados.
       </div>
     </footer>
   );
