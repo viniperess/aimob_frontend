@@ -19,6 +19,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import TaskDetail from "../pages/Tasks/TaskDetail";
 import ContactReport from "../components/Reports/ContactReport/ContactReport";
 import RealEstateReport from "../components/Reports/EstateReport/EstateReport";
+import AppointmentReport from "../components/Reports/AppointmentReport/AppointmentReport";
 
 const RoutesApp: React.FC = () => {
   return (
@@ -135,16 +136,16 @@ const RoutesApp: React.FC = () => {
               </ProtectedRoute>
             }
           />
-          {/* <Route
-            path="/advance-search/estates"
+          <Route
+            path="/reports/appointments"
             element={
               <ProtectedRoute>
-                <ContactReport />
+                <AppointmentReport />
               </ProtectedRoute>
             }
-          /> */}
+          />
           {/* <Route
-            path="/reports/contacts"
+            path="/advance-search/estates"
             element={
               <ProtectedRoute>
                 <ContactReport />
