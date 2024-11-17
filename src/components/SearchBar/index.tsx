@@ -18,7 +18,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
         <input
           className="pesquisa rounded-end me-1"
           type="search"
-          placeholder="Encontre Imoveis"
+          placeholder="Encontre o tipo do seu imóvel"
           aria-label="Search"
           value={query}
           onChange={(e) => {
