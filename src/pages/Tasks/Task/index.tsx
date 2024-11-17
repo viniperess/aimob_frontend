@@ -250,7 +250,6 @@ const TaskTable: React.FC = () => {
                       <option value="Pendente">Pendente</option>
                       <option value="Em Progresso">Em Progresso</option>
                       <option value="Concluído">Concluído</option>
-                      <option value="Cancelado">Cancelado</option>
                     </Form.Select>
                   </td>
                   <td>
