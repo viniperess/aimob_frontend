@@ -33,4 +33,5 @@ export interface RealEstateType {
   ownerName?: string; 
   ownerEmail?: string; 
   ownerPhone?: string; 
+  viewsCount: number;
 }
