@@ -3,7 +3,7 @@
     font-size: 16px;
 }
 
-#garage, #status {
+#garage, #status, #pool, #yard {
     width: 50%;
     height: 2.5rem;
 }

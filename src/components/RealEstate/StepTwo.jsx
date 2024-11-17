@@ -1,4 +1,4 @@
-import './StepTwo.css';
+import "./StepTwo.css";
 
 const StepTwo = ({ data, onChange }) => {
   const handleInputChange = (e) => {
@@ -15,6 +15,24 @@ const StepTwo = ({ data, onChange }) => {
   return (
     <div>
       <div className="container my-2 py-2 px-5">
+        <div className="row">
+          <div className="col">
+            <label htmlFor="description" className="form-label fw-medium">
+              Descrição
+            </label>
+            <input
+              type="text"
+              placeholder="Descrição do imóvel"
+              id="description"
+              name="description"
+              aria-describedby="descriptionFeedback"
+              value={data.description || ""}
+              onChange={handleInputChange}
+              className="form-control"
+              required
+            />
+          </div>
+        </div>
         <div className="row mb-3">
           <div className="col-4">
             <label htmlFor="builtArea" className="form-label fw-medium">
@@ -49,21 +67,21 @@ const StepTwo = ({ data, onChange }) => {
             />
           </div>
           <div className="col-4">
-              <label htmlFor="kitchens" className="form-label fw-medium">
-                Cozinha
-              </label>
-              <input
-                type="number"
-                placeholder="Cozinhas do imóvel"
-                id="kitchens"
-                name="kitchens"
-                aria-describedby="kitchensFeedback"
-                value={data.kitchens || ""}
-                onChange={handleInputChange}
-                className="form-control"
-                required
-              />
-            </div>
+            <label htmlFor="kitchens" className="form-label fw-medium">
+              Cozinha
+            </label>
+            <input
+              type="number"
+              placeholder="Cozinhas do imóvel"
+              id="kitchens"
+              name="kitchens"
+              aria-describedby="kitchensFeedback"
+              value={data.kitchens || ""}
+              onChange={handleInputChange}
+              className="form-control"
+              required
+            />
+          </div>
         </div>
         <div className="row mb-3">
           <div className="col-4">
@@ -99,42 +117,72 @@ const StepTwo = ({ data, onChange }) => {
             />
           </div>
           <div className="col-4">
-              <label htmlFor="livingRooms" className="form-label fw-medium">
-                Salas
-              </label>
-              <input
-                type="number"
-                placeholder="Salas do imóvel"
-                id="livingRooms"
-                name="livingRooms"
-                aria-describedby="livingRoomsFeedback"
-                value={data.livingRooms || ""}
-                onChange={handleInputChange}
-                className="form-control"
-                required
-              />
-            </div>
+            <label htmlFor="livingRooms" className="form-label fw-medium">
+              Salas
+            </label>
+            <input
+              type="number"
+              placeholder="Salas do imóvel"
+              id="livingRooms"
+              name="livingRooms"
+              aria-describedby="livingRoomsFeedback"
+              value={data.livingRooms || ""}
+              onChange={handleInputChange}
+              className="form-control"
+              required
+            />
+          </div>
           <div className="row mb-3">
-  
-            <div className="col-4">
-              <label htmlFor="salePrice" className="form-label fw-medium">
-                Valor
+            <div className="col-3">
+              <label
+                htmlFor="pool"
+                id="poolText"
+                className="form-label fw-medium"
+              >
+                Piscina
               </label>
-              <input
-                type="number"
-                placeholder="Valor do imóvel"
-                id="salePrice"
-                name="salePrice"
-                aria-describedby="salePricesFeedback"
-                value={data.salePrice}
-                onChange={handleInputChange}
-                className="form-control"
-                required
-              />
+              <div className="form-check one">
+                <input
+                  type="checkbox"
+                  id="pool"
+                  name="pool"
+                  checked={data.pool || false}
+                  onChange={handleInputChange}
+                  className="form-check-input"
+                />
+                <label className="form-check-label" htmlFor="pool">
+                  {data.pool ? "Sim" : "Não"}
+                </label>
+              </div>
             </div>
-            
-            <div className="col-4">
-              <label htmlFor="garage" id="garageText" className="form-label fw-medium">
+            <div className="col-3">
+              <label
+                htmlFor="yard"
+                id="yardText"
+                className="form-label fw-medium"
+              >
+                Pátio
+              </label>
+              <div className="form-check one">
+                <input
+                  type="checkbox"
+                  id="yard"
+                  name="yard"
+                  checked={data.yard || false}
+                  onChange={handleInputChange}
+                  className="form-check-input"
+                />
+                <label className="form-check-label" htmlFor="yard">
+                  {data.yard ? "Sim" : "Não"}
+                </label>
+              </div>
+            </div>
+            <div className="col-3">
+              <label
+                htmlFor="garage"
+                id="garageText"
+                className="form-label fw-medium"
+              >
                 Garagem
               </label>
               <div className="form-check one">
@@ -152,8 +200,12 @@ const StepTwo = ({ data, onChange }) => {
               </div>
             </div>
 
-            <div className="col-4 ">
-              <label htmlFor="status" id="statusText" className="form-label fw-medium">
+            <div className="col-3">
+              <label
+                htmlFor="status"
+                id="statusText"
+                className="form-label fw-medium"
+              >
                 Disponível
               </label>
               <div className="form-check two">
@@ -169,42 +221,42 @@ const StepTwo = ({ data, onChange }) => {
                   {data.status ? " Sim" : " Não"}
                 </label>
               </div>
+            </div>
           </div>
-
-          <div className="row mb-2">
-          <div className="col">
-              <label htmlFor="description" className="form-label fw-medium">
-                Descrição
+          <div className="row">
+            <div className="col-6">
+              <label htmlFor="salePrice" className="form-label fw-medium">
+                Valor
               </label>
               <input
-                type="text"
-                placeholder="Descrição do imóvel"
-                id="description"
-                name="description"
-                aria-describedby="descriptionFeedback"
-                value={data.description || ""}
+                type="number"
+                placeholder="Valor do imóvel"
+                id="salePrice"
+                name="salePrice"
+                aria-describedby="salePricesFeedback"
+                value={data.salePrice}
                 onChange={handleInputChange}
                 className="form-control"
                 required
               />
             </div>
-           </div>
-
-         
-          </div>
-          <div className="mb-3">
-            <label htmlFor="formFileMultiple" className="form-label fw-medium">
-              Selecione imagens
-            </label>
-            <input
-              className="form-control"
-              type="file"
-              name="images"
-              id="images"
-              accept="image/*"
-              onChange={handleInputChange}
-              multiple
-            />
+            <div className="col">
+              <label
+                htmlFor="formFileMultiple"
+                className="form-label fw-medium"
+              >
+                Selecione imagens
+              </label>
+              <input
+                className="form-control"
+                type="file"
+                name="images"
+                id="images"
+                accept="image/*"
+                onChange={handleInputChange}
+                multiple
+              />
+            </div>
           </div>
         </div>
       </div>

@@ -65,6 +65,12 @@ const Thanks = ({ data }) => {
             <td>{data.status ? "Sim" : "Não"}</td>
           </tr>
           <tr>
+            <th scope="row">Piscina</th>
+            <td>{data.pool ? "Sim" : "Não"}</td>
+            <th scope="row">Pátio</th>
+            <td>{data.yard ? "Sim" : "Não"}</td>
+          </tr>
+          <tr>
             <th scope="row">Valor</th>
             <td colSpan="">{data.salePrice}</td>
             <th scope="row">Qtd Imagem</th>
