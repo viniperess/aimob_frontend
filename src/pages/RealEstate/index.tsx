@@ -15,9 +15,13 @@ import {
   faCouch,
   faPenToSquare,
   faTrash,
+  faSwimmingPool,
+  faTree,
+  faBuilding,
 } from "@fortawesome/free-solid-svg-icons";
 import "./styles.css";
 import { Row, Col } from "react-bootstrap";
+import BrokerBadge from "../../components/BrokerBadge/BrokerBadge";
 const RealEstate: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
   const [realEstate, setRealEstate] = useState<RealEstateType>();
@@ -156,7 +160,7 @@ const RealEstate: React.FC = () => {
                     <FontAwesomeIcon icon={faTrash} />
                   </button>
                 </div>
-                
+
                 <div className="card-body text-left">
                   <h3 className="card-text py-3  mb-2">
                     Bairro {realEstate.district}, {realEstate.city} -{" "}
@@ -186,14 +190,8 @@ const RealEstate: React.FC = () => {
                     </Col>
                     <Col xs={6} md={4}>
                       <p className="card-text d-flex align-items-center">
-                        <FontAwesomeIcon icon={faRuler} className="me-2" />
-                        {realEstate.totalArea} m²
-                      </p>
-                    </Col>
-                    <Col xs={6} md={4}>
-                      <p className="card-text d-flex align-items-center">
-                        <FontAwesomeIcon icon={faCar} className="me-2" />
-                        {realEstate.garage ? "1" : "0"} vaga
+                        <FontAwesomeIcon icon={faBuilding} className="me-2" />
+                        {realEstate.type}
                       </p>
                     </Col>
                     <Col xs={6} md={4}>
@@ -212,14 +210,40 @@ const RealEstate: React.FC = () => {
                           : "salas de estar"}
                       </p>
                     </Col>
+                    <Col xs={6} md={4}>
+                      <p className="card-text d-flex align-items-center">
+                        <FontAwesomeIcon icon={faTree} className="me-2" />
+                        {realEstate.yard ? "Com jardim" : "Sem jardim"}
+                      </p>
+                    </Col>
+
+                    <Col xs={6} md={4}>
+                      <p className="card-text d-flex align-items-center">
+                        <FontAwesomeIcon icon={faRuler} className="me-2" />
+                        {realEstate.totalArea} m²
+                      </p>
+                    </Col>
+                    <Col xs={6} md={4}>
+                      <p className="card-text d-flex align-items-center">
+                        <FontAwesomeIcon icon={faCar} className="me-2" />
+                        {realEstate.garage ? "1" : "0"} vaga
+                      </p>
+                    </Col>
+
+                    <Col xs={6} md={4}>
+                      <p className="card-text d-flex align-items-center">
+                        <FontAwesomeIcon
+                          icon={faSwimmingPool}
+                          className="me-2"
+                        />
+                        {realEstate.pool ? "Com piscina" : "Sem piscina"}
+                      </p>
+                    </Col>
                   </Row>
                   <div className="text-left py-3 mb-4">
                     <h4 className="text-primary">R$ {realEstate.salePrice}</h4>
                   </div>
-
-  
                 </div>
-
               </div>
             </div>
           </div>
