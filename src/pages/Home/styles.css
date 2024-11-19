@@ -58,8 +58,10 @@
 
   .card-body {
     justify-items: start;
-    margin: 0;
-    padding: auto;
+    margin: 0!important;
+    /* padding: auto; */
+    padding: 0!important;
+
   }
 
   .d-flex > p {
