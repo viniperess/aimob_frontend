@@ -53,8 +53,9 @@ const AdvancedFilters: React.FC<AdvancedFiltersProps> = ({ onFilterChange, reset
         width: '100%',
         margin: '0 auto',
       }}
+      className="advanced-filters-container"
     >
-      <div style={{ display: 'flex', flexDirection: 'column', fontSize: '12px', alignItems: 'start', marginLeft: '30px'}}>
+      <div className="advanced-filter-group" style={{ display: 'flex', flexDirection: 'column', fontSize: '12px', alignItems: 'start', marginLeft: '30px'}}>
         <label><strong>Quartos</strong></label>
         <div style={{ display: 'flex', gap: '10px' }}>
         {[1, 2, 3].map((num) => (
@@ -73,7 +74,7 @@ const AdvancedFilters: React.FC<AdvancedFiltersProps> = ({ onFilterChange, reset
         </div>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', fontSize: '12px', alignItems: 'start' }}>
+      <div className="advanced-filter-group" style={{ display: 'flex', flexDirection: 'column', fontSize: '12px', alignItems: 'start' }}>
         <label><strong>Banheiros</strong></label>
         <div style={{ display: 'flex', gap: '10px' }}>
         {[1, 2, 3].map((num) => (
@@ -91,7 +92,7 @@ const AdvancedFilters: React.FC<AdvancedFiltersProps> = ({ onFilterChange, reset
           ))}
         </div>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', fontSize: '12px', alignItems: 'start' }}>
+      <div className="advanced-filter-group" style={{ display: 'flex', flexDirection: 'column', fontSize: '12px', alignItems: 'start' }}>
         <label><strong>Cozinhas</strong></label>
         <div style={{ display: 'flex', gap: '10px' }}>
         {[1, 2, 3].map((num) => (
@@ -109,7 +110,7 @@ const AdvancedFilters: React.FC<AdvancedFiltersProps> = ({ onFilterChange, reset
           ))}
         </div>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', fontSize: '12px', alignItems: 'start' }}>
+      <div className="advanced-filter-group" style={{ display: 'flex', flexDirection: 'column', fontSize: '12px', alignItems: 'start' }}>
         <label><strong>Salas</strong></label>
         <div style={{ display: 'flex', gap: '10px' }}>
         {[1, 2, 3].map((num) => (
@@ -127,9 +128,9 @@ const AdvancedFilters: React.FC<AdvancedFiltersProps> = ({ onFilterChange, reset
           ))}
         </div>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', fontSize: '12px', alignItems: 'start' }}>
+      <div className="advanced-filter-group" style={{ display: 'flex', flexDirection: 'column', fontSize: '12px', alignItems: 'start' }}>
         <label><strong>Tipo</strong></label>
-        <div style={{ display: 'flex', gap: '10px' }}>
+        <div className="advanced-filter-group" style={{ display: 'flex', gap: '10px' }}>
         <label>
             Ap
             <input
@@ -155,7 +156,7 @@ const AdvancedFilters: React.FC<AdvancedFiltersProps> = ({ onFilterChange, reset
         </div>
         
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', fontSize: '12px', alignItems: 'start' }}>
+      <div className="advanced-filter-group"  style={{ display: 'flex', flexDirection: 'column', fontSize: '12px', alignItems: 'start' }}>
         <label><strong>Garagem</strong></label>
         <div style={{ display: 'flex', gap: '10px' }}>
         <label>
@@ -183,9 +184,9 @@ const AdvancedFilters: React.FC<AdvancedFiltersProps> = ({ onFilterChange, reset
 
         </div>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', fontSize: '12px', alignItems: 'start' }}>
+      <div className="advanced-filter-group" style={{ display: 'flex', flexDirection: 'column', fontSize: '12px', alignItems: 'start' }}>
         <label><strong>Pátio</strong></label>
-        <div style={{ display: 'flex', gap: '10px' }}>
+        <div className="advanced-filter-group" style={{ display: 'flex', gap: '10px' }}>
         <label>
       Não
       <input
@@ -210,9 +211,9 @@ const AdvancedFilters: React.FC<AdvancedFiltersProps> = ({ onFilterChange, reset
     </label>
         </div>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', fontSize: '12px', alignItems: 'start' }}>
+      <div className="advanced-filter-group" style={{ display: 'flex', flexDirection: 'column', fontSize: '12px', alignItems: 'start' }}>
         <label><strong>Piscina</strong></label>
-        <div style={{ display: 'flex', gap: '10px' }}>
+        <div className="advanced-filter-group" style={{ display: 'flex', gap: '10px' }}>
         <label>
       Não
       <input
@@ -242,6 +243,7 @@ const AdvancedFilters: React.FC<AdvancedFiltersProps> = ({ onFilterChange, reset
       <div className="priceRange" style={{marginTop: '15px'}}>
       <PriceRangeSlider onPriceChange={handlePriceChange} priceRange={localFilters.priceRange}/> </div>
       <button
+      className="advanced-filter-group"
         style={{
           padding: '5px 10px',
           backgroundColor: ' #ffc107',

@@ -85,13 +85,16 @@ const ForgotPassword: React.FC = () => {
                
               </div>
             </div>
+            <div className="row">
             <button
               type="submit"
               className="btnForgot btn-primary"
               disabled={loading}
+              
             >
               {loading ? "Enviando..." : "Enviar Código"}
             </button>
+            </div>
           </form>
           <p className="text-center logForgot">
             Lembrou sua senha? <a href="/signin">Voltar ao Login</a>

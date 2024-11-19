@@ -23,6 +23,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  border-radius: 45px!important;
 }
 
 .formRegister {
@@ -31,7 +32,9 @@ body {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  border-radius: 45px!important;
 }
+
 
 p > a {
   text-decoration: none;
@@ -58,6 +61,7 @@ p > a {
   gap: 0;
 }
 
+
 .formRegister > h3 {
   font-weight: 400;
   font-size: 1.5rem;
@@ -80,15 +84,6 @@ p > a {
   display: flex;
 }
 
-.btnRegister  {
-  width: 100%;
-  height: 52px;
-  background: #ffff;
-  border: 1px solid blue;
-  border-radius: 60px;
-  color: #0B58A6;
-  cursor: pointer;
-}
 
 button:hover {
   cursor: pointer;
@@ -107,7 +102,9 @@ button:hover {
   display: flex;
   margin-top: 5px;
 }
-@media (max-width: 768px) {
+
+
+@media (max-width: 1024px) {
   .formRegister {
     padding: 10px;
   }
@@ -128,6 +125,22 @@ button:hover {
   }
 }
 
-/* #email, #password, #name, #user, #cpf, #city, #phone, #creci, #passwordTwo {
-  border-radius:45px;
-} */
+@media (max-width: 1024px) {
+  .image {
+    display: none; /* Esconde a imagem */
+  }
+
+  .boxFormRegister {
+    width: 100%; /* Faz o formulário ocupar toda a largura */
+  }
+
+  .formRegister {
+    width: 90%; /* Ajusta a largura do formulário */
+  }
+
+  .textoCabecalho > h1,
+  .textoCabecalho > p {
+    margin: 0 auto; /* Centraliza o texto */
+    text-align: center;
+  }
+}

@@ -1,0 +1,36 @@
+
+@media (max-width: 1024px) {
+    .advanced-filters-container {
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 10px;
+      justify-content: center!important;
+      justify-items: center!important;
+      display: flex!important;
+      align-items: center!important;
+    }
+  
+    .advanced-filter-group {
+      flex: 0 0 100%;
+      text-align: center; 
+      margin: 0!important;
+      justify-content: center!important;
+      justify-items: center!important;
+      display: flex!important;
+      align-items: center!important;
+    }
+  
+    .priceRange {
+      flex: 0 0 100%; 
+      text-align: center;
+    }
+  
+    button {
+      width: 100%;
+      margin-left: 0; 
+      justify-content: center!important;
+      justify-items: center!important;
+      align-items: center!important;
+    }
+  }
+  

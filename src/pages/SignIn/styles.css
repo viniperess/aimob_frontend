@@ -76,7 +76,7 @@ body {
 }
 
 .btnLogin {
-  width: 80%;
+  width: 95%;
   height: 40px;
   color: white;
   background: #0B58A6;
@@ -99,7 +99,7 @@ button:hover {
   border-radius: 46px;
   box-sizing: border-box;
   background-color: transparent;
-  width: 105%;
+  width: 100%;
   padding: 15px;
   display: flex;
   margin-bottom: 10px;
@@ -110,7 +110,7 @@ button:hover {
   color: rgb(24, 159, 238);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .containerLogin, p, h1{
     padding: 10px;
     text-align: center;
@@ -132,5 +132,26 @@ button:hover {
   .textCabecalho {
     text-align: left;
     margin: 0;
+  }
+}
+
+@media (max-width: 1024px) {
+  .imageLogin {
+    display: none;
+  }
+
+  .boxFormLogin {
+    width: 100%;
+  }
+
+  .formLogin {
+    width: 90%;
+  }
+
+  .boxFormLogin > h1,
+  .boxFormLogin > p {
+    margin: 0 auto;
+    width: 90%;
+    text-align: center!important;
   }
 }

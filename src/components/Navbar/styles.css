@@ -38,3 +38,23 @@ body {
     }
   }
   
+  @media (max-width: 1024px) {
+    .dropdown-menu {
+      width: auto;
+      right: 0 !important;
+      left: auto;
+      transform: none !important; 
+      text-align: center !important; 
+    }
+  }
+
+  
+@media (max-width: 1024px) {
+  .navbar-collapse {
+    text-align: center;
+  }
+
+  .navbar .nav-item {
+    padding: 10px 0;
+  }
+}

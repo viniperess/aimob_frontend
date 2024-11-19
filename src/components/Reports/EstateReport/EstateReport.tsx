@@ -108,6 +108,7 @@ const RealEstateReport: React.FC = () => {
             </button>
           </div>
         )}
+        
         <Form.Group className="row no-gutters">
           <Form.Group controlId="bedroomsSelect" className="m-3 mb-0 col-2">
             <Form.Label>Quartos</Form.Label>

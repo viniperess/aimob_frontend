@@ -246,7 +246,7 @@ const RealEstateContact: React.FC = () => {
                         ? "col-12"
                         : filteredRealEstates.length === 2
                         ? "col-6"
-                        : "col-md-4 col-sm-6 col-12"
+                        : "col-12 col-md-6 col-lg-4"
                     } d-flex justify-content-center`}
                     key={realEstate.id}
                   >
@@ -297,7 +297,7 @@ const RealEstateContact: React.FC = () => {
                         ? "col-12"
                         : realEstates.length === 2
                         ? "col-6"
-                        : "col-md-4 col-sm-6 col-12"
+                        : "col-12 col-md-6 col-lg-4"
                     } d-flex justify-content-center`}
                     key={realEstate.id}
                   >

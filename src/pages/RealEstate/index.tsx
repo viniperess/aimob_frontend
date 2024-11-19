@@ -75,7 +75,7 @@ const RealEstate: React.FC = () => {
       {realEstate && (
         <>
           <h1 className="text-center py-2 my-3">{realEstate?.description}</h1>
-          <div className="container shadow my-5 mx-auto">
+          <div className="container my-5 mx-auto">
             <div className="row row-cols-lg-2 row-cols-1">
               <div
                 id="carouselExampleCaptionsReal"
@@ -153,6 +153,7 @@ const RealEstate: React.FC = () => {
                   </button>
                   <button
                     className="btn text-light m-2 bg-warning"
+                    id="deletebtn"
                     type="submit"
                     onClick={handleDeleteRealEstate}
                   >
@@ -213,7 +214,7 @@ const RealEstate: React.FC = () => {
                     <Col xs={6} md={4}>
                       <p className="card-text d-flex align-items-center">
                         <FontAwesomeIcon icon={faTree} className="me-2" />
-                        {realEstate.yard ? "Com jardim" : "Sem jardim"}
+                        {realEstate.yard ? "com jardim" : "sem jardim"}
                       </p>
                     </Col>
 
@@ -236,7 +237,7 @@ const RealEstate: React.FC = () => {
                           icon={faSwimmingPool}
                           className="me-2"
                         />
-                        {realEstate.pool ? "Com piscina" : "Sem piscina"}
+                        {realEstate.pool ? "com piscina" : "sem piscina"}
                       </p>
                     </Col>
                   </Row>

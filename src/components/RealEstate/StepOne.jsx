@@ -63,10 +63,10 @@ const StepOne = ({ data, onChange }) => {
         <label className="radio-container">
           <input
             type="radio"
-            value="APARTAMENTO"
+            value="apartamento"
             name="type"
             required
-            checked={data.type === "APARTAMENTO"}
+            checked={data.type === "apartamento"}
             onChange={handleInputChange}
           />
           <GiFamilyHouse />
@@ -75,10 +75,10 @@ const StepOne = ({ data, onChange }) => {
         <label className="radio-container">
           <input
             type="radio"
-            value="CASA"
+            value="casa"
             name="type"
             required
-            checked={data.type === "CASA"}
+            checked={data.type === "casa"}
             onChange={handleInputChange}
           />
           <GiHouse />

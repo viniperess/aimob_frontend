@@ -3,3 +3,19 @@
     max-width: 100%;
     box-sizing: border-box;
   }
+
+  @media (max-width: 1024px) {
+    .filters-container {
+      display: flex;
+      justify-content: center; /* Centraliza os filtros horizontalmente */
+      align-items: center; /* Centraliza os filtros verticalmente */
+      flex-direction: column; /* Empilha os filtros verticalmente */
+      margin: 20px 0; 
+      width: 100%;
+    }
+  
+    .filters-container .form-group {
+      width: 100%;
+      max-width: 300px; 
+    }
+  }

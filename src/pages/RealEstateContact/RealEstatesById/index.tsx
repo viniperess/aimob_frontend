@@ -314,7 +314,7 @@ const RealEstateByContact: React.FC = () => {
                     <Col xs={6} md={4}>
                       <p className="card-text d-flex align-items-center">
                         <FontAwesomeIcon icon={faTree} className="me-2" />
-                        {realEstate.yard ? "Com jardim" : "Sem jardim"}
+                        {realEstate.yard ? "com jardim" : "sem jardim"}
                       </p>
                     </Col>
 
@@ -337,7 +337,7 @@ const RealEstateByContact: React.FC = () => {
                           icon={faSwimmingPool}
                           className="me-2"
                         />
-                        {realEstate.pool ? "Com piscina" : "Sem piscina"}
+                        {realEstate.pool ? "com piscina" : "sem piscina"}
                       </p>
                     </Col>
                   </Row>
@@ -345,7 +345,7 @@ const RealEstateByContact: React.FC = () => {
                     <Col>
                     <h4 className="text-primary mb-3">R$ {realEstate.salePrice}</h4>
                     </Col>
-                    <Col className="m-4">
+                    <Col className="m-3">
                       <BrokerBadge userId={Number(realEstate.userId)}/>
                     </Col>
                   </Row>

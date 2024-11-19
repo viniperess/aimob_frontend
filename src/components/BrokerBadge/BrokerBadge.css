@@ -20,3 +20,24 @@
   height: 100%;
   object-fit: cover;
 }
+
+@media (max-width: 1024px) {
+  .broker-badge {
+    font-size: 8px;
+    justify-content: center!important;
+    align-items: center!important;
+    justify-items: center!important;
+  }
+
+  .broker-badge-image {
+    width: 50px;
+    height: 50px;
+  }
+
+  .broker-badge .textBroker {
+    text-align: center; 
+    justify-content: center!important;
+    align-items: center!important;
+    justify-items: center!important;
+  }
+}

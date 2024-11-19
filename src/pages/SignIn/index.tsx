@@ -90,12 +90,14 @@ const SignIn: React.FC = () => {
               />
             </div>
           </div>
+          <div className="row">
           <div className="text-center">
             <label className="text-danger">{error}</label>
           </div>
-          <button type="submit" className="btnLogin btn-primary w-100">
+          <button type="submit" className="btnLogin btn-primary">
             Logar-se
           </button>
+          </div>
           <p className="text-center logLogin">
             Novo por aqui? <a href="/SignUp">Registre-se</a> ou <a href="/forgot_password">Esqueceu a senha</a>
           </p>

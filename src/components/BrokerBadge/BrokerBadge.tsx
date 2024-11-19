@@ -33,9 +33,9 @@ const BrokerBadge: React.FC<BrokerBadgeProps> = ({ userId }) => {
   if (!broker) return null;
 
   return (
-    <Card className="broker-badge d-flex m-0 p-0 justify-content-start">
-      <Row className="align-items-center">
-        <Col xs="auto">
+    <Card className="broker-badge d-flex m-0 justify-content-start">
+      <Row className="align-items-center w-100 flex-column flex-sm-row">
+        <Col xs="auto" className="mb-2 mb-sm-0">
           <div className="broker-badge-image">
             <img
               src={broker.image || "/default-profile.png"}
@@ -44,7 +44,7 @@ const BrokerBadge: React.FC<BrokerBadgeProps> = ({ userId }) => {
             />
           </div>
         </Col>
-        <Col>
+        <Col text-center text-sm-start>
           <Card.Body className="textBroker p-0" style={{fontSize: '10px'}}>
             <Card.Title className="mb-1" style={{fontSize: '12px'}}>{broker.name}</Card.Title>
             <Card.Text className="mb-1">CRECI: {broker.creci}</Card.Text>

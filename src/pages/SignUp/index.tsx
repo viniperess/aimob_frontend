@@ -82,27 +82,31 @@ const SignUp: React.FC = () => {
           id="form"
         >
           <h3>Registro</h3>
-          <div className="mb-0">
-            <input
-              type="email"
-              name="email"
-              id="email"
-              value={email}
-              placeholder="Email"
-              onChange={(e) => [setEmail(e.target.value), setError("")]}
-              className={`form-control ${
-                (error && !email) ||
-                (!emailRegex.test(email) && email.length !== 0)
-                  ? "is-invalid"
-                  : ""
-              }`}
-            />
+          <div className="row">
+            <div className="col-12">
+              <input
+                type="email"
+                name="email"
+                style={{ borderRadius: "50px" }}
+                id="email"
+                value={email}
+                placeholder="Email"
+                onChange={(e) => [setEmail(e.target.value), setError("")]}
+                className={`form-control ${
+                  (error && !email) ||
+                  (!emailRegex.test(email) && email.length !== 0)
+                    ? "is-invalid"
+                    : ""
+                }`}
+              />
+            </div>
           </div>
           <div className="row">
-            <div className="col">
+            <div className="col-6">
               <input
                 type="text"
                 name="name"
+                style={{ borderRadius: "50px" }}
                 id="name"
                 value={name}
                 placeholder="Nome"
@@ -111,9 +115,10 @@ const SignUp: React.FC = () => {
               />
             </div>
 
-            <div className="col">
+            <div className="col-6">
               <input
                 type="text"
+                style={{ borderRadius: "50px" }}
                 name="user"
                 id="user"
                 value={user}
@@ -130,6 +135,7 @@ const SignUp: React.FC = () => {
                 mask="999.999.999-99"
                 id="cpf"
                 name="cpf"
+                style={{ borderRadius: "50px" }}
                 aria-describedby="cpfFeedback"
                 value={cpf}
                 placeholder="Cpf"
@@ -142,6 +148,7 @@ const SignUp: React.FC = () => {
                 type="text"
                 name="city"
                 id="city"
+                style={{ borderRadius: "50px" }}
                 value={city}
                 placeholder="Cidade"
                 onChange={(e) => [setCity(e.target.value), setError("")]}
@@ -158,6 +165,7 @@ const SignUp: React.FC = () => {
                 mask="(99) 99999-9999"
                 maskChar={null}
                 placeholder="Telefone"
+                style={{ borderRadius: "50px" }}
                 value={phone}
                 onChange={(e) => [setPhone(e.target.value), setError("")]}
                 className={`form-control ${
@@ -170,6 +178,7 @@ const SignUp: React.FC = () => {
                 type="text"
                 name="creci"
                 id="creci"
+                style={{ borderRadius: "50px" }}
                 value={creci}
                 placeholder="Creci"
                 onChange={(e) => [setCreci(e.target.value), setError("")]}
@@ -186,6 +195,7 @@ const SignUp: React.FC = () => {
                 name="password"
                 id="password"
                 placeholder="Senha"
+                style={{ borderRadius: "50px" }}
                 value={password}
                 onChange={(e) => [setPassword(e.target.value), setError("")]}
                 className={`form-control ${
@@ -202,6 +212,7 @@ const SignUp: React.FC = () => {
                 name="passwordTwo"
                 id="passwordTwo"
                 value={passwordTwo}
+                style={{ borderRadius: "50px" }}
                 placeholder="Confirmar Senha"
                 onChange={(e) => [setPasswordTwo(e.target.value), setError("")]}
                 className={`form-control ${
@@ -215,11 +226,11 @@ const SignUp: React.FC = () => {
           <div className="text-center">
             <label className="text-danger">{error}</label>
           </div>
-          <div className="d-grid">
+          <div className="row d-grid">
             <button
               type="submit"
               className="btn bg-white text-primary"
-              style={{ borderRadius: "50px" }}
+              style={{ borderRadius: "50px", width: "100%" }}
             >
               Registrar-se
             </button>

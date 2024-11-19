@@ -28,7 +28,7 @@ body {
 
 
 .imageForgot {
-  width: 100%;
+  width: 105%;
   /* height: 100%; */
   justify-content: center;
   background-size: cover;
@@ -37,7 +37,7 @@ body {
 }
 
 .btnForgot {
-  width: 100%;
+  /* width: 95%!important; */
   height: 40px;
   color: white;
   background: #0B58A6;
@@ -83,3 +83,39 @@ button:hover {
   text-align: center;
   color: rgb(24, 159, 238);
 } 
+
+@media (max-width: 1024px) {
+  .imageForgot {
+    display: none;
+  }
+
+  .boxFormForgot {
+    width: 100%; 
+    padding: 20px; 
+    text-align: center; 
+  }
+
+  .olaForgot {
+    font-size: 2.5rem; 
+    padding-top: 20px; 
+  }
+
+  .boxFormForgot > p {
+    font-size: 14px;
+    justify-content: center!important;
+    align-items: center!important;
+    justify-items: center!important;
+    display: flex!important;
+    margin-bottom: 20px; 
+  }
+
+  #emailForgot {
+    width: 100%; 
+    height: 50px; 
+  }
+
+  .btnForgot {
+    height: 50px; 
+    font-size: 16px; 
+  }
+}

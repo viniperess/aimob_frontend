@@ -78,3 +78,55 @@ input, textarea {
     background-color: #cfcfcf;
 }
 
+@media (max-width: 1024px) {
+    .masterform {
+      padding: 1rem; /* Reduz o padding */
+    }
+  
+    .form-container {
+      max-width: 90%; /* Aumenta a largura do formulário */
+      margin: 0 auto; /* Centraliza o formulário */
+      padding: 1rem; /* Ajusta o padding interno */
+      box-shadow: none; /* Remove sombra para simplificar */
+      border: 1px solid #ddd; /* Adiciona borda leve para destaque */
+    }
+  
+    .form-control {
+      margin-bottom: 1.5rem; /* Espaçamento mais consistente entre inputs */
+      width: 100%; /* Inputs ocupam 100% da largura */
+    }
+  
+    .inputs-container {
+      min-height: auto; /* Remove restrição de altura para inputs */
+    }
+  
+    .actions {
+      justify-content: center; /* Centraliza os botões */
+      gap: 0.5rem; /* Reduz o espaçamento entre os botões */
+    }
+  
+    .actions button {
+      width: 100%; /* Botões ocupam toda a largura */
+      font-size: 1rem; /* Aumenta legibilidade */
+    }
+  
+    .thanks-container h2,
+    .thanks-container p,
+    .thanks-container h3 {
+      font-size: 1.2rem; /* Ajusta o tamanho do texto */
+    }
+  
+    .thanks-container table {
+      font-size: 0.9rem; /* Ajusta o tamanho da tabela */
+      width: 100%; /* Tabela ocupa toda a largura */
+    }
+  
+    .score-container {
+      flex-direction: column; /* Ícones em coluna */
+      gap: 2rem; /* Aumenta espaçamento entre ícones */
+    }
+  
+    .score-container svg {
+      font-size: 3rem; /* Reduz o tamanho dos ícones */
+    }
+  }

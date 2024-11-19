@@ -130,9 +130,11 @@ const ResetPassword: React.FC = () => {
                 )}
               </div>
             </div>
+            <div className="row mt-4">
             <button type="submit" className="btnReset btn-primary">
               Resetar Senha
             </button>
+            </div>
           </form>
           <p className="text-center logReset">
             Lembrou sua senha? <a href="/signin">Voltar ao Login</a>
