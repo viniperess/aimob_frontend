@@ -1,4 +1,4 @@
-import { faInstagram, faLinkedinIn, faGithub, faDiscord } from '@fortawesome/free-brands-svg-icons';
+import { faInstagram, faLinkedinIn, faGithub, faDiscord, faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -7,11 +7,11 @@ library.add(faInstagram, faLinkedinIn, faGithub, faDiscord);
 const Footer: React.FC = () => {
   return (
     <footer className="bg-primary text-white text-center">
-      {/* Grid container */}
       <div className="container p-4 pb-0">
-        {/* Section: Social media */}
+      <p className="btn text-white btn-floating m-1">Acesse nossa página no Facebook</p>
         <section className="mb-4">
           {/* Discord */}
+          
           <a
             data-mdb-ripple-init
             className="btn text-white btn-floating m-1"
@@ -26,11 +26,11 @@ const Footer: React.FC = () => {
           <a
             data-mdb-ripple-init
             className="btn text-white btn-floating m-1"
-            style={{ backgroundColor: "#E4405F" }}  // Cor oficial do Instagram
-            href="https://instagram.com/viniperess_"
+            style={{ backgroundColor: "#5993eb" }}  // Cor oficial do Instagram
+            href="https://www.facebook.com/profile.php?id=61568643164281"
             role="button"
           >
-            <FontAwesomeIcon icon={faInstagram} />
+            <FontAwesomeIcon icon={faFacebook} />
           </a>
 
           {/* Linkedin */}

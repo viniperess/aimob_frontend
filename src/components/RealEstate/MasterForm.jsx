@@ -35,6 +35,8 @@ const MasterForm = () => {
 
   const handleChange = (newData) => {
     setFormData({ ...formData, ...newData });
+    console.log("Updated formData:", { ...formData, ...newData });
+ 
   };
 
   const handleSubmit = async (e) => {
@@ -44,7 +46,12 @@ const MasterForm = () => {
       const url = id ? `/realestates/${id}` : "/realestates";
       const method = id ? "patch" : "post";
       const formDataObj = new FormData();
-
+      const transformedData = { ...formData };
+      ["garage", "yard", "pool", "status", "isPosted"].forEach((key) => {
+        if (transformedData[key] !== undefined) {
+          transformedData[key] = transformedData[key] ? "true" : "false";
+        }
+      });
       if (formData.images && formData.images.length > 0) {
         formData.images.forEach((file) => {
           console.log("Selected file:", file);
@@ -56,8 +63,11 @@ const MasterForm = () => {
       }
 
       Object.keys(formData).forEach((key) => {
-        if (key !== "images" && key !== "salePrice") {
-          formDataObj.append(key, formData[key]);
+        const value = formData[key];
+        if (typeof value === "boolean") {
+          formDataObj.append(key, value ? "true" : "false");
+        } else if (key !== "images" && key !== "salePrice") {
+          formDataObj.append(key, value);
         }
       });
       console.log("Conteúdo do formDataObj:");
@@ -90,7 +100,7 @@ const MasterForm = () => {
   const steps = {
     1: <StepOne onChange={handleChange} data={formData} />,
     2: <StepTwo onChange={handleChange} data={formData} />,
-    3: <Thanks data={formData} onSubmit={handleSubmit} />,
+    3: <Thanks onChange={handleChange} data={formData} onSubmit={handleSubmit} />,
   };
 
   const changeStep = (step) => {

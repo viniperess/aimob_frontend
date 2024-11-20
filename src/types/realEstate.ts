@@ -34,4 +34,5 @@ export interface RealEstateType {
   ownerEmail?: string; 
   ownerPhone?: string; 
   viewsCount: number;
+  isPosted: boolean;
 }

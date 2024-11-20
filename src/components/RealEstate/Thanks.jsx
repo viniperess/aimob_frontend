@@ -2,7 +2,16 @@ import "./Thanks.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 
-const Thanks = ({ data }) => {
+const Thanks = ({ data, onChange  }) => {
+  const handleInputChange = (e) => {
+    const { name, type, checked, value, files } = e.target;
+    if (type === "checkbox") {
+      onChange({ [name]: checked });
+    }  else {
+      onChange({ [name]: value });
+    }
+    console.log(`Updated ${name}:`, type === "checkbox" ? checked : value);
+  };
   return (
     <div className="thanks-container">
       <h2>Falta pouco...</h2>
@@ -74,10 +83,23 @@ const Thanks = ({ data }) => {
             <th scope="row">Valor</th>
             <td colSpan="">{data.salePrice}</td>
             <th scope="row">Qtd Imagem</th>
-            <td>{data.images.length}</td>
+            <td>{Array.isArray(data.images) ? data.images.length : 0}</td>
           </tr>
         </tbody>
       </table>
+      <div className="form-check d-flex align-items-center justify-content-center">
+        <label htmlFor="postToFacebook" className="form-check-label">
+          Publicar este imóvel na página do Facebook
+        </label>
+        <input
+          type="checkbox"
+          className="form-check-input m-1"
+          id="isPosted"
+          name="isPosted"
+          checked={data.isPosted || false}
+          onChange={handleInputChange}
+        />
+      </div>
     </div>
   );
 };

@@ -10,6 +10,7 @@ const StepTwo = ({ data, onChange }) => {
     } else {
       onChange({ [name]: value });
     }
+    console.log(`Updated ${name}:`, type === "checkbox" ? checked : value);
   };
 
   return (
@@ -132,41 +133,6 @@ const StepTwo = ({ data, onChange }) => {
               required
             />
           </div>
-          <div className="row">
-            <div className="col-6">
-              <label htmlFor="salePrice" className="form-label fw-medium">
-                Valor
-              </label>
-              <input
-                type="number"
-                placeholder="Valor do imóvel"
-                id="salePrice"
-                name="salePrice"
-                aria-describedby="salePricesFeedback"
-                value={data.salePrice}
-                onChange={handleInputChange}
-                className="form-control"
-                required
-              />
-            </div>
-            <div className="col">
-              <label
-                htmlFor="formFileMultiple"
-                className="form-label fw-medium"
-              >
-                Selecione imagens
-              </label>
-              <input
-                className="form-control"
-                type="file"
-                name="images"
-                id="images"
-                accept="image/*"
-                onChange={handleInputChange}
-                multiple
-              />
-            </div>
-          </div>
           <div className="row mb-3">
             <div className="col-3">
               <label
@@ -256,6 +222,41 @@ const StepTwo = ({ data, onChange }) => {
                   {data.status ? " Sim" : " Não"}
                 </label>
               </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-6">
+              <label htmlFor="salePrice" className="form-label fw-medium">
+                Valor
+              </label>
+              <input
+                type="number"
+                placeholder="Valor do imóvel"
+                id="salePrice"
+                name="salePrice"
+                aria-describedby="salePricesFeedback"
+                value={data.salePrice}
+                onChange={handleInputChange}
+                className="form-control"
+                required
+              />
+            </div>
+            <div className="col">
+              <label
+                htmlFor="formFileMultiple"
+                className="form-label fw-medium"
+              >
+                Selecione imagens
+              </label>
+              <input
+                className="form-control"
+                type="file"
+                name="images"
+                id="images"
+                accept="image/*"
+                onChange={handleInputChange}
+                multiple
+              />
             </div>
           </div>
         </div>
