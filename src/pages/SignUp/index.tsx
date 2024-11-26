@@ -3,7 +3,26 @@ import { useNavigate } from "react-router-dom";
 import api from "../../service/api";
 import "./styles.css";
 import InputMask from "react-input-mask";
-
+import axios from "axios";
+const validateCRECI = async (creci: string) => {
+  try {
+    const response = await axios.get(
+      "http://localhost:3001/api/v1/creci/validate",
+      {
+        params: { creci },
+      }
+    );
+    console.log("Resposta do Backend:", response.data);
+    return response.data;
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Erro ao validar CRECI via Backend:", error.message);
+    } else {
+      console.error("Erro ao validar CRECI via Backend:", error);
+    }
+    throw new Error("Erro na validação do CRECI.");
+  }
+};
 const SignUp: React.FC = () => {
   const [user, setUser] = useState("");
   const [name, setName] = useState("");
@@ -19,6 +38,17 @@ const SignUp: React.FC = () => {
   const navigate = useNavigate();
 
   const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  const handleCRECIBlur = async () => {
+    try {
+      const data = await validateCRECI(creci);
+      setName(data.nomeCompleto);
+      setCity(data.cidade);
+      setError("");
+    } catch (err) {
+      setName("");
+      setError("CRECI inválido ou não encontrado.");
+    }
+  };
 
   const handleRegister = async (e: FormEvent) => {
     e.preventDefault();
@@ -87,7 +117,7 @@ const SignUp: React.FC = () => {
               <input
                 type="email"
                 name="email"
-                style={{ borderRadius: "50px" }}
+                style={{ borderRadius: "50px", fontSize: "14px" }}
                 id="email"
                 value={email}
                 placeholder="Email"
@@ -102,11 +132,30 @@ const SignUp: React.FC = () => {
             </div>
           </div>
           <div className="row">
+          <div className="col">
+              <input
+                type="text"
+                name="creci"
+                id="creci"
+                style={{ borderRadius: "50px", fontSize: "14px" }}
+                value={creci}
+                placeholder="Creci"
+                onBlur={handleCRECIBlur}
+                onChange={(e) => {
+                  const value = e.target.value.replace(/[^a-zA-Z0-9]/g, ""); // Permitir apenas letras e números
+                  setCreci(value);
+                  setError("");
+                }}
+                className={`form-control ${
+                  error && !creci ? "is-invalid" : ""
+                }`}
+              />
+            </div>
             <div className="col-6">
               <input
                 type="text"
                 name="name"
-                style={{ borderRadius: "50px" }}
+                style={{ borderRadius: "50px", fontSize: "14px" }}
                 id="name"
                 value={name}
                 placeholder="Nome"
@@ -115,10 +164,13 @@ const SignUp: React.FC = () => {
               />
             </div>
 
-            <div className="col-6">
+
+          </div>
+          <div className="row">
+          <div className="col-6">
               <input
                 type="text"
-                style={{ borderRadius: "50px" }}
+                style={{ borderRadius: "50px", fontSize: "14px" }}
                 name="user"
                 id="user"
                 value={user}
@@ -127,28 +179,12 @@ const SignUp: React.FC = () => {
                 className={`form-control ${error && !user ? "is-invalid" : ""}`}
               />
             </div>
-          </div>
-
-          <div className="row">
-            <div className="col">
-              <InputMask
-                mask="999.999.999-99"
-                id="cpf"
-                name="cpf"
-                style={{ borderRadius: "50px" }}
-                aria-describedby="cpfFeedback"
-                value={cpf}
-                placeholder="Cpf"
-                onChange={(e) => [setCpf(e.target.value), setError("")]}
-                className={`form-control ${error && !cpf ? "is-invalid" : ""}`}
-              />
-            </div>
-            <div className="col">
+          <div className="col">
               <input
                 type="text"
                 name="city"
                 id="city"
-                style={{ borderRadius: "50px" }}
+                style={{ borderRadius: "50px", fontSize: "14px" }}
                 value={city}
                 placeholder="Cidade"
                 onChange={(e) => [setCity(e.target.value), setError("")]}
@@ -159,31 +195,30 @@ const SignUp: React.FC = () => {
           <div className="row">
             <div className="col">
               <InputMask
+                mask="999.999.999-99"
+                id="cpf"
+                name="cpf"
+                style={{ borderRadius: "50px", fontSize: "14px" }}
+                aria-describedby="cpfFeedback"
+                value={cpf}
+                placeholder="Cpf"
+                onChange={(e) => [setCpf(e.target.value), setError("")]}
+                className={`form-control ${error && !cpf ? "is-invalid" : ""}`}
+              />
+            </div>
+            <div className="col">
+              <InputMask
                 id="phone"
                 name="phone"
                 type="text"
                 mask="(99) 99999-9999"
                 maskChar={null}
                 placeholder="Telefone"
-                style={{ borderRadius: "50px" }}
+                style={{ borderRadius: "50px", fontSize: "14px" }}
                 value={phone}
                 onChange={(e) => [setPhone(e.target.value), setError("")]}
                 className={`form-control ${
                   error && !phone ? "is-invalid" : ""
-                }`}
-              />
-            </div>
-            <div className="col">
-              <input
-                type="text"
-                name="creci"
-                id="creci"
-                style={{ borderRadius: "50px" }}
-                value={creci}
-                placeholder="Creci"
-                onChange={(e) => [setCreci(e.target.value), setError("")]}
-                className={`form-control ${
-                  error && !creci ? "is-invalid" : ""
                 }`}
               />
             </div>
@@ -195,7 +230,7 @@ const SignUp: React.FC = () => {
                 name="password"
                 id="password"
                 placeholder="Senha"
-                style={{ borderRadius: "50px" }}
+                style={{ borderRadius: "50px", fontSize: "14px" }}
                 value={password}
                 onChange={(e) => [setPassword(e.target.value), setError("")]}
                 className={`form-control ${
@@ -212,7 +247,7 @@ const SignUp: React.FC = () => {
                 name="passwordTwo"
                 id="passwordTwo"
                 value={passwordTwo}
-                style={{ borderRadius: "50px" }}
+                style={{ borderRadius: "50px", fontSize: "14px" }}
                 placeholder="Confirmar Senha"
                 onChange={(e) => [setPasswordTwo(e.target.value), setError("")]}
                 className={`form-control ${
