@@ -1,0 +1,79 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: white;
+}
+
+.nav-link:hover {
+  color: white; 
+}
+
+.no-hover:hover {
+  background-color: transparent !important;
+  opacity: 0.7;
+}
+
+.no-hover:focus {
+  background-color: transparent !important;
+  opacity: 0.9;
+}
+
+#navbarSupportedContentContact {
+  width: 100%;
+}
+
+.nav-item.align-items-center {
+  display: flex;
+  align-items: center; /* Alinha verticalmente */
+  justify-content: center; /* Alinha horizontalmente */
+}
+
+.nav-item.align-items-center .nav-link {
+  margin-right: 5px;
+  display: inline-block;
+  vertical-align: middle; 
+}
+
+.navbar {
+  height: 60px; /* Altura reduzida para telas normais */
+}
+
+  @media only screen and (max-width: 1199px) {
+    li {
+      padding-left: 1rem;
+    }
+  }
+  
+  @media (max-width: 1024px) {
+    .dropdown-menu {
+      width: auto;
+      right: 0 !important;
+      left: auto;
+      transform: none !important; 
+      text-align: center !important; 
+    }
+  }
+
+  
+@media (max-width: 1024px) {
+  .navbar-collapse {
+    text-align: center;
+  }
+
+  .navbar .nav-item {
+    padding: 10px 0;
+  }
+}
+
+@media (max-width: 1024px) {
+  .navbar {
+    height: auto;
+    padding: 0;
+  }
+}
