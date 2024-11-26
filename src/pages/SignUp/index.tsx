@@ -1,13 +1,12 @@
 import React, { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../../service/api";
 import "./styles.css";
 import InputMask from "react-input-mask";
-import axios from "axios";
+import api from "../../service/api";
 const validateCRECI = async (creci: string) => {
   try {
-    const response = await axios.get(
-      "http://localhost:3001/api/v1/creci/validate",
+    const response = await api.get(
+      "creci/validate",
       {
         params: { creci },
       }
