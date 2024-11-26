@@ -19,11 +19,13 @@ import {
 import { User } from "../../../types/user";
 import { Modal, Button, Row, Col } from "react-bootstrap";
 import FooterContact from "../../../components/FooterContact";
+import NavbarContact from "../../../components/NavbarContact";
 import InputMask from "react-input-mask";
 import "./styles.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import BrokerBadge from "../../../components/BrokerBadge/BrokerBadge";
+import { ptBR } from "date-fns/locale";
 
 const RealEstateByContact: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
@@ -39,8 +41,8 @@ const RealEstateByContact: React.FC = () => {
     name: "",
     email: "",
     phone: "",
-    taskStatus: "",
-    taskDescription: "",
+    taskStatus: "Pendente",
+    taskDescription: "Aguardando Mais Informações",
     estateId: id ? parseInt(id) : 0,
   });
 
@@ -50,8 +52,8 @@ const RealEstateByContact: React.FC = () => {
     contactPhone: "",
     visitDate: "",
     observation: "",
-    taskStatus: "",
-    taskDescription: "",
+    taskStatus: "Pendente",
+    taskDescription: "Visita Agendada",
     estateId: id ? parseInt(id) : 0,
   });
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -192,6 +194,9 @@ const RealEstateByContact: React.FC = () => {
     <>
       {realEstate && (
         <>
+        {/* <BackButton className="btn-primary m-3 justify-items-end d-flex" label="Voltar" />
+         */}
+          <NavbarContact />
           <h1 className="text-center py-3 my-4 page-title">
             {realEstate?.description}
           </h1>
@@ -535,7 +540,8 @@ const RealEstateByContact: React.FC = () => {
                               timeIntervals={60}
                               minTime={minTime}
                               maxTime={maxTime}
-                              dateFormat="Pp" 
+                              dateFormat="dd/MM/yyyy HH:mm"
+                              locale={ptBR}
                               className="form-control"
                               placeholderText="Selecione a data e horário"
                             />
