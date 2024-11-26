@@ -99,7 +99,7 @@ const Home: React.FC = () => {
                 className={`col mb-1 ${!realEstate.status ? "faded-card" : ""}`}
                 key={realEstate.id}
               >
-                <div className="card">
+                <div className="card" style={{minHeight: "25rem"}}>
                 <div className="position-absolute" style={{ top: "10px", left: "10px", zIndex: 1 }}>
                     <input
                       type="checkbox"

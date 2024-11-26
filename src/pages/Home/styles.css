@@ -6,7 +6,7 @@
     padding: auto;
     max-height: 25rem;
     height: 25rem;
-    min-height: 25rem;
+    /* min-height: 25rem; */
   }
   .card-img{
     max-height: 12rem;
@@ -44,7 +44,7 @@
     width: 90%;
     max-width: 55%;
     margin: 10px auto;
-    height: auto;
+    height: auto!important;
   }
 
   .card-img {
