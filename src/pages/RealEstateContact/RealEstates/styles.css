@@ -166,5 +166,77 @@
   align-items: center;
 }
 
+@media (max-width: 1024px) {
+  .card {
+    width: 90%;
+    max-width: 55%;
+    margin: 10px auto;
+    height: auto;
+  }
 
+  .card-img {
+    max-height: 10rem;
+    height: 10rem;
+    max-width: 100%;
+  }
+
+  .card-title-h5,
+  .card-text-comprar {
+    font-size: 12px;
+  }
+
+  .card-body {
+    justify-items: start;
+    margin: 0!important;
+    padding: auto;
+    display: flex;
+    flex-direction: column!important;
+    /* padding: 0!important; */
+
+  }
+  .card-img-overlay {
+    margin: 0!important;
+    padding: 0!important;
+  }
+  .d-flex > p {
+    margin-right: 10px;
+  }
+
+  .text-primary {
+    font-size: 14px!important;
+    padding: 0!important;
+    margin: 0!important;
+  }
+}
+
+@media (max-width: 1024px) {
+  .row.my-4 {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .row.my-4 h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    padding-right: 12%;
+  }
+
+  .row.my-4 a {
+    width: 90%;
+    text-align: center;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .main-content {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+  }
+}
 

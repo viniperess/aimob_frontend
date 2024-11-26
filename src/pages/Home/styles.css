@@ -30,6 +30,7 @@
     width: 100%;
     overflow-x: hidden;
     padding: 0 15px;
+    min-height: 53vh;
 }
 
 .faded-card {
@@ -64,12 +65,19 @@
 
   }
 
+  .card-img-overlay {
+    margin: 0!important;
+    padding: 0!important;
+  }
+
   .d-flex > p {
     margin-right: 10px;
   }
 
   .text-primary {
-    font-size: 16px;
+    font-size: 14px!important;
+    padding: 0!important;
+    margin: 0!important;
   }
 }
 
