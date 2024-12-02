@@ -190,6 +190,13 @@ const RealEstateByContact: React.FC = () => {
 
   const maxTime = new Date();
   maxTime.setHours(18, 0);
+
+  const formatCurrency = (value: any) => {
+    return new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    }).format(value);
+  };
   return (
     <>
       {realEstate && (
@@ -348,7 +355,7 @@ const RealEstateByContact: React.FC = () => {
                   </Row>
                   <Row>
                     <Col>
-                    <h4 className="text-primary mb-3">R$ {realEstate.salePrice}</h4>
+                    <h4 className="text-primary mb-3">{formatCurrency(realEstate.salePrice)}</h4>
                     </Col>
                     <Col className="m-3">
                       <BrokerBadge userId={Number(realEstate.userId)}/>
