@@ -69,6 +69,13 @@ const RealEstate: React.FC = () => {
       }
     }
   };
+
+  const formatCurrency = (value: any) => {
+    return new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    }).format(value);
+  };
   return (
     <>
       <Navbar />
@@ -242,7 +249,7 @@ const RealEstate: React.FC = () => {
                     </Col>
                   </Row>
                   <div className="text-left py-3 mb-4">
-                    <h4 className="text-primary">R$ {realEstate.salePrice}</h4>
+                    <h4 className="text-primary">{formatCurrency(realEstate.salePrice)}</h4>
                   </div>
                 </div>
               </div>

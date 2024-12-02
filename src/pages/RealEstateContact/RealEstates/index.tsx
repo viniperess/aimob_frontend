@@ -113,6 +113,13 @@ const RealEstateContact: React.FC = () => {
     getRealEstates();
   }, []);
 
+  const formatCurrency = (value: any) => {
+    return new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    }).format(value);
+  };
+
   return (
     <>
       <div className="hero-image">
@@ -283,7 +290,7 @@ const RealEstateContact: React.FC = () => {
                         </p>
                         <div className="text-left">
                           <h5 className="text-primary">
-                            R$ {realEstate.salePrice}
+                            {formatCurrency(realEstate.salePrice)}
                           </h5>
                         </div>
                       </div>
@@ -335,7 +342,7 @@ const RealEstateContact: React.FC = () => {
                         </p>
                         <div className="text-left">
                           <h5 className="text-primary">
-                            R$ {realEstate.salePrice}
+                            {formatCurrency(realEstate.salePrice)}
                           </h5>
                         </div>
                       </div>

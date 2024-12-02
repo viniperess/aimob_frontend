@@ -12,6 +12,14 @@ const Thanks = ({ data, onChange  }) => {
     }
     console.log(`Updated ${name}:`, type === "checkbox" ? checked : value);
   };
+
+  const formatCurrency = (value) => {
+    return new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    }).format(value);
+  };
+
   return (
     <div className="thanks-container">
       <h2>Falta pouco...</h2>
@@ -81,8 +89,8 @@ const Thanks = ({ data, onChange  }) => {
           </tr>
           <tr>
             <th scope="row">Valor</th>
-            <td colSpan="">{data.salePrice}</td>
-            <th scope="row">Qtd Imagem</th>
+            <td colSpan="">{formatCurrency(data.salePrice)}</td>
+            <th scope="row">Quantidade de Imagem</th>
             <td>{Array.isArray(data.images) ? data.images.length : 0}</td>
           </tr>
         </tbody>

@@ -58,6 +58,14 @@ const Home: React.FC = () => {
     } catch (error) {
       console.error("Erro ao atualizar status:", error);
     }
+
+  };
+
+  const formatCurrency = (value: any) => {
+    return new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    }).format(value);
   };
 
   return (
@@ -71,18 +79,21 @@ const Home: React.FC = () => {
           </a>
         </div>
         {selectedRealEstates.size > 0 && (
-          <div className="d-flex justify-content-end m-3" style={{fontSize: '12px'}}>
+          <div
+            className="d-flex justify-content-end m-3"
+            style={{ fontSize: "12px" }}
+          >
             <button
               onClick={() => updateRealEstateStatus(true)}
               className="btn btn-success me-2"
-              style={{fontSize: '12px'}}
+              style={{ fontSize: "12px" }}
             >
               Marcar como Disponível
             </button>
             <button
               onClick={() => updateRealEstateStatus(false)}
               className="btn btn-danger"
-              style={{fontSize: '12px'}}
+              style={{ fontSize: "12px" }}
             >
               Marcar como Indisponível
             </button>
@@ -99,8 +110,11 @@ const Home: React.FC = () => {
                 className={`col mb-1 ${!realEstate.status ? "faded-card" : ""}`}
                 key={realEstate.id}
               >
-                <div className="card" style={{minHeight: "25rem"}}>
-                <div className="position-absolute" style={{ top: "10px", left: "10px", zIndex: 1 }}>
+                <div className="card" style={{ minHeight: "25rem" }}>
+                  <div
+                    className="position-absolute"
+                    style={{ top: "10px", left: "10px", zIndex: 1 }}
+                  >
                     <input
                       type="checkbox"
                       className="form-check-input"
@@ -161,7 +175,7 @@ const Home: React.FC = () => {
                     </div>
                     <div className="text-left">
                       <h5 className="text-primary">
-                        R$ {realEstate.salePrice}
+                        {formatCurrency(realEstate.salePrice)}
                       </h5>
                     </div>
                   </div>
