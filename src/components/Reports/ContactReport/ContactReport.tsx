@@ -248,7 +248,7 @@ const ContactReport: React.FC = () => {
           {loading ? "Gerando Relatório..." : "Baixar Relatório"}
         </Button>
 
-        {/* Abas de Filtro */}
+        
         <Nav
           variant="tabs"
           activeKey={filter}
@@ -265,16 +265,16 @@ const ContactReport: React.FC = () => {
           </Nav.Item>
         </Nav>
 
-        {/* Ações em massa */}
+        
         {selectedContacts.size > 0 && (
           <div className="d-flex justify-content-start m-3">
-            <Button variant="warning" onClick={handleBulkDelete}>
+            <Button variant="danger" onClick={handleBulkDelete}>
               Excluir
             </Button>
           </div>
         )}
 
-        {/* Tabela de Contatos */}
+       
         <div className="table-responsive px-0 mt-3">
           <table className="table table-hover table-bordered w-100">
             <thead className="text-center text-white">

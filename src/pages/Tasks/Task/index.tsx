@@ -255,7 +255,7 @@ const TaskTable: React.FC = () => {
               Concluído
             </Button>
             <Button
-              variant="warning"
+              variant="danger"
               onClick={() => handleBulkDelete()}
               className="me-2"
               style={{ fontSize: "12px", width: "7%" }}

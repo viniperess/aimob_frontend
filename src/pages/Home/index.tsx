@@ -53,8 +53,8 @@ const Home: React.FC = () => {
         api.patch(`/realestates/${id}`, { status })
       );
       await Promise.all(promises);
-      getRealEstates(); // Refresh the list after updating
-      setSelectedRealEstates(new Set()); // Clear selection
+      getRealEstates();
+      setSelectedRealEstates(new Set());
     } catch (error) {
       console.error("Erro ao atualizar status:", error);
     }
@@ -85,7 +85,7 @@ const Home: React.FC = () => {
           >
             <button
               onClick={() => updateRealEstateStatus(true)}
-              className="btn btn-success me-2"
+              className="btn btn-primary me-2"
               style={{ fontSize: "12px" }}
             >
               Marcar como Disponível
