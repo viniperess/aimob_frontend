@@ -172,6 +172,47 @@ const TaskTable: React.FC = () => {
     setShowAppointmentModal(false);
   };
 
+  const handleBulkDelete = async () => {
+    const tasksToDelete = Array.from(selectedTasks);
+  
+    setTasks((prevTasks) =>
+      prevTasks.filter((task) => !tasksToDelete.includes(task.id))
+    );
+  
+    try {
+      await Promise.all(
+        tasksToDelete.map((taskId) =>
+          api.delete(`/tasks/${taskId}`)
+        )
+      );
+      setSelectedTasks(new Set());
+    } catch (error) {
+      console.error("Erro ao excluir tarefas:", error);
+    }
+  };
+
+  const handleMarkAsCompleted = async () => {
+    const tasksToUpdate = Array.from(selectedTasks);
+  
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        tasksToUpdate.includes(task.id)
+          ? { ...task, status: "Concluído" }
+          : task
+      )
+    );
+  
+    try {
+      await Promise.all(
+        tasksToUpdate.map((taskId) =>
+          api.patch(`/tasks/${taskId}`, { status: "Concluído" })
+        )
+      );
+      setSelectedTasks(new Set()); // Limpa a seleção após a ação
+    } catch (error) {
+      console.error("Erro ao marcar tarefas como concluídas:", error);
+    }
+  };
   return (
     <>
       <Navbar />
@@ -203,7 +244,27 @@ const TaskTable: React.FC = () => {
             <Nav.Link eventKey="completed">Concluídas</Nav.Link>
           </Nav.Item>
         </Nav>
-
+        {selectedTasks.size > 0 && (
+          <div className="d-flex justify-content-start m-3">
+            <Button
+              variant="primary"
+              onClick={() => handleMarkAsCompleted()}
+              className="me-2"
+              style={{ fontSize: "12px",width: "7%" }}
+            >
+              Concluído
+            </Button>
+            <Button
+              variant="warning"
+              onClick={() => handleBulkDelete()}
+              className="me-2"
+              style={{ fontSize: "12px", width: "7%" }}
+            
+            >
+              Excluir
+            </Button>
+          </div>
+        )}
         <div className="table-responsive px-0 mt-3">
           <table
             className="table table-hover table-bordered w-100"
@@ -211,6 +272,19 @@ const TaskTable: React.FC = () => {
           >
             <thead className="text-center text-white">
               <tr>
+                <th className="bg-primary text-white">
+                  <Form.Check
+                    type="checkbox"
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        const allTaskIds = filteredTasks.map((task) => task.id);
+                        setSelectedTasks(new Set(allTaskIds));
+                      } else {
+                        setSelectedTasks(new Set());
+                      }
+                    }}
+                  />
+                </th>
                 <th className="bg-primary text-white">ID</th>
                 <th className="bg-primary text-white">Nome</th>
                 <th className="bg-primary text-white">Status</th>
@@ -223,6 +297,21 @@ const TaskTable: React.FC = () => {
             <tbody>
               {filteredTasks.map((task) => (
                 <tr key={task.id}>
+                  <td>
+                    <Form.Check
+                      type="checkbox"
+                      checked={selectedTasks.has(task.id)}
+                      onChange={() => {
+                        const updatedSelection = new Set(selectedTasks);
+                        if (updatedSelection.has(task.id)) {
+                          updatedSelection.delete(task.id);
+                        } else {
+                          updatedSelection.add(task.id);
+                        }
+                        setSelectedTasks(updatedSelection);
+                      }}
+                    />
+                  </td>
                   <td>{task.id}</td>
                   <td>
                     {task.contact ? (

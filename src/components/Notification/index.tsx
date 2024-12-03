@@ -72,29 +72,22 @@ const NotificationDropdown: React.FC = () => {
     if (selectedNotification && taskDetails?.appointmentId) {
       try {
         console.log("Iniciando exclusão da notificação:", selectedNotification);
-
-        // Excluir agendamento
-        console.log(`DELETE /appointments/${taskDetails.appointmentId}`);
-        await api.delete(`/appointments/${taskDetails.appointmentId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-
-        // Excluir tarefa
+       
         console.log(`DELETE /tasks/${selectedNotification.taskId}`);
-        const taskResponse = await api.delete(
+        await api.delete(
           `/tasks/${selectedNotification.taskId}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
-        console.log("Tarefa excluída com sucesso:", taskResponse.data);
 
-        // Excluir notificação
+        
         console.log(`DELETE /notifications/${selectedNotification.id}`);
         await api.delete(`/notifications/${selectedNotification.id}`);
-
-        setModalOpen(false);
+        
         setNotifications(
           notifications.filter((n) => n.id !== selectedNotification.id)
         );
+        setModalOpen(false);
+
       } catch (error) {
         console.error("Erro ao excluir recursos:", error);
       }

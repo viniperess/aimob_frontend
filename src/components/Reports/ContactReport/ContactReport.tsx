@@ -103,9 +103,14 @@ const ContactReport: React.FC = () => {
         prevContacts.filter((contact) => !selectedContacts.has(contact.id))
       );
       setSelectedContacts(new Set());
-    } catch (error) {
-      console.error("Erro ao excluir contatos:", error);
-      setErrorMessage("Erro ao excluir um ou mais contatos. Tente novamente.");
+    } catch (error: any) {
+      if (error.response && error.response.data.message) {
+        setErrorMessage(error.response.data.message);
+      } else {
+        setErrorMessage(
+          "Erro ao excluir um ou mais contatos. Tente novamente."
+        );
+      }
     }
   };
 
