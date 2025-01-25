@@ -7,10 +7,19 @@ const StepTwo = ({ data, onChange }) => {
       onChange({ [name]: checked });
     } else if (files) {
       onChange({ [name]: Array.from(files) });
-    } else {
+    } else if (name === "salePrice") {
+      const rawValue = value.replace(/[^\d]/g, "");
+      onChange({ [name]: rawValue });
+    }
+    else {
       onChange({ [name]: value });
     }
     console.log(`Updated ${name}:`, type === "checkbox" ? checked : value);
+  };
+
+  const formatNumber = (value) => {
+    if (!value) return "";
+    return value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
 
   return (
@@ -230,12 +239,12 @@ const StepTwo = ({ data, onChange }) => {
                 Valor
               </label>
               <input
-                type="number"
+                type="text"
                 placeholder="Valor do imóvel"
                 id="salePrice"
                 name="salePrice"
                 aria-describedby="salePricesFeedback"
-                value={data.salePrice}
+                value={formatNumber(data.salePrice)}
                 onChange={handleInputChange}
                 className="form-control"
                 required

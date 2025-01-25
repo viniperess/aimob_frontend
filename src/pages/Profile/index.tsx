@@ -80,6 +80,11 @@ const Profile: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    if (changePassword && password.length < 8) {
+      setPasswordError("A senha deve ter pelo menos 8 caracteres.");
+      return;
+    }
+    
     if (changePassword && password !== confirmPassword) {
       setPasswordError("As senhas não coincidem!");
       return;
@@ -352,11 +357,13 @@ const Profile: React.FC = () => {
                     id="password"
                     type="password"
                     placeholder="Insira sua nova senha"
+                    title="A senha deve ter pelo menos 8 caracteres."
                     value={password}
                     onChange={handlePasswordChange}
                     className={`form-control ${
                       passwordError ? "is-invalid" : ""
                     }`}
+                    required
                   />
                 </div>
               </div>

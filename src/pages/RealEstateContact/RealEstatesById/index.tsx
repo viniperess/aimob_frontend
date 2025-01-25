@@ -36,6 +36,7 @@ const RealEstateByContact: React.FC = () => {
   const [formError, setFormError] = useState("");
   const [appointmentError, setAppointmentError] = useState("");
   console.log(user);
+  const [successMessage, setSuccessMessage] = useState("");
 
   const [formData, setFormData] = useState({
     name: "",
@@ -74,7 +75,13 @@ const RealEstateByContact: React.FC = () => {
     };
     fetchData();
   }, [id]);
-
+  useEffect(() => {
+    if (successMessage) {
+      const timer = setTimeout(() => setSuccessMessage(""), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [successMessage]);
+  
   const handleShowModal = (content: string) => {
     setModalContent(content);
     setShowModal(true);
@@ -125,7 +132,9 @@ const RealEstateByContact: React.FC = () => {
 
       try {
         await api.post("/appointments/create", updatedAppointmentData);
-
+        setSuccessMessage(
+          "Seu agendamento foi enviado com sucesso! Você será notificado por e-mail sobre a disponibilidade."
+        );
         console.log("Dados do Formulário Agendamento enviados com sucesso");
         setAppointmentData({
           contactName: "",
@@ -164,7 +173,9 @@ const RealEstateByContact: React.FC = () => {
           (updatedFormData as any).contactId = existingContact.id;
         }
         await api.post("/contacts/basic", updatedFormData);
-
+        setSuccessMessage(
+          "Sua solicitação foi enviada com sucesso! O Corretor entrará em contato em breve."
+        );
         console.log("Dados do Formulário Informações enviados com sucesso");
         setFormData({
           name: "",
@@ -201,9 +212,13 @@ const RealEstateByContact: React.FC = () => {
     <>
       {realEstate && (
         <>
-        {/* <BackButton className="btn-primary m-3 justify-items-end d-flex" label="Voltar" />
-         */}
           <NavbarContact />
+          {successMessage && (
+            <div className="alert alert-success text-center mt-3" role="alert">
+              {successMessage}
+            </div>
+          )}
+
           <h1 className="text-center py-3 my-4 page-title">
             {realEstate?.description}
           </h1>
@@ -561,6 +576,7 @@ const RealEstateByContact: React.FC = () => {
                   </form>
                 </div>
               </div>
+
             </Modal.Body>
             <Modal.Footer
               className={`${
